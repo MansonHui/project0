@@ -5,13 +5,18 @@ export async function seed(knex: Knex): Promise<void> {
   // Deletes ALL existing entries
 
   try {
-    await knex("students").del();
+    await knex("class_school_year_relation").del();
 
     // Inserts seed entries
-    await knex("students").insert([
-      { first_name: "SiuMing", last_name: "Chan", birthday: "2011-11-11" },
-      { id: 2, colName: "rowValue2" },
-      { id: 3, colName: "rowValue3" },
+    await knex("class_school_year_relation").insert([
+      {
+        school_year_id: 1,
+        class_id: 1,
+      },
+      {
+        school_year_id: 1,
+        class_id: 2,
+      },
     ]);
   } catch (err) {
     console.log(err);
