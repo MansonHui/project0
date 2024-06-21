@@ -12,7 +12,7 @@ export async function seed(knex: Knex): Promise<void> {
       {
         first_name: "siuming",
         last_name: "chan",
-        birthday: "2011-11-11",
+        birthday: "2018-11-11",
         gender: "M",
         image: "chansiuming.jpg",
         parent_id: 1,
@@ -21,11 +21,20 @@ export async function seed(knex: Knex): Promise<void> {
       {
         first_name: "keung",
         last_name: "wong",
-        birthday: "2010-10-10",
+        birthday: "2017-10-10",
         gender: "M",
         image: "wongkeung.jpg",
         parent_id: 2,
         school_id: 2,
+      },
+      {
+        first_name: "yung",
+        last_name: "wong",
+        birthday: "2018-09-09",
+        gender: "F",
+        image: "wongyung.jpg",
+        parent_id: 2,
+        school_id: 1,
       },
     ]);
   } catch (err) {

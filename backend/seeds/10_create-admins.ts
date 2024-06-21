@@ -16,9 +16,9 @@ export async function seed(knex: Knex): Promise<void> {
         school_id: 1,
       },
       {
-        username: "wonglap",
+        username: "chiulap",
         password: "1111",
-        email: "wonglap@hallowint.edu.hk",
+        email: "chiulap@hallowint.edu.hk",
         school_id: 2,
       },
     ]);

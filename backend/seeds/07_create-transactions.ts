@@ -21,6 +21,12 @@ export async function seed(knex: Knex): Promise<void> {
         parent_id: 2,
         notice_student_relation_id: 2,
       },
+      {
+        detail: "Summer Sport Class Payment",
+        amount: 480,
+        parent_id: 2,
+        notice_student_relation_id: 3,
+      },
     ]);
   } catch (err) {
     console.log(err);
