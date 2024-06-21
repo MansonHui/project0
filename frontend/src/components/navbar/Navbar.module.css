@@ -1,0 +1,60 @@
+.navbar_container{
+    position: absolute;
+    display: block;
+    z-index: 100;
+    top: -10px;
+    left: -5px;
+    height: 937px;
+    width: 300px;
+    background-color: rgb(178, 178, 178);
+}
+
+.navbar_logo_container{
+    height: 15%;
+    width: 100%;
+    background-color: blueviolet;
+    pointer-events: none;
+}
+
+.navbar_function_container{
+    height: 60%;
+    width: 100%;
+    background-color: yellow;
+}
+
+.navbar_function{
+    height: 10%;
+    width: 100%;
+    background-color: antiquewhite;
+    border-bottom: 2px solid #ccc;
+    display: flex;
+}
+
+.navbar_function_logo{
+    height: 100%;
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar_function_text{
+    color: black;
+    font-size: medium;
+    text-align: start;
+    align-content: center;
+    
+}
+
+.navbar_info_container{
+    height: 25%;
+    width: 100%;
+    background-color: aqua;
+    position: relative;
+}
+
+.navbar_info_GobackButton{
+    position: absolute;
+    bottom: 1%;
+    right: 1%;
+}
