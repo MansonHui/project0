@@ -4,13 +4,30 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import HomePage from "./pages/home/HomePage";
+import MessagePage from "./pages/notice/MessagePage";
+import DrawPage from "./pages/drawNotice/DrawPage";
+import AIAttendances from "./pages/scan/AIAttendances";
+import MenuHeaderBar from "./components/header/Header";
+
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+
+      <MenuHeaderBar />
+          <Routes>
+            <Route path="/" element={<HomePage />}/>
+            <Route path="Message" element={<MessagePage/>}/>
+            <Route path="Drawing" element={<DrawPage/>}/>
+            <Route path="AI" element={<AIAttendances/>}/>
+          </Routes>
+    </BrowserRouter>
+    
   </React.StrictMode>
 );
 
