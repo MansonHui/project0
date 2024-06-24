@@ -1,0 +1,72 @@
+#loginContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 430px;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+#bannerContainer {
+  height: 20%;
+  width: 100%;
+  background-color: rgb(171, 171, 223);
+}
+
+#privacyPolicyAndOption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 80%;
+  width: 100%;
+  background-color: aquamarine;
+}
+
+#privacyPolicy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  width: 100%;
+  /* background-color: brown; */
+}
+
+#agreeOptionBox {
+  display: flex;
+  justify-content: center;
+  height: 100px;
+  width: 100%;
+  /* background-color: blue; */
+}
+
+#loginCore {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 200px;
+  width: 215px;
+  background-color: azure;
+  margin: 1px;
+}
+
+#loginInputBar {
+  display: flex;
+  flex-direction: column;
+}
+
+#welcome,
+#email,
+#password {
+  display: flex;
+  justify-content: center;
+  margin: 15px;
+}
+
+.input{
+  height: 2vh;
+  width: 300px;
+}
