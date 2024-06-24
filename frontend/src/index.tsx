@@ -10,14 +10,18 @@ import MessagePage from "./pages/notice/MessagePage";
 import DrawPage from "./pages/drawNotice/DrawPage";
 import AIAttendances from "./pages/scan/AIAttendances";
 import MenuHeaderBar from "./components/header/Header";
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 
+
+export const queryClient = new QueryClient()
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
 
       <MenuHeaderBar />
           <Routes>
@@ -26,8 +30,9 @@ root.render(
             <Route path="Drawing" element={<DrawPage/>}/>
             <Route path="AI" element={<AIAttendances/>}/>
           </Routes>
-    </BrowserRouter>
-    
+
+      </BrowserRouter>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 
