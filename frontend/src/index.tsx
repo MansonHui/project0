@@ -54,6 +54,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
+    <QueryClientProvider client={queryClient}>
       <Routes>
         <Route path="/Login" element={<Login />} />
         <Route
@@ -74,6 +75,7 @@ root.render(
         />
         {/* {isLoggedIn && <MenuHeaderBar />} */}
       </Routes>
+      </QueryClientProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

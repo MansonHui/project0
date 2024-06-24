@@ -1,11 +1,14 @@
 import express, { Request, Response } from "express";
 import { authRouter } from "./router/authRouter";
 import { homeRouter } from "./router/homeRouter";
+import cors from "cors";
 
 
 
 const PORT = 8080;
 const app = express();
+
+app.use(cors())
 
 
 
