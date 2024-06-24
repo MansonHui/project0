@@ -7,13 +7,23 @@ export async function seed(knex: Knex): Promise<void> {
   try {
     await knex("schools").del();
 
-    // Inserts seed entries
+    // Inserts seed entriesyarn
     await knex("schools").insert([
       {
-        name: "St. Peter Primary School",
+        full_name: "St. Peter Primary School",
+        abbr_name: "stpeter",
       },
       {
-        name: "Hallow International School Hong Kong",
+        full_name: "Hallow International School Hong Kong",
+        abbr_name: "hallowint",
+      },
+      {
+        full_name: "Bonham Road Government Primary Schoolset",
+        abbr_name: "bonhamroadgovt",
+      },
+      {
+        full_name: "Pooi To Primary School",
+        abbr_name: "pooito",
       },
     ]);
   } catch (err) {

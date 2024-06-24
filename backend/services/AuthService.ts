@@ -23,10 +23,34 @@ export default class AuthService {
           username: username,
           email: email,
           password: password,
+          balance: 0,
           created_at: this.knex.fn.now(),
           updated_at: this.knex.fn.now(),
         })
-        .returning("id")
+        .returning("*")
+    )[0];
+  }
+
+  async checkSchoolExist(schoolAbbr: string) {
+    return (
+      await this.knex
+        .select("full_name")
+        .from("schools")
+        .where("abbr_name", schoolAbbr)
+    )[0];
+  }
+
+  async createNewAdmin(username: string, email: string, password: string) {
+    return (
+      await this.knex("admins")
+        .insert({
+          username: username,
+          email: email,
+          password: password,
+          created_at: this.knex.fn.now(),
+          updated_at: this.knex.fn.now(),
+        })
+        .returning("*")
     )[0];
   }
 }

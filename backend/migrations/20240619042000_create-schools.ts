@@ -4,7 +4,8 @@ export async function up(knex: Knex) {
   await knex.schema.createTable("schools", (table) => {
     table.increments();
 
-    table.string("name");
+    table.string("full_name");
+    table.string("abbr_name");
 
     table.timestamps(false, true);
   });
