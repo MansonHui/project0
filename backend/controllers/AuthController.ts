@@ -5,44 +5,56 @@ export default class AuthController {
   constructor(private authService: AuthService) {}
 
   register = async (req: Request, res: Response) => {
-    let existEmail = await this.authService.checkDuplicateEmail(req.body.email);
+    let obj = req.body;
+    let resultArray = Object.keys(obj).map((key) => obj[key]);
+    let response_array = [{}];
+    for (let result of resultArray) {
+      console.log("email", result);
 
-    if (existEmail) {
-      res.status(400).json({ message: "Email already exists" });
-      return;
-    }
+      let { username, email, password } = result;
 
-    let schoolAbbr = await checkSchoolEmail(req.body.email);
+      let existEmail = await this.authService.checkDuplicateEmail(email);
 
-    if (!schoolAbbr) {
-      let newParentdetail = await this.authService.createNewParent(
-        req.body.username,
-        req.body.email,
-        req.body.password
-      );
+      let schoolAbbr = await checkSchoolEmail(email);
 
-      console.log(newParentdetail);
-      res.status(200).json({
-        message: `new parent user account ${newParentdetail.username}`,
-      });
-      return;
-    }
+      if (existEmail) {
+        response_array.push({ msg: `${email} already exists` });
+      }
 
-    if (schoolAbbr) {
-      let existSchool = await this.authService.checkSchoolExist(schoolAbbr);
-      console.log("existSchool", existSchool);
-      if (existSchool) {
-        let newAdminData = await this.authService.createNewAdmin(
-          req.body.username,
-          req.body.email,
-          req.body.password
-        );
+      if (!existEmail) {
+        if (schoolAbbr) {
+          let existSchool = await this.authService.checkSchoolExist(schoolAbbr);
+          console.log("existSchool", existSchool);
+          if (existSchool) {
+            let newAdminData = await this.authService.createNewAdmin(
+              username,
+              email,
+              password
+            );
 
-        console.log(newAdminData);
-        res.status(200).json({
-          message: `new admins user account ${existSchool.full_name}`,
-        });
+            console.log(newAdminData);
+
+            response_array.push({
+              msg: `new admins user account ${existSchool.full_name} , ${email} , ${password}`,
+            });
+          }
+        }
+        if (!schoolAbbr) {
+          let newParentdetail = await this.authService.createNewParent(
+            username,
+            email,
+            password
+          );
+
+          console.log(newParentdetail);
+
+          response_array.push({
+            msg: `${newParentdetail} pending  for register approval`,
+          });
+        }
       }
     }
+    console.log("ggggggg");
+    res.status(200).json(response_array);
   };
 }

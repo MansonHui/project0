@@ -13,7 +13,7 @@ app.use("/auth", authRouter);
 //***************************************** */ testing
 app.post("/", function (req: Request, res: Response) {
   // console.log(req.body);
-  // res.json({ msg: "hello from frd server" });
+  // res.json({ msg: req.body });
 });
 
 app.listen(PORT, () => {

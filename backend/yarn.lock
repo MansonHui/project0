@@ -721,6 +721,13 @@
   dependencies:
     undici-types "~5.26.4"
 
+"@types/permit@^0.2.4":
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/@types/permit/-/permit-0.2.4.tgz#3151be6fabd2e73994641e7439aa72fd18cb5322"
+  integrity sha512-ex1SZRGs9O2KiZ3cOL14qbeBdB5DY2WXmn7ul+hwBr3P1i9FxC6ueyk/MOR5r5y6MxLhpg8h615JBpscSrjrgA==
+  dependencies:
+    "@types/node" "*"
+
 "@types/pg@^8.11.6":
   version "8.11.6"
   resolved "https://registry.npmjs.org/@types/pg/-/pg-8.11.6.tgz"
@@ -2141,6 +2148,11 @@ json5@^2.2.3:
   resolved "https://registry.npmjs.org/json5/-/json5-2.2.3.tgz"
   integrity sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==
 
+jwt-simple@^0.5.6:
+  version "0.5.6"
+  resolved "https://registry.yarnpkg.com/jwt-simple/-/jwt-simple-0.5.6.tgz#3357adec55b26547114157be66748995b75b333a"
+  integrity sha512-40aUybvhH9t2h71ncA1/1SbtTNCVZHgsTsTgqPUxGWDmUDrXyDf2wMNQKEbdBjbf4AI+fQhbECNTV6lWxQKUzg==
+
 kleur@^3.0.3:
   version "3.0.3"
   resolved "https://registry.npmjs.org/kleur/-/kleur-3.0.3.tgz"
@@ -2429,6 +2441,11 @@ path-to-regexp@0.1.7:
   version "0.1.7"
   resolved "https://registry.npmjs.org/path-to-regexp/-/path-to-regexp-0.1.7.tgz"
   integrity sha512-5DFkuoqlv1uYQKxy8omFBeJPQcdoE07Kv2sferDCrAq1ohOU+MSDswDIbnx3YAM60qIOnYa53wBhXW0EbMonrQ==
+
+permit@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/permit/-/permit-0.2.4.tgz#3af2c8f5bd798f771be50eb59cecd1da6459a383"
+  integrity sha512-Mp2XTEMD3mPsZIWq3bp0claE4IxXKa4C6nhSDPZgGri8Q4CLjEjAQrP/xGKq2548a2KFENmA1V7W0Lob8kTuzw==
 
 pg-cloudflare@^1.1.1:
   version "1.1.1"
