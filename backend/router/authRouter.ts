@@ -9,3 +9,5 @@ const authService = new AuthService(knex);
 let authController = new AuthController(authService);
 
 authRouter.post("/register", authController.register);
+
+authRouter.post("/login", authController.login);
