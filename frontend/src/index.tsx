@@ -4,16 +4,9 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import HomePage from "./pages/home/HomePage";
-import MessagePage from "./pages/message/MessagePage";
-import DrawPage from "./pages/drawNotice/DrawPage";
-import AIAttendances from "./pages/scan/AIAttendances";
-import MenuHeaderBar from "./components/header/Header";
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { BrowserRouter } from "react-router-dom";
+import { QueryClientProvider,QueryClient } from "@tanstack/react-query";
 
-import { LoginAuthGuard } from "./pages/login/loginAuthGuard";
-import { useAuth } from "./hooks/useAuth";
 
 export const queryClient = new QueryClient();
 
@@ -25,6 +18,7 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
+    
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
       <App />
