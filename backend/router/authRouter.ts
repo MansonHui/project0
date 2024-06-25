@@ -1,5 +1,5 @@
 
-import express from "express";
+import express, { Router } from "express";
 import AuthController from "../controllers/AuthController";
 import AuthService from "../services/AuthService";
 import { knex } from "../utils/knex";
@@ -7,15 +7,15 @@ import { knex } from "../utils/knex";
 const app = express();
 const port = 3000;
 
-// export const authRouter = Router();
+export const authRouter = Router();
 const authService = new AuthService(knex);
 
 let authController = new AuthController(authService);
 
-app.post("/register", authController.register);
+authRouter.post("/register", authController.register);
 
 // Define the login route
-app.post('/Login', (req:any, res:any) => {
+authRouter.post('/Login', (req:any, res:any) => {
   // Get the email and password from the request body
   const { email, password } = req.body;
 
