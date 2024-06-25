@@ -9,6 +9,7 @@ export async function up(knex: Knex) {
 
     table.integer("school_id").unsigned();
     table.foreign("school_id").references("schools.id");
+    table.string("superuser");
 
     table.timestamps(false, true);
   });

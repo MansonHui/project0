@@ -57,12 +57,9 @@ export default class AuthService {
     )[0];
   }
 
-  // ===================  login ====================
-
   async login(email: string, password: string) {
     const adminResult = await this.knex
       .select("email as admin")
-      .select("*")
       .from("admins")
       .where("email", email)
       .andWhere("password", password);
@@ -70,7 +67,6 @@ export default class AuthService {
     if (adminResult.length === 0) {
       const parentsResult = await this.knex
         .select("email as parent")
-        .select("*")
         .from("parents")
         .where("email", email)
         .andWhere("password", password);

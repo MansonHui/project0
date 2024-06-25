@@ -21,6 +21,12 @@ export async function seed(knex: Knex): Promise<void> {
         email: "chiulap@hallowint.edu.hk",
         school_id: 2,
       },
+      {
+        username: "super",
+        password: "super",
+        email: "super@tecky.com.hk",
+        superuser: "Y",
+      },
     ]);
   } catch (err) {
     console.log(err);
