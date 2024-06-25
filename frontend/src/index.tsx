@@ -6,7 +6,7 @@ import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./pages/home/HomePage";
-import MessagePage from "./pages/notice/MessagePage";
+import MessagePage from "./pages/message/MessagePage";
 import DrawPage from "./pages/drawNotice/DrawPage";
 import AIAttendances from "./pages/scan/AIAttendances";
 import MenuHeaderBar from "./components/header/Header";
@@ -55,16 +55,14 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
     <QueryClientProvider client={queryClient}>
+      <MenuHeaderBar/>
       <Routes>
         <Route path="/Login" element={<Login />} />
         <Route
           path="/HomePage"
           element={<HomePage />}
         />
-        <Route
-          path="/Message"
-          element={<MessagePage />}
-        />
+        <Route path="/Message" element={<MessagePage />} />
         <Route
           path="/Drawing"
           element={<DrawPage />}

@@ -7,7 +7,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import { useLocation, useNavigate } from 'react-router-dom' 
 import React from "react";
-import MessagePage from "../../pages/notice/MessagePage";
+
 
 
 export default function Navbar() {
@@ -25,7 +25,7 @@ export default function Navbar() {
 {/* ------------ Navbar Function Container ------------ */}
       <div className={styles.navbar_function_container}>
 
-        <div onClick={()=>navigate("/")} className={styles.navbar_function}>
+        <div onClick={()=>navigate("HomePage")} className={styles.navbar_function}>
           <div className={styles.navbar_function_logo}><HomeSharpIcon color="action"/></div>
           <div className={styles.navbar_function_text}>Home</div>
         </div>
