@@ -24,8 +24,7 @@ export async function seed(knex: Knex): Promise<void> {
       {
         username: "super",
         password: "super",
-        email: "super@tecky.com.hk",
-        superuser: "Y",
+        email: "super@tecky.edu.hk",
       },
     ]);
   } catch (err) {
