@@ -13,7 +13,7 @@ export default class HomeSerive{
                 'c.id as class_id',
                 'c.class_name',
                 'c.grade',
-                's.name as school_name',
+                's.full_name as school_name',
                 'sy.school_year',
                 'a.username as admin_username',
                 'st.first_name as student_first_name',
