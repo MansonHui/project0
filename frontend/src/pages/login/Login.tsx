@@ -5,22 +5,39 @@ import Slide from "@mui/material/Slide";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import styles from "./Login.module.css";
 import { useFetch } from "./customLoginFetch";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
-export default function Login(props: any) {
+export function loginProps(props: {
+  setFormDone: boolean;
+  email: string;
+  password: string;
+}) {
+  return (
+    <div>
+      <h1>
+        {props.email}.{props.password}
+        {props.setFormDone ? "OK" : "OR NOT"}
+      </h1>
+    </div>
+  );
+}
+
+export default function Login() {
   let data = useFetch("http://localhost:3000/Login");
+  console.log(data);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("admin@admin.com");
+  const [password, setPassword] = useState("123");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = () => {
+    console.log("check input",email,password)
     // Perform login logic here
     if (email === "admin@admin.com" && password === "123") {
       // If the login is successful, set the isLoggedIn value in the local storage
-      localStorage.setItem('isLoggedIn', 'true');
-      navigate('/'); // Navigate to the HomePage
+      localStorage.setItem("isLoggedIn", "true");
+      navigate("/"); // Navigate to the HomePage
     } else {
       setError("Invalid email or password");
     }
@@ -29,7 +46,7 @@ export default function Login(props: any) {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     handleLogin();
-    props.setFormDone(true);
+    // props.setFormDone(true);
   };
 
   const loginForm = (
@@ -66,25 +83,33 @@ export default function Login(props: any) {
   };
 
   return (
-    <Box id={styles.loginContainer}>
-      <div id={styles.bannerContainer}>
-        <div id={styles.loginBanner}>BANNER</div>
-      </div>
-      <div id={styles.privacyPolicyAndOption}>
-        <div>
-          <label id={styles.privacyPolicy}>"Personal privacy policy"</label>
-          <div id={styles.agreeOptionBox}>
-            <FormControlLabel
-              id={styles.agreeOption}
-              control={<Switch checked={checked} onChange={handleChange} />}
-              label="Agree"
-            />
-          </div>
-          <Slide direction="up" in={checked} mountOnEnter unmountOnExit>
-            {loginForm}
-          </Slide>
+    <>
+      {/* <div>
+      {data ?
+        data.map((entry: any ) => (
+          <Login email={entry.email} password={entry.password} />
+        )) : <h1>loading</h1>}
+    </div> */}
+      <Box id={styles.loginContainer}>
+        <div id={styles.bannerContainer}>
+          <div id={styles.loginBanner}>BANNER</div>
         </div>
-      </div>
-    </Box>
+        <div id={styles.privacyPolicyAndOption}>
+          <div>
+            <label id={styles.privacyPolicy}>"Personal privacy policy"</label>
+            <div id={styles.agreeOptionBox}>
+              <FormControlLabel
+                id={styles.agreeOption}
+                control={<Switch checked={checked} onChange={handleChange} />}
+                label="Agree"
+              />
+            </div>
+            <Slide direction="up" in={checked} mountOnEnter unmountOnExit>
+              {loginForm}
+            </Slide>
+          </div>
+        </div>
+      </Box>
+    </>
   );
 }

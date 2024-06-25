@@ -22,63 +22,63 @@ const root = ReactDOM.createRoot(
 
 // if login done can use this(line 21~48)
 
-// const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-
-// root.render(
-//   <React.StrictMode>
-//     <BrowserRouter>
-//       <Routes>
-//         <Route path="/Login" element={<Login />} />
-//         <Route
-//           path="/HomePage"
-//           element={isLoggedIn ? <HomePage /> : <Navigate to="/Login" />}
-//         />
-//         <Route
-//           path="/Message"
-//           element={isLoggedIn ? <MessagePage /> : <Navigate to="/Login" />}
-//         />
-//         <Route
-//           path="/Drawing"
-//           element={isLoggedIn ? <DrawPage /> : <Navigate to="/Login" />}
-//         />
-//         <Route
-//           path="/AI"
-//           element={isLoggedIn ? <AIAttendances /> : <Navigate to="/Login" />}
-//         />
-//         {isLoggedIn && <MenuHeaderBar />}
-//       </Routes>
-//     </BrowserRouter>
-//   </React.StrictMode>
-// );
+const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-    <QueryClientProvider client={queryClient}>
       <Routes>
         <Route path="/Login" element={<Login />} />
         <Route
           path="/HomePage"
-          element={<HomePage />}
+          element={isLoggedIn ? <HomePage /> : <Navigate to="/Login" />}
         />
         <Route
           path="/Message"
-          element={<MessagePage />}
+          element={isLoggedIn ? <MessagePage /> : <Navigate to="/Login" />}
         />
         <Route
           path="/Drawing"
-          element={<DrawPage />}
+          element={isLoggedIn ? <DrawPage /> : <Navigate to="/Login" />}
         />
         <Route
           path="/AI"
-          element={<AIAttendances/>}
+          element={isLoggedIn ? <AIAttendances /> : <Navigate to="/Login" />}
         />
         {/* {isLoggedIn && <MenuHeaderBar />} */}
       </Routes>
-      </QueryClientProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
+
+// root.render(
+//   <React.StrictMode>
+//     <BrowserRouter>
+//     <QueryClientProvider client={queryClient}>
+//       <Routes>
+//         <Route path="/Login" element={<Login />} />
+//         <Route
+//           path="/HomePage"
+//           element={<HomePage />}
+//         />
+//         <Route
+//           path="/Message"
+//           element={<MessagePage />}
+//         />
+//         <Route
+//           path="/Drawing"
+//           element={<DrawPage />}
+//         />
+//         <Route
+//           path="/AI"
+//           element={<AIAttendances/>}
+//         />
+//         {/* {isLoggedIn && <MenuHeaderBar />} */}
+//       </Routes>
+//       </QueryClientProvider>
+//     </BrowserRouter>
+//   </React.StrictMode>
+// );
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

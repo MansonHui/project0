@@ -6,7 +6,7 @@ export const useFetch = (url:string)=>{
         const fetchData = async () => {
             const res = await fetch(url);
             const response = await res.json();
-            setData (response);
+            setData (response.data);
         };
         fetchData();
     },[url]);
