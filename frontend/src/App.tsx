@@ -6,7 +6,7 @@ import HomePage from "./pages/home/HomePage";
 import DrawPage from "./pages/drawNotice/DrawPage";
 import AIAttendances from "./pages/scan/AIAttendances";
 import { useAuth } from "./hooks/useAuth";
-import MessagePage from "./pages/notice/MessagePage";
+import MessagePage from "./pages/message/MessagePage";
 
 function App() {
   const { authToken } = useAuth();

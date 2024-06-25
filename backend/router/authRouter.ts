@@ -11,4 +11,8 @@ let authController = new AuthController(authService);
 
 authRouter.post("/register", checkToken, authController.register);
 
+<<<<<<< HEAD
 authRouter.post("/login", authController.login);
+=======
+authRouter.post("/login", authController.login);
+>>>>>>> 74517ee517df95cd77545b071567c2c2f5252802

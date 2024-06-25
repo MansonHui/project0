@@ -1,7 +1,11 @@
 import express, { Request, Response } from "express";
-import { authRouter } from "./router/useAuth";
+import {authRouter} from "./router/authRouter"
+
 import { homeRouter } from "./router/homeRouter";
 import cors from "cors";
+import { noticeRouter } from "./router/noticeRouter";
+
+
 import { studentRouter } from "./router/studentRouter";
 
 const PORT = 8080;
@@ -14,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/auth", authRouter);
 app.use("/home", homeRouter);
+app.use("/notice",noticeRouter)
 app.use("/student", studentRouter);
 
 //***************************************** */ testing
