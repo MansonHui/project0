@@ -13,12 +13,12 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
-      <Route element={<LoginAuthGuard authToken={authToken} />}>
+      {/* <Route element={<LoginAuthGuard authToken={thToken} />}> */}
         <Route path="/HomePage" element={<HomePage />} />
         <Route path="/Message" element={<MessagePage />} />
         <Route path="/Drawing" element={<DrawPage />} />
         <Route path="/AI" element={<AIAttendances />} />
-      </Route>
+      {/* </Route> */}
     </Routes>
   );
 }

@@ -23,7 +23,7 @@ export function loginProps(props: {
 }
 
 export default function Login() {
-  let data = useFetch("http://localhost:3000/Login");
+  let data = useFetch("http://localhost:3000");
   console.log(data);
 
   const [email, setEmail] = useState("admin@admin.com");
