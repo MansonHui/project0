@@ -1,4 +1,4 @@
-export async function checkSchoolEmail(email: string) {
+export async function getSchoolAbbr(email: string) {
   let emailSliptoArray = email.split(".");
   for (let i = 0; i <= emailSliptoArray.length; i++) {
     if (emailSliptoArray[i] === "edu") {

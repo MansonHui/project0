@@ -2,7 +2,7 @@ import type { Knex } from "knex";
 
 export default class AuthService {
   constructor(private knex: Knex) {}
-  // =================== User register ====================
+  // ===================  register ====================
 
   // Check email duplicate when register
 
@@ -23,10 +23,57 @@ export default class AuthService {
           username: username,
           email: email,
           password: password,
+          balance: 0,
           created_at: this.knex.fn.now(),
           updated_at: this.knex.fn.now(),
         })
-        .returning("id")
+        .returning("*")
     )[0];
+  }
+
+  async getSchoolTable(schoolAbbr: string) {
+    return (
+      await this.knex.select("*").from("schools").where("abbr_name", schoolAbbr)
+    )[0];
+  }
+
+  async createNewAdmin(
+    username: string,
+    email: string,
+    password: string,
+    schoolID: number
+  ) {
+    return (
+      await this.knex("admins")
+        .insert({
+          username: username,
+          email: email,
+          password: password,
+          school_id: schoolID,
+          created_at: this.knex.fn.now(),
+          updated_at: this.knex.fn.now(),
+        })
+        .returning("*")
+    )[0];
+  }
+
+  async login(email: string, password: string) {
+    const adminResult = await this.knex
+      .select("email as admin")
+      .from("admins")
+      .where("email", email)
+      .andWhere("password", password);
+
+    if (adminResult.length === 0) {
+      const parentsResult = await this.knex
+        .select("email as parent")
+        .from("parents")
+        .where("email", email)
+        .andWhere("password", password);
+
+      return parentsResult[0];
+    } else {
+      return adminResult[0];
+    }
   }
 }
