@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { authRouter } from "./router/authRouter";
+import { authRouter } from "./router/useAuth";
 import { homeRouter } from "./router/homeRouter";
 import cors from "cors";
 import { studentRouter } from "./router/studentRouter";
