@@ -2,7 +2,10 @@ import { Request, Response } from "express";
 import AuthService from "../services/AuthService";
 import { getSchoolAbbr } from "../helper/getSchoolNameAbbr";
 import { getUserName } from "../helper/getUserNameFromEmail";
-// import jwtSimple from "jwt-simple";
+import jwtSimple from "jwt-simple";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export default class AuthController {
   constructor(private authService: AuthService) {}
@@ -73,17 +76,27 @@ export default class AuthController {
   login = async (req: Request, res: Response) => {
     let { email, password } = req.body;
 
-    let isExist = await this.authService.login(email, password);
+    let loginUserData = await this.authService.login(email, password);
 
-    console.log("usertype", Object.keys(isExist));
+    console.log("loginUserData", loginUserData);
 
-    // const jwtToken= jwtSimple.encode([payload])
-
-    if (!isExist) {
+    if (!loginUserData) {
       res.status(400).json({ msg: "wrong password/user" });
     } else {
+      const payload = {
+        userId: loginUserData.id,
+        userRole: Object.keys(loginUserData)[0],
+        email: loginUserData.email,
+        userName: loginUserData.username,
+      };
+
+      console.log("payload", payload);
+
+      const jwtToken = jwtSimple.encode(payload, process.env.JWT_SECRET!);
+
       res.status(200).json({
-        msg: ` ${Object.keys(isExist)},${email} :login success`,
+        msg: ` ${Object.keys(loginUserData)[0]},${email} :login success`,
+        token: jwtToken,
       });
     }
   };
