@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { authRouter } from "./router/authRouter";
+import { authRouter } from "./router/useAuth";
 import { homeRouter } from "./router/homeRouter";
 import cors from "cors";
 
@@ -20,7 +20,7 @@ app.use("/home", homeRouter);
 //***************************************** */ testing
 app.post("/", function (req: Request, res: Response) {
   // console.log(req.body);
-  // res.json({ msg: "hello from frd server" });
+  // res.json({ msg: req.body });
 });
 
 app.listen(PORT, () => {

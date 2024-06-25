@@ -1,4 +1,5 @@
-import express, { Router } from "express";
+
+import express from "express";
 import AuthController from "../controllers/AuthController";
 import AuthService from "../services/AuthService";
 import { knex } from "../utils/knex";
@@ -6,12 +7,12 @@ import { knex } from "../utils/knex";
 const app = express();
 const port = 3000;
 
-export const authRouter = Router();
+// export const authRouter = Router();
 const authService = new AuthService(knex);
 
 let authController = new AuthController(authService);
 
-authRouter.post("/register", authController.register);
+app.post("/register", authController.register);
 
 // Define the login route
 app.post('/Login', (req:any, res:any) => {
@@ -32,3 +33,7 @@ app.post('/Login', (req:any, res:any) => {
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+// function useState(arg0: string | null): [any, any] {
+//   throw new Error("Function not implemented.");
+// }
+
