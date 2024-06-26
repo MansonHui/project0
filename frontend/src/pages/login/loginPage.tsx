@@ -6,47 +6,48 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import styles from "./Login.module.css";
 import { useFetch } from "./customLoginFetch";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
-export function loginProps(props: {
-  setFormDone: boolean;
-  email: string;
-  password: string;
-}) {
-  return (
-    <div>
-      <h1>
-        {props.email}.{props.password}
-        {props.setFormDone ? "OK" : "OR NOT"}
-      </h1>
-    </div>
-  );
-}
+
 
 export default function Login() {
-  let data = useFetch("http://localhost:3000");
-  console.log(data);
-
-  const [email, setEmail] = useState("admin@admin.com");
-  const [password, setPassword] = useState("123");
+  const [email, setEmail] = useState("chantaiming@gmail.com");
+  const [password, setPassword] = useState("1234");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { login } = useAuth();
+  console.log("login page")
 
   const handleLogin = () => {
-    console.log("check input",email,password)
+    console.log("check input", email, password);
     // Perform login logic here
     if (email === "admin@admin.com" && password === "123") {
-      // If the login is successful, set the isLoggedIn value in the local storage
-      localStorage.setItem("isLoggedIn", "true");
       navigate("/"); // Navigate to the HomePage
     } else {
       setError("Invalid email or password");
     }
   };
-
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    handleLogin();
-    // props.setFormDone(true);
+    // handleLogin();
+    const res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    });
+    const reponse = await res.json();
+
+    if (res.ok) {
+      login(reponse.token)
+    }else{
+      alert("Login failed")
+    }
+
   };
 
   const loginForm = (
@@ -75,6 +76,7 @@ export default function Login() {
       <input type="submit" value="Login" />
       {error && <div>{error}</div>}
     </form>
+    
   );
   const [checked, setChecked] = React.useState(false);
 
@@ -83,33 +85,25 @@ export default function Login() {
   };
 
   return (
-    <>
-      {/* <div>
-      {data ?
-        data.map((entry: any ) => (
-          <Login email={entry.email} password={entry.password} />
-        )) : <h1>loading</h1>}
-    </div> */}
-      <Box id={styles.loginContainer}>
-        <div id={styles.bannerContainer}>
-          <div id={styles.loginBanner}>BANNER</div>
-        </div>
-        <div id={styles.privacyPolicyAndOption}>
-          <div>
-            <label id={styles.privacyPolicy}>"Personal privacy policy"</label>
-            <div id={styles.agreeOptionBox}>
-              <FormControlLabel
-                id={styles.agreeOption}
-                control={<Switch checked={checked} onChange={handleChange} />}
-                label="Agree"
-              />
-            </div>
-            <Slide direction="up" in={checked} mountOnEnter unmountOnExit>
-              {loginForm}
-            </Slide>
+    <Box id={styles.loginContainer}>
+      <div id={styles.bannerContainer}>
+        <div id={styles.loginBanner}>BANNER</div>
+      </div>
+      <div id={styles.privacyPolicyAndOption}>
+        <div>
+          <label id={styles.privacyPolicy}>"Personal privacy policy"</label>
+          <div id={styles.agreeOptionBox}>
+            <FormControlLabel
+              id={styles.agreeOption}
+              control={<Switch checked={checked} onChange={handleChange} />}
+              label="Agree"
+            />
           </div>
+          <Slide direction="up" in={checked} mountOnEnter unmountOnExit>
+            {loginForm}
+          </Slide>
         </div>
-      </Box>
-    </>
+      </div>
+    </Box>
   );
 }
