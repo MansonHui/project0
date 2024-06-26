@@ -11,7 +11,7 @@ export default class AuthService {
       await this.knex
         .select("*")
         .from("admins")
-        .where("email", email)
+        .where("admin_email", email)
         .union([this.knex.select("*").from("parents").where("email", email)])
     )[0];
   }
@@ -46,8 +46,8 @@ export default class AuthService {
     return (
       await this.knex("admins")
         .insert({
-          username: username,
-          email: email,
+          admin_name: username,
+          admin_email: email,
           password: password,
           school_id: schoolID,
           created_at: this.knex.fn.now(),
@@ -59,10 +59,10 @@ export default class AuthService {
 
   async login(email: string, password: string) {
     const adminResult = await this.knex
-      .select("email as admin")
+      .select("admin_email as admin")
       .select("*")
       .from("admins")
-      .where("email", email)
+      .where("admin_email", email)
       .andWhere("password", password);
 
     if (adminResult.length === 0) {

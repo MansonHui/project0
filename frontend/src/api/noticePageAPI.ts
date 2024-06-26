@@ -8,11 +8,12 @@ interface getNoticeType{
     first_name: string;
     last_name: string;
     full_name: string;
+    created_at: string;
 }
 
-export function useGetallNotice_Attendance(){
+export function useGetallNotice(){
     const {isLoading, error, data, isFetching } = useQuery ({
-        queryKey:["allNotice_Attendance"],
+        queryKey:["allNotice"],
         queryFn: async() => {
             let res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/notice/getAllNotice`)
             let result = await res.json()
