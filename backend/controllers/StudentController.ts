@@ -9,24 +9,12 @@ export default class StudentController {
   constructor(private studentService: StudentService) {}
 
   getstudentData = async (req: Request, res: Response) => {
-    console.log("student", req.body);
-
-    if (req.body.userRole === "parent") {
-      let studentData = await this.studentService.getStudentDataParent(
-        req.body.userId,
-        req.body.studentId
-      );
-
-      res.json(studentData);
-    }
-
-    if (req.body.userRole === "admin") {
-      let studentData = await this.studentService.getStudentDataAdmin(
-        req.body.userId,
-        req.body.studentId
-      );
-
-      res.json(studentData);
-    }
+    let studentData = await this.studentService.getStudentData(
+      req.body.userRole,
+      req.body.userRoleId,
+      req.body.studentId
+    );
+    console.log("req.body.userRole", req.body.userRole);
+    res.json(studentData);
   };
 }

@@ -10,21 +10,21 @@ export async function seed(knex: Knex): Promise<void> {
     // Inserts seed entries
     await knex("admins").insert([
       {
-        username: "choiping",
+        admin_name: "choiping",
         password: "0000",
-        email: "choiping@stpeter.edu.hk",
+        admin_email: "choiping@stpeter.edu.hk",
         school_id: 1,
       },
       {
-        username: "chiulap",
+        admin_name: "chiulap",
         password: "1111",
-        email: "chiulap@hallowint.edu.hk",
+        admin_email: "chiulap@hallowint.edu.hk",
         school_id: 2,
       },
       {
-        username: "super",
+        admin_name: "super",
         password: "super",
-        email: "super@tecky.edu.hk",
+        admin_email: "super@tecky.edu.hk",
       },
     ]);
   } catch (err) {
