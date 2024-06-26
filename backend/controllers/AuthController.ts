@@ -10,74 +10,87 @@ dotenv.config();
 export default class AuthController {
   constructor(private authService: AuthService) {}
 
-  register = async (req: Request, res: Response) => {
-    if (req.body.userName === "super") {
-      console.log("yes");
+  superAdmin = async (req: Request, res: Response) => {
+    console.log("req.body", req.body);
+    let emailListArray = req.body.emailList;
 
-      console.log("req.body", req.body);
-      let emailListObject = req.body;
+    // let emailArray = Object.keys(emailListObject).map(
+    //   (key) => emailListObject[key]
+    // );
+    let response_array = [];
+    for (let result of emailListArray) {
+      console.log("email", result);
+      let email = result;
+      let username = await getUserName(email);
+      let password = "1234567";
 
-      // let emailArray = Object.keys(emailListObject).map(
-      //   (key) => emailListObject[key]
-      // );
-      let response_array = [];
-      for (let result of emailListObject.emailList) {
-        console.log("email", result);
-        let email = result;
-        let username = await getUserName(email);
-        let password = "1234567";
+      let existEmail = await this.authService.checkDuplicateEmail(email);
 
-        let existEmail = await this.authService.checkDuplicateEmail(email);
+      let schoolAbbr = await getSchoolAbbr(email);
 
-        let schoolAbbr = await getSchoolAbbr(email);
+      if (existEmail) {
+        response_array.push({ msg: `${email} already exists` });
+      }
 
-        if (existEmail) {
-          response_array.push({ msg: `${email} already exists` });
-        }
+      if (!existEmail) {
+        if (schoolAbbr) {
+          let getSchoolTable = await this.authService.getSchoolTable(
+            schoolAbbr
+          );
 
-        if (!existEmail) {
-          if (schoolAbbr) {
-            let getSchoolTable = await this.authService.getSchoolTable(
-              schoolAbbr
-            );
-
-            if (getSchoolTable) {
-              let newAdminData = await this.authService.createNewAdmin(
-                username,
-                email,
-                password,
-                getSchoolTable.id
-              );
-
-              response_array.push({
-                msg: `new admins user account ${getSchoolTable.full_name} , ${newAdminData.email} , ${newAdminData.password}`,
-              });
-            } else {
-              response_array.push({
-                msg: `your school not yet subscript our service`,
-              });
-            }
-          }
-          if (!schoolAbbr) {
-            let newParentdetail = await this.authService.createNewParent(
+          if (getSchoolTable) {
+            let newAdminData = await this.authService.createNewAdmin(
               username,
               email,
-              password
+              password,
+              getSchoolTable.id
             );
 
-            console.log(newParentdetail);
-
             response_array.push({
-              msg: `${newParentdetail.email} pending  for admin approval`,
+              msg: `new admins user account ${getSchoolTable.full_name} , ${newAdminData.email} , ${newAdminData.password}`,
+            });
+          } else {
+            response_array.push({
+              msg: `your school not yet subscript our service`,
             });
           }
         }
-      }
+        if (!schoolAbbr) {
+          let newParentdetail = await this.authService.createNewParent(
+            username,
+            email,
+            password
+          );
 
-      res.status(200).json(response_array);
-    } else {
-      res.status(200).json({ msg: "you are not super admin" });
+          console.log(newParentdetail);
+
+          response_array.push({
+            msg: `${newParentdetail.email} established`,
+          });
+        }
+      }
     }
+
+    res.status(200).json(response_array);
+  };
+
+  parentRegiser = async (req: Request, res: Response) => {
+    let existEmail = await this.authService.checkDuplicateEmail(req.body.email);
+
+    if (existEmail) {
+      res.status(200).json({ msg: `${req.body.email} already exists` });
+      return;
+    }
+
+    let newParentdetail = await this.authService.createNewParent(
+      await getUserName(req.body.email),
+      req.body.password,
+      req.body.email
+    );
+
+    res.status(200).json({
+      msg: `${newParentdetail.email} established`,
+    });
   };
 
   login = async (req: Request, res: Response) => {
