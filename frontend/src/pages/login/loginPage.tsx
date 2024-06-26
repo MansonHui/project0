@@ -15,7 +15,6 @@ export default function Login() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { login } = useAuth();
-  console.log("login page")
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
