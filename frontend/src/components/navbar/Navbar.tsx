@@ -5,7 +5,7 @@ import AnnouncementRoundedIcon from '@mui/icons-material/AnnouncementRounded';
 import StickyNote2RoundedIcon from '@mui/icons-material/StickyNote2Rounded';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-import { useLocation, useNavigate } from 'react-router-dom' 
+import { Outlet, useLocation, useNavigate } from 'react-router-dom' 
 import React from "react";
 
 
@@ -49,9 +49,9 @@ export default function Navbar() {
           <div className={styles.navbar_function_logo}><StickyNote2RoundedIcon color="action"/></div>
           <div className={styles.navbar_function_text}>Register</div>
         </div>
-       
+        
       </div>
-
+      
 {/* ------------ Navbar Info Container ------------ */}
       <div onClick={()=>navigate("/")} className={styles.navbar_info_container}>
         <div>
@@ -62,7 +62,11 @@ export default function Navbar() {
           
           /> 
           </div>
+
       </div>
+  
     </div>
+    
   );
+  
 }

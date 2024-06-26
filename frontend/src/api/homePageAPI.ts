@@ -17,7 +17,13 @@ export function useGetAllClass(){
     const {isLoading, error, data, isFetching } = useQuery({
         queryKey:["allClass"],
         queryFn: async() => {
-            let res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/home/getAllClassInfo`)
+            let res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/home/getAllClassInfo`,{
+                method:"GET",
+                headers:{
+                    "Content-Type":'application/json',
+                    "Authorization":`Bearer ${localStorage.getItem('loginToken')}` 
+                }
+            })
             let result = await res.json()
 
             return result.getAllClassInfo as getClassType[];
