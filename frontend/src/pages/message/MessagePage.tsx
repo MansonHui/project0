@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import styles from "./MessagePage.module.css";
 import { useGetallNotice_Attendance } from "../../api/noticePageAPI";
 import { useNavigate } from "react-router-dom";
+import NoticePage from "../notice/NoticePage";
 
 export default function MessagePage() {
   const allNotice_Attendance = useGetallNotice_Attendance();
@@ -18,19 +19,7 @@ export default function MessagePage() {
 
             
                 <div className={styles.Message_Container}>
-                {/* {allNotice_Attendance.map((entry) => (
-                    <div className={styles.Message}>
-                        <div className={styles.Message_type}>
-                            <div>{entry.topic}</div>
-                        </div>
-                        <div className={styles.Message_Detail}>
-                            <div>
-                            {entry.content}
-                            {entry.created_at}
-                            </div>
-                        </div>
-                    </div>
-                    ))} */}
+               <NoticePage />
                 </div>
                 
         </div>
