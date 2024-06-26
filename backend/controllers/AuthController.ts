@@ -11,66 +11,73 @@ export default class AuthController {
   constructor(private authService: AuthService) {}
 
   register = async (req: Request, res: Response) => {
-    let emailListObject = req.body;
+    if (req.body.userName === "super") {
+      console.log("yes");
 
-    // let emailArray = Object.keys(emailListObject).map(
-    //   (key) => emailListObject[key]
-    // );
-    let response_array = [];
-    for (let result of emailListObject.email) {
-      console.log("email", result);
-      let email = result;
-      let username = await getUserName(email);
-      let password = "1234567";
+      console.log("req.body", req.body);
+      let emailListObject = req.body;
 
-      let existEmail = await this.authService.checkDuplicateEmail(email);
+      // let emailArray = Object.keys(emailListObject).map(
+      //   (key) => emailListObject[key]
+      // );
+      let response_array = [];
+      for (let result of emailListObject.emailList) {
+        console.log("email", result);
+        let email = result;
+        let username = await getUserName(email);
+        let password = "1234567";
 
-      let schoolAbbr = await getSchoolAbbr(email);
+        let existEmail = await this.authService.checkDuplicateEmail(email);
 
-      if (existEmail) {
-        response_array.push({ msg: `${email} already exists` });
-      }
+        let schoolAbbr = await getSchoolAbbr(email);
 
-      if (!existEmail) {
-        if (schoolAbbr) {
-          let getSchoolTable = await this.authService.getSchoolTable(
-            schoolAbbr
-          );
+        if (existEmail) {
+          response_array.push({ msg: `${email} already exists` });
+        }
 
-          if (getSchoolTable) {
-            let newAdminData = await this.authService.createNewAdmin(
-              username,
-              email,
-              password,
-              getSchoolTable.id
+        if (!existEmail) {
+          if (schoolAbbr) {
+            let getSchoolTable = await this.authService.getSchoolTable(
+              schoolAbbr
             );
 
+            if (getSchoolTable) {
+              let newAdminData = await this.authService.createNewAdmin(
+                username,
+                email,
+                password,
+                getSchoolTable.id
+              );
+
+              response_array.push({
+                msg: `new admins user account ${getSchoolTable.full_name} , ${newAdminData.email} , ${newAdminData.password}`,
+              });
+            } else {
+              response_array.push({
+                msg: `your school not yet subscript our service`,
+              });
+            }
+          }
+          if (!schoolAbbr) {
+            let newParentdetail = await this.authService.createNewParent(
+              username,
+              email,
+              password
+            );
+
+            console.log(newParentdetail);
+
             response_array.push({
-              msg: `new admins user account ${getSchoolTable.full_name} , ${newAdminData.email} , ${newAdminData.password}`,
-            });
-          } else {
-            response_array.push({
-              msg: `your school not yet subscript our service`,
+              msg: `${newParentdetail.email} pending  for admin approval`,
             });
           }
         }
-        if (!schoolAbbr) {
-          let newParentdetail = await this.authService.createNewParent(
-            username,
-            email,
-            password
-          );
-
-          console.log(newParentdetail);
-
-          response_array.push({
-            msg: `${newParentdetail.email} pending  for admin approval`,
-          });
-        }
       }
-    }
 
-    res.status(200).json(response_array);
+      res.status(200).json(response_array);
+    } else {
+      res.status(200).json({ msg: "you are not super admin" });
+    }
   };
 
   login = async (req: Request, res: Response) => {

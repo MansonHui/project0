@@ -1,14 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 
 interface getNoticeType{
-    id: number;
-    student_id: number;
-    in_out: string;
-    created_at: string;
+    grade: number;
+    class_name: string;
     topic: string;
-    content: string; 
-    option: string;
-    notice_choice_id: number;
+    content: string;
+    first_name: string;
+    last_name: string;
+    full_name: string;
 }
 
 export function useGetallNotice_Attendance(){
