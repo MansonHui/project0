@@ -4,7 +4,6 @@ import Switch from "@mui/material/Switch";
 import Slide from "@mui/material/Slide";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import styles from "./Login.module.css";
-import { useFetch } from "./customLoginFetch";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -18,18 +17,8 @@ export default function Login() {
   const { login } = useAuth();
   console.log("login page")
 
-  const handleLogin = () => {
-    console.log("check input", email, password);
-    // Perform login logic here
-    if (email === "admin@admin.com" && password === "123") {
-      navigate("/"); // Navigate to the HomePage
-    } else {
-      setError("Invalid email or password");
-    }
-  };
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    // handleLogin();
     const res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/auth/login`, {
       method: "POST",
       headers: {
