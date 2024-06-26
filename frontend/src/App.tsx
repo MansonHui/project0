@@ -12,7 +12,6 @@ import AttendancePage from "./pages/attendance/AttendancePage";
 import { useEffect } from "react";
 import RegisterPage from "./pages/register/RegisterPage";
 
-
 function App() {
   const { authToken } = useAuth();
   const navigate = useNavigate();
@@ -29,10 +28,10 @@ function App() {
         <Route path="/Message" element={<MessagePage />}>
           <Route path="Notices" element={<NoticePage />} />
           <Route path="Attendance" element={<AttendancePage />} />
-          <Route path="Drawing" element={<DrawPage />} />
-          <Route path="AI" element={<AIAttendances />} />
-          <Route path="RegisterPage" element={<RegisterPage />} />
         </Route>
+        <Route path="/Drawing" element={<DrawPage />} />
+        <Route path="/AI" element={<AIAttendances />} />
+        <Route path="/Register" element={<RegisterPage />} />
       </Route>
     </Routes>
   );
