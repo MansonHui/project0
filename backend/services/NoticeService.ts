@@ -10,18 +10,19 @@ export default class NoticeSerice{
         return(
             await this.knex('students as s')
             .select(
-              's.id',
-              'sa.student_id',
-              'sa.in_out',
-              'sa.created_at',
+              'c.grade',
+              'c.class_name',
               'n.topic',
               'n.content',
-              'n.created_at',
-              'nsr.notice_choice_id'
+              's.first_name',
+              's.last_name',
+              'sch.full_name'
             )
-            .leftJoin('student_attendance as sa', 's.id', 'sa.student_id')
-            .leftJoin('notice_student_relation as nsr', 's.id', 'nsr.student_id')
-            .leftJoin('notices as n', 'nsr.notice_id', 'n.id')
+            .join('notice_student_relation as nsr', 's.id', '=', 'nsr.student_id')
+            .join('notices as n', 'nsr.notice_id', '=', 'n.id')
+            .join('student_class_relation as scr', 's.id', '=', 'scr.student_id')
+            .join('classes as c', 'scr.class_id', '=', 'c.id')
+            .join('schools as sch', 's.school_id', '=', 'sch.id')
         )
     }
 }
@@ -30,13 +31,17 @@ export default class NoticeSerice{
 
 
 
-
-// SELECT
-//   s.id,
-//   sa.student_id, sa.in_out, sa.created_at,
-//   n.topic, n.content, n.created_at,
-//   nsr.notice_choice_id
+// SELECT 
+//   c.grade,
+//   c.class_name,
+//   n.topic,
+//   n.content,
+//   s.first_name,
+//   s.last_name,
+//   sch.full_name
 // FROM students s
-// LEFT JOIN student_attendance sa ON s.id = sa.student_id
-// LEFT JOIN notice_student_relation nsr ON s.id = nsr.student_id
-// LEFT JOIN notices n ON nsr.notice_id = n.id
+// INNER JOIN schools sch ON s.school_id = sch.id
+// INNER JOIN notice_student_relation nsr ON s.id = nsr.student_id
+// INNER JOIN notices n ON nsr.notice_id = n.id
+// INNER JOIN student_class_relation scr ON s.id = scr.student_id
+// INNER JOIN classes c ON scr.class_id = c.id
