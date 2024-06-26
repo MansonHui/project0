@@ -13,7 +13,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
-      {/* <Route element={<LoginAuthGuard authToken={thToken} />}> */}
+      {/* <Route element={<LoginAuthGuard authToken={authToken} />}> */}
         <Route path="/HomePage" element={<HomePage />} />
         <Route path="/Message" element={<MessagePage />} />
         <Route path="/Drawing" element={<DrawPage />} />
