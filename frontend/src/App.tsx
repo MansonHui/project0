@@ -28,9 +28,9 @@ function App() {
         <Route path="/Message" element={<MessagePage />}>
           <Route path="Notices" element={<NoticePage />} />
           <Route path="Attendance" element={<AttendancePage />} />
+          <Route path="Drawing" element={<DrawPage />} />
+          <Route path="AI" element={<AIAttendances />} />
         </Route>
-        <Route path="/Drawing" element={<DrawPage />} />
-        <Route path="/AI" element={<AIAttendances />} />
       </Route>
     </Routes>
   );
