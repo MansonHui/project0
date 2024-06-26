@@ -14,7 +14,6 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("App")
     if (authToken) navigate("/HomePage");
     else navigate("/");
   }, [authToken]);
