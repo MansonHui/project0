@@ -6,6 +6,7 @@ import cors from "cors";
 import { noticeRouter } from "./router/noticeRouter";
 
 import { studentRouter } from "./router/studentRouter";
+import { attendanceRouter } from "./router/attendanceRouter";
 
 const PORT = 8080;
 const app = express();
@@ -19,6 +20,7 @@ app.use("/auth", authRouter);
 app.use("/home", homeRouter);
 app.use("/notice", noticeRouter);
 app.use("/student", studentRouter);
+app.use("/attendance",attendanceRouter);
 
 //***************************************** */ testing
 app.post("/", function (req: Request, res: Response) {});

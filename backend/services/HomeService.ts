@@ -14,7 +14,7 @@ export default class HomeSerive {
         "c.grade",
         "s.full_name as school_name",
         "sy.school_year",
-        "a.admin_username as admin_username",
+        "a.admin_name as admin_username",
         "st.first_name as student_first_name",
         "st.last_name as student_last_name",
         "st.image AS student_image",

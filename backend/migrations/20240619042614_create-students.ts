@@ -5,6 +5,7 @@ export async function up(knex: Knex) {
     table.increments();
     table.string("first_name", 255).notNullable();
     table.string("last_name", 255).notNullable();
+    table.string("HKID_number", 255).unique().notNullable();
     table.date("birthday").notNullable();
     table.enum("gender", ["M", "F"]).notNullable();
     table.string("image", 255).nullable();

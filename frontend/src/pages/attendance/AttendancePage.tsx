@@ -1,25 +1,22 @@
-import { useGetallNotice } from "../../api/noticePageAPI";
-import styles from "./NoticePage.module.css"
+import { useGetallAttendance } from "../../api/attendancePageAPI"
+import styles from "./AttendancePage.module.css"
 
-
-
-export default function NoticePage(){
-    const allNotice = useGetallNotice();
+export default function AttendancePage(){
+    const allAttendance = useGetallAttendance();
 
     return(
         <div>
-            {allNotice.map((entry) => (
+             {allAttendance.map((entry) => (
                     <div className={styles.Message}>
                         <div className={styles.Message_type}>
-                            <div>School: {entry.full_name}</div>
+                            <div>Name: {entry.last_name}{entry.first_name}</div>
                         </div>
                         <div className={styles.Message_type}>
-                            <div>Class: {entry.grade}{entry.class_name}</div>
-                            <div>Student: {entry.last_name} {entry.last_name}</div>
+                            <div>In_Out: {entry.in_out}</div>
+                            <div></div>
                         </div>
                         <div className={styles.Message_Detail}>
                             <div>
-                            {entry.topic}
                             {entry.created_at}
                             
                             </div>
