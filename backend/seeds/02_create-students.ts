@@ -12,6 +12,7 @@ export async function seed(knex: Knex): Promise<void> {
       {
         first_name: "siuming",
         last_name: "chan",
+        HKID_number: "X1234",
         birthday: "2018-11-11",
         gender: "M",
         image: "chansiuming.jpg",
@@ -21,6 +22,7 @@ export async function seed(knex: Knex): Promise<void> {
       {
         first_name: "keung",
         last_name: "wong",
+        HKID_number: "Y5678",
         birthday: "2017-10-10",
         gender: "M",
         image: "wongkeung.jpg",
@@ -30,6 +32,7 @@ export async function seed(knex: Knex): Promise<void> {
       {
         first_name: "yung",
         last_name: "wong",
+        HKID_number: "P4567",
         birthday: "2018-09-09",
         gender: "F",
         image: "wongyung.jpg",
