@@ -1,8 +1,8 @@
 import { useState } from "react"
 
 export function retisterPage() {
-    const[username, setUsername] = useState("");
-    const[email, setEmail] = useState("");
-    const[password, setPassword] = useState("");
+    const[parentName, setParentName] = useState("");
+    const[parentEmail, srtParentEmail] = useState("");
+    const[phoneNumber, setPhoneNum] = useState("");
     
 }
