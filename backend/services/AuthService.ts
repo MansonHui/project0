@@ -57,8 +57,6 @@ export default class AuthService {
     )[0];
   }
 
-  // ===================  login ====================
-
   async login(email: string, password: string) {
     const adminResult = await this.knex
       .select("email as admin")

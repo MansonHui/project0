@@ -8,7 +8,7 @@ export async function up(knex: Knex) {
     table.string("email").nullable();
 
     table.integer("school_id").unsigned();
-    table.foreign("school_id").references("schools.id");
+    table.foreign("school_id").references("schools.id").nullable;
 
     table.timestamps(false, true);
   });
