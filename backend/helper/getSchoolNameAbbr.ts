@@ -8,3 +8,13 @@ export async function getSchoolAbbr(email: string) {
   }
   return;
 }
+
+export async function isEduExistInMail(email: string) {
+  let emailSliptoArray = email.split(".");
+  for (let i = 0; i <= emailSliptoArray.length; i++) {
+    if (emailSliptoArray[i] === "edu") {
+      return true;
+    }
+  }
+  return false;
+}
