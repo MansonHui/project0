@@ -16,7 +16,8 @@ export default class NoticeSerice{
               'n.content',
               's.first_name',
               's.last_name',
-              'sch.full_name'
+              'sch.full_name',
+              'n.created_at'
             )
             .join('notice_student_relation as nsr', 's.id', '=', 'nsr.student_id')
             .join('notices as n', 'nsr.notice_id', '=', 'n.id')

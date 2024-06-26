@@ -31,6 +31,6 @@ export async function checkToken(
 
     return next();
   } catch (e) {
-    res.status(500).json({ msg: "server error" });
+    res.status(500).json({ msg: "you are not logged in" });
   }
 }
