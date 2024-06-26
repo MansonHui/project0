@@ -23,11 +23,11 @@ export async function checkToken(
 
     const decoded = jwtSimple.decode(token, process.env.JWT_SECRET!);
 
-    req.body.userId = decoded.userId;
+    req.body.userRoleId = decoded.userId;
     req.body.userRole = decoded.userRole;
 
-    req.body.email = decoded.email;
-    req.body.userName = decoded.userName;
+    req.body.userRoleEmail = decoded.email;
+    req.body.userRoleName = decoded.userName;
 
     return next();
   } catch (e) {
