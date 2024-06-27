@@ -15,3 +15,5 @@ studentRouter.post(
   checkToken,
   studentController.getstudentData
 );
+
+studentRouter.get("/getstudentData", studentController.getstudentData);
