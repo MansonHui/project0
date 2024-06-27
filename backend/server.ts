@@ -23,11 +23,12 @@ app.use("/superAdmin", superAdminRouter);
 app.use("/home", homeRouter);
 app.use("/notice", noticeRouter);
 app.use("/student", studentRouter);
-app.use("/attendance",attendanceRouter);
-app.use("/Message",attendanceAndNoticeRouter)
+app.use("/attendance", attendanceRouter);
+app.use("/Message", attendanceAndNoticeRouter);
 
 //***************************************** */ testing
 app.post("/", function (req: Request, res: Response) {});
+console.log("GG");
 
 app.listen(PORT, () => {
   console.log(`listening to http://localhost:${PORT}/`);
