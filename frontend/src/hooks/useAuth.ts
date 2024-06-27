@@ -8,7 +8,6 @@ export const useAuth = () => {
 
   useEffect(() => {
     setAuthToken(localStorage.getItem("loginToken" || null));
-    console.log("useAuth working")
   });
 
   const navigate = useNavigate();

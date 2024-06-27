@@ -1,8 +1,12 @@
-import { useState } from "react"
+import { useState } from "react";
+import styles from "./RegisterPage.module.css";
 
-export function retisterPage() {
-    const[parentName, setParentName] = useState("");
-    const[parentEmail, srtParentEmail] = useState("");
-    const[phoneNumber, setPhoneNum] = useState("");
-    
+export default function RegisterPage() {
+  const [parentName, setParentName] = useState("");
+  const [parentEmail, setParentEmail] = useState("");
+  const [phoneNumber, setPhoneNum] = useState("");
+
+  return (
+    <> </>
+  );
 }
