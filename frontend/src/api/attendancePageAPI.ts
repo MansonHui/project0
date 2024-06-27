@@ -1,11 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 
-interface getAttendanceType{
+export interface getAttendanceType{
+    grade:null;
+    in_out: string;
     first_name: string;
     last_name: string;
-    in_out: string;
     created_at: string;
 }
+
+
 
 export function useGetallAttendance(){
     const {isLoading, error, data, isFetching } = useQuery ({

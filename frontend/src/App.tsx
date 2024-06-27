@@ -11,6 +11,7 @@ import NoticePage from "./pages/notice/NoticePage";
 import AttendancePage from "./pages/attendance/AttendancePage";
 import { useEffect } from "react";
 import RegisterPage from "./pages/register/RegisterPage";
+import MessageAllPage from "./pages/messageAll/MessageAllPage";
 
 function App() {
   const { authToken } = useAuth();
@@ -25,7 +26,8 @@ function App() {
       <Route path="/" element={<Login />} />
       <Route element={<LoginAuthGuard authToken={authToken} />}>
         <Route path="/HomePage" element={<HomePage />} />
-        <Route path="/Message" element={<MessagePage />}>
+        <Route path="/Message" element={<MessagePage /> }>
+          <Route path="MessageAll" element={<MessageAllPage />} />
           <Route path="Notices" element={<NoticePage />} />
           <Route path="Attendance" element={<AttendancePage />} />
         </Route>
