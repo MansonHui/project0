@@ -29,8 +29,8 @@ function App() {
     <Routes>
       <Route path="/" element={<Login />} />
       <Route element={<LoginAuthGuard authToken={authToken} />}>
-        {/* <Route path="/HomePage" element={<HomePage />} /> */}
-        <Route path="/HomePage" element={<ParentPage />} />
+        <Route path="/HomePage" element={<HomePage />} />
+        {/* <Route path="/HomePage" element={<ParentPage />} /> */}
         <Route path="/Message" element={<MessagePage />}>
           <Route path="MessageAll" element={<MessageAllPage />} />
           <Route path="Notices" element={<NoticePage />} />
