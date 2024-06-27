@@ -28,7 +28,6 @@ app.use("/Message", attendanceAndNoticeRouter);
 
 //***************************************** */ testing
 app.post("/", function (req: Request, res: Response) {});
-console.log("GG");
 
 app.listen(PORT, () => {
   console.log(`listening to http://localhost:${PORT}/`);
