@@ -1,6 +1,6 @@
 import express from "express"
 import { Request, Response } from "express";
-import AttendanceService from "../services/attendanceService";
+import AttendanceService from "../services/AttendanceService";
 
 
 export default class AttendanceController{

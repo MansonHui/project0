@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-interface getNoticeType{
+export interface getNoticeType{
     grade: number;
     class_name: string;
     topic: string;
