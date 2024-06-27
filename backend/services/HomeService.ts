@@ -13,6 +13,7 @@ export default class HomeSerive {
         "c.class_name",
         "c.grade",
         "s.full_name as school_name",
+        "st.id as student_id",
         "sy.school_year",
         "a.admin_name as admin_username",
         "st.first_name as student_first_name",
@@ -28,8 +29,7 @@ export default class HomeSerive {
       .join("admins as a", "ac.admin_id", "=", "a.id")
       .join("students as st", "sc.student_id", "=", "st.id")
       .join("schools as s", "a.school_id", "=", "s.id")
-      .leftJoin("parents as p", "st.id", "=", "p.id")
-      .distinct();
+      .join("parents as p", "st.id", "=", "p.id");
   }
 }
 

@@ -101,7 +101,7 @@ export default function MenuHeaderBar() {
           </Toolbar>
         </AppBar>
       </Box>
-      <Outlet />
+
     </>
   );
 }
