@@ -62,7 +62,7 @@ export default class AuthService {
       .select("admin_email as admin")
       .select("*")
       .from("admins")
-      .where("admin_email", email)
+      .where("admin_email ", email)
       .andWhere("password", password);
 
     if (adminResult.length === 0) {
