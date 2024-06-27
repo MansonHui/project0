@@ -6,5 +6,7 @@ export default function RegisterPage() {
   const [parentEmail, setParentEmail] = useState("");
   const [phoneNumber, setPhoneNum] = useState("");
 
-  return (<div>page</div>);
+  return (
+    <> </>
+  );
 }

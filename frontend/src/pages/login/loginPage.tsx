@@ -7,8 +7,6 @@ import styles from "./Login.module.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 
-
-
 export default function Login() {
   const [email, setEmail] = useState("chantaiming@gmail.com");
   const [password, setPassword] = useState("1234");
