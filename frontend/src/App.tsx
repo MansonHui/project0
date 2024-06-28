@@ -13,7 +13,7 @@ import AttendancePage from "./pages/attendance/AttendancePage";
 
 import MessageAllPage from "./pages/messageAll/MessageAllPage";
 import ParentPage from "./pages/parent/ParentPage";
-import RegisterPage from "./pages/register/registerPage";
+// import RegisterPage from "./pages/register/registerPage";
 
 function App() {
   const { authToken } = useAuth();
@@ -23,14 +23,13 @@ function App() {
     if (authToken) navigate("/HomePage");
     else navigate("/");
   }, [authToken]);
-
-  console.log("gg");
+  
   return (
     <Routes>
       <Route path="/" element={<Login />} />
       <Route element={<LoginAuthGuard authToken={authToken} />}>
-        <Route path="/HomePage" element={<HomePage />} />
-        {/* <Route path="/HomePage" element={<ParentPage />} /> */}
+        {/* <Route path="/HomePage" element={<HomePage />} /> */}
+        <Route path="/HomePage" element={<ParentPage />} />
         <Route path="/Message" element={<MessagePage />}>
           <Route path="MessageAll" element={<MessageAllPage />} />
           <Route path="Notices" element={<NoticePage />} />

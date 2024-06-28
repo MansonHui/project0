@@ -5,7 +5,6 @@ export const useAuth = () => {
   const [authToken, setAuthToken] = useState(
     localStorage.getItem("loginToken") || null
   );
-  console.log("useAuth in effect")
 
   useEffect(() => {
     setAuthToken(localStorage.getItem("loginToken" || null));
