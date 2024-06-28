@@ -15,7 +15,13 @@ export function useGetallNotice(){
     const {isLoading, error, data, isFetching } = useQuery ({
         queryKey:["allNotice"],
         queryFn: async() => {
-            let res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/notice/getAllNotice`)
+            let res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/notice/getAllNotice`,{
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+                },
+              })
             let result = await res.json()
 
             return result.getAllNotice as getNoticeType[];

@@ -8,7 +8,10 @@ export default class AttendanceController{
     constructor(private attendanceService: AttendanceService){}
 
     getAllattendances = async (req: Request, res: Response) => {
-        let getAllattendance = await this.attendanceService.getAllattendance();
+        let getAllattendance = await this.attendanceService.getAllattendance(
+            req.body.userRole,
+            req.body.userRoleId
+        );
 
         res.status(200).json ({msg: "get All Attendance", getAllattendance})
     }

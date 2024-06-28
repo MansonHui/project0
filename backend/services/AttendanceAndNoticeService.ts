@@ -6,87 +6,138 @@ export default class AttendanceAndNoticeService {
     return this.knex("allMessageAll");
   }
 
-  async getAll(page = 1, pageSize = 10) {
-    const offset = (page - 1) * pageSize;
+  // async getAll(userRole: string, userRoleId: number, page = 1, pageSize = 10) {
+  //   const offset = (page - 1) * pageSize;
+    async getAll(userRole: string, userRoleId: number) {
+      
 
     return this.knex
-      .select(
-        "c.grade",
-        "c.class_name",
-        "n.topic",
-        "n.content",
-        "s.first_name",
-        "s.last_name",
-        "sch.full_name",
-        this.knex.raw("NULL AS in_out"),
-        "n.created_at"
-      )
-      .from("students as s")
-      .innerJoin("schools as sch", "s.school_id", "sch.id")
-      .innerJoin("notice_student_relation as nsr", "s.id", "nsr.student_id")
-      .innerJoin("notices as n", "nsr.notice_id", "n.id")
-      .innerJoin("student_class_relation as scr", "s.id", "scr.student_id")
-      .innerJoin("classes as c", "scr.class_id", "c.id")
-
-      .unionAll
+    .select(
+      "students.id AS student_id",
+      "classes.grade",
+      "classes.class_name",
+      "notices.topic",
+      "notices.content",
+      "students.first_name",
+      "students.last_name",
+      "schools.full_name",
+      "students.parent_id",
+      this.knex.raw("NULL AS in_out"),
+      "notices.created_at"
+    )
+    .from("students")
+    .innerJoin("schools", "students.school_id", "schools.id")
+    .innerJoin(
+      "notice_student_relation",
+      "students.id",
+      "notice_student_relation.student_id"
+    )
+    .innerJoin("notices", "notice_student_relation.notice_id", "notices.id")
+    .innerJoin(
+      "student_class_relation",
+      "students.id",
+      "student_class_relation.student_id"
+    )
+    .innerJoin("classes", "student_class_relation.class_id", "classes.id")
+    .where(`${userRole}_id`, userRoleId)
+    .unionAll(
+      this.knex
+        .select(
+          "students.id AS student_id",
+          this.knex.raw("NULL AS grade"),
+          this.knex.raw("NULL AS class_name"),
+          this.knex.raw("NULL AS topic"),
+          this.knex.raw("NULL AS content"),
+          "students.first_name",
+          "students.last_name",
+          this.knex.raw("NULL AS full_name"),
+          "students.parent_id",
+          "student_attendance.in_out",
+          "student_attendance.created_at"
+        )
+        .from("students")
+        .innerJoin(
+          "student_attendance",
+          "students.id",
+          "student_attendance.student_id"
+        )
+        .where(`${userRole}_id`, userRoleId)
+    )
+    .orderBy("created_at");
       
-      (
-        this.knex
-          .select(
-            this.knex.raw("NULL AS grade"),
-            this.knex.raw("NULL AS class_name"),
-            this.knex.raw("NULL AS topic"),
-            this.knex.raw("NULL AS content"),
-            "s.first_name",
-            "s.last_name",
-            this.knex.raw("NULL AS full_name"),
-            "student_attendance.in_out",
-            "student_attendance.created_at"
-          )
-          .from("students as s")
-          .innerJoin(
-            "student_attendance",
-            "s.id",
-            "student_attendance.student_id"
-          )
-      )
-      .orderBy("created_at")
-      .offset(offset)
-      .limit(pageSize);
+
+      
   }
 }
 
+// version 2
 // (
-//     SELECT
-//       c.grade,
-//       c.class_name,
-//       n.topic,
-//       n.content,
-//       s.first_name,
-//       s.last_name,
-//       sch.full_name,
-//       NULL AS in_out,
-//       n.created_at
-//     FROM students s
-//     INNER JOIN schools sch ON s.school_id = sch.id
-//     INNER JOIN notice_student_relation nsr ON s.id = nsr.student_id
-//     INNER JOIN notices n ON nsr.notice_id = n.id
-//     INNER JOIN student_class_relation scr ON s.id = scr.student_id
-//     INNER JOIN classes c ON scr.class_id = c.id
-//   )
-//   UNION ALL
-//   (
-//     SELECT
-//       NULL AS grade,
-//       NULL AS class_name,
-//       NULL AS topic,
-//       NULL AS content,
-//       s.first_name,
-//       s.last_name,
-//       NULL AS full_name,
-//       student_attendance.in_out,
-//       student_attendance.created_at
-//     FROM students s
-//     INNER JOIN student_attendance ON s.id = student_attendance.student_id
-//   )
-//   ORDER BY created_at;
+//   SELECT
+//     students.first_name,
+//     students.last_name,
+//     student_attendance.in_out,
+//     student_attendance.created_at,
+//     NULL AS id,
+//     NULL AS grade,
+//     NULL AS class_name,
+//     NULL AS topic,
+//     NULL AS content,
+//     NULL AS full_name
+//   FROM students
+//   INNER JOIN student_attendance
+//   ON students.id = student_attendance.student_id
+// )
+// UNION ALL
+// (
+//   SELECT
+//     students.first_name,
+//     students.last_name,
+//     NULL AS in_out,
+//     NULL AS created_at,
+//     students.id,
+//     classes.grade,
+//     classes.class_name,
+//     notices.topic,
+//     notices.content,
+//     schools.full_name
+//   FROM students
+//   JOIN notice_student_relation ON students.id = notice_student_relation.student_id
+//   JOIN notices ON notice_student_relation.notice_id = notices.id
+//   JOIN student_class_relation ON students.id = student_class_relation.student_id
+//   JOIN classes ON student_class_relation.class_id = classes.id
+//   JOIN schools ON students.school_id = schools.id
+// )
+
+// version 1
+// SELECT
+//   classes.grade,
+//   classes.class_name,
+//   notices.topic,
+//   notices.content,
+//   students.first_name,
+//   students.last_name,
+//   schools.full_name,
+//   NULL AS in_out,
+//   notices.created_at,
+//   students.id AS student_id
+// FROM students
+// INNER JOIN schools ON students.school_id = schools.id
+// INNER JOIN notice_student_relation ON students.id = notice_student_relation.student_id
+// INNER JOIN notices ON notice_student_relation.notice_id = notices.id
+// INNER JOIN student_class_relation ON students.id = student_class_relation.student_id
+// INNER JOIN classes ON student_class_relation.class_id = classes.id
+// UNION ALL
+// SELECT
+//   NULL AS grade,
+//   NULL AS class_name,
+//   NULL AS topic,
+//   NULL AS content,
+//   students.first_name,
+//   students.last_name,
+//   NULL AS full_name,
+//   student_attendance.in_out,
+//   student_attendance.created_at,
+//   students.id AS student_id
+// FROM students
+// INNER JOIN student_attendance ON students.id = student_attendance.student_id
+// ORDER BY created_at;

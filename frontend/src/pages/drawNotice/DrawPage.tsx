@@ -1,4 +1,4 @@
-import { IconButton } from "@mui/material";
+
 import styles from "./DrawPage.module.css";
 import CreateIcon from "@mui/icons-material/Create";
 import * as React from "react";
@@ -7,24 +7,29 @@ import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialIcon from "@mui/material/SpeedDialIcon";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 
-import SaveIcon from "@mui/icons-material/Save";
-import ArticleIcon from '@mui/icons-material/Article';
+
+import { Outlet, useNavigate } from "react-router-dom";
+
+
 
 
 const actions = [
   { icon: <CreateIcon />, name: "Create" },
-  
-  
 ];
 
 export default function Drawpage() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  const navigate = useNavigate();
+  
+  const handleCreateClick = () => {
+    navigate("Textarea");
+  };
  
 
   return (
+    
     <div className={styles.Container}>
      
       <Box sx={{ height: "97%", transform: "translateZ(0px)", flexGrow: 1 }}>
@@ -41,11 +46,14 @@ export default function Drawpage() {
               key={action.name}
               icon={action.icon}
               tooltipTitle={action.name}
-              onClick={handleClose}
+              onClick={handleCreateClick}
             />
           ))}
         </SpeedDial>
       </Box>
+
+
+      <Outlet />
     </div>
   );
 }

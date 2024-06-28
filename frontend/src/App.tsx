@@ -13,6 +13,7 @@ import AttendancePage from "./pages/attendance/AttendancePage";
 
 import MessageAllPage from "./pages/messageAll/MessageAllPage";
 import ParentPage from "./pages/parent/ParentPage";
+import Textarea from "./components/textarea/Textarea";
 // import RegisterPage from "./pages/register/registerPage";
 
 function App() {
@@ -31,12 +32,17 @@ function App() {
           <Route path="/HomePage" element={<HomePage />} />
           {/* <Route path="/HomePage" element={<ParentPage />} /> */}
           <Route path="/Message" element={<MessagePage />}>
+
           <Route path="/Message" element={<MessageAllPage />} />
             <Route path="MessageAll" element={<MessageAllPage />} />
             <Route path="Notices" element={<NoticePage />} />
             <Route path="Attendance" element={<AttendancePage />} />
           </Route>
-          <Route path="/Drawing" element={<DrawPage />} />
+
+          <Route path="/Drawing" element={<DrawPage />} >
+            <Route path="Textarea" element={<Textarea/>} ></Route>
+          
+          </Route>
           <Route path="/AI" element={<AIAttendances />} />
           {/* <Route path="/Register" element={<RegisterPage />} /> */}
       </Route>

@@ -15,7 +15,7 @@ export default function NoticePage(){
                         </div>
                         <div className={styles.Message_type}>
                             <div>Class: {entry.grade}{entry.class_name}</div>
-                            <div>Student: {entry.last_name} {entry.last_name}</div>
+                            <div>Student: {entry.last_name} {entry.first_name}</div>
                         </div>
                         <div className={styles.Message_Detail}>
                             <div>
