@@ -34,7 +34,13 @@ export default function MessagePage() {
 
         <div className={styles.Message_Container}>
           
+          
+          <>
+          
           <Outlet />
+          </>
+          
+          
         </div>
       </div>
     </div>
