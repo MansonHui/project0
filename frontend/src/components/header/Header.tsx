@@ -16,6 +16,12 @@ import { Outlet } from "react-router-dom";
 export default function MenuHeaderBar() {
   let [isHide, setIsHide] = React.useState(true);
 
+  const [navBarOpacity, setNavBarOpacity] = React.useState(0);
+  const handleMenuClick = () => {
+    setIsHide(!isHide);
+    setNavBarOpacity(isHide ? 1 : 0);
+  };
+
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -95,7 +101,7 @@ export default function MenuHeaderBar() {
           </Toolbar>
         </AppBar>
       </Box>
-      <Outlet />
+
     </>
   );
 }

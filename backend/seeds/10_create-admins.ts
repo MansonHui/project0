@@ -23,8 +23,16 @@ export async function seed(knex: Knex): Promise<void> {
       },
       {
         admin_name: "super",
-        password: "super",
-        admin_email: "super@tecky.edu.hk",
+        password: "stpeter",
+        admin_email: "super@stpeter.edu.hk",
+        school_id: 1,
+      },
+
+      {
+        admin_name: "super",
+        password: "hallowint",
+        admin_email: "super@hallowint.edu.hk",
+        school_id: 2,
       },
     ]);
   } catch (err) {

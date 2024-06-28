@@ -1,10 +1,10 @@
 .Container{
     position: absolute;
-    top: 50%;
+    /* top: 50%;
     left: 50%;
-    transform: translate(-50%, -47%);
+    transform: translate(-50%, -47%); */
 
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     border-radius: 8px;
     height: 850px;
     width: 93%;
@@ -27,13 +27,13 @@
 
 .Message_Container{
     margin: 10px;
-    height: 86%;
+    /* height: 86%; */
     width: 93%;
 
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     border-radius: 8px;
 
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
 }
 
 .Message{
