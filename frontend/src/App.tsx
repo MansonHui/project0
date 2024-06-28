@@ -14,7 +14,8 @@ import AttendancePage from "./pages/attendance/AttendancePage";
 import MessageAllPage from "./pages/messageAll/MessageAllPage";
 import ParentPage from "./pages/parent/ParentPage";
 import Textarea from "./components/textarea/Textarea";
-// import RegisterPage from "./pages/register/registerPage";
+
+import RegisterPage from "./pages/register/RegisterPage";
 
 function App() {
   const { authToken } = useAuth();
@@ -44,7 +45,7 @@ function App() {
           
           </Route>
           <Route path="/AI" element={<AIAttendances />} />
-          {/* <Route path="/Register" element={<RegisterPage />} /> */}
+          <Route path="/Register" element={<RegisterPage />} />
       </Route>
     </Routes>
   );
