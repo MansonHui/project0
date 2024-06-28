@@ -1,14 +1,15 @@
 import type { Knex } from "knex";
 
 export default class StudentService {
+  [x: string]: any;
   constructor(private knex: Knex) {}
 
   async getAllStudentData(userRole: string, userRoleId: number) {
     let result = await this.knex
       .select(
+        "image",
         "first_name",
         "last_name",
-        "image",
         "grade",
         "class_name",
         "student_number",

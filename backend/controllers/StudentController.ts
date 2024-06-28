@@ -16,4 +16,8 @@ export default class StudentController {
     console.log("req.body.userRole", req.body.userRole);
     res.json(studentData);
   };
+
+  getOwnStudentProfile = async (req: Request, res: Response) => {
+  
+  };
 }
