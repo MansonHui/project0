@@ -26,14 +26,14 @@ export default function HomePage() {
             </div>
           </div>
           <div className={styles.UserChild_Container}>
-            <div className={styles.UserChild_photo}>{entry.student_image}</div>
+            <div className={styles.UserChild_photo}>{entry.image}</div>
             <div className={styles.UserChild_Info}>
               <div className={styles.UserChild_Information}>
-                Teacher: {entry.admin_username}
+                Teacher: {entry.admin_name}
               </div>
               <div className={styles.UserChild_Information}>
-                Student: {entry.student_last_name}
-                {entry.student_first_name}
+                Student: {entry.last_name}
+                {entry.first_name}
               </div>
               <div className={styles.UserChild_Information}>
                 Year: {entry.school_year}
@@ -43,7 +43,7 @@ export default function HomePage() {
                 {entry.class_name}
               </div>
               <div className={styles.UserChild_Information}>
-                Parent: {entry.parent_username}
+                Parent: {entry.username}
               </div>
             </div>
           </div>
