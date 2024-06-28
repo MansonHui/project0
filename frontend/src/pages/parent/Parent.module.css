@@ -1,0 +1,67 @@
+.School_Container{
+    height: 450px;
+    width: 100%;
+    background-color: azure;
+}
+
+.UserSchool_Container{
+    height: 18%;
+    width: 100%;
+    background-color: antiquewhite;
+    display: flex;
+    margin: 10px;
+    
+}
+
+.UserSchool_Logo{
+    height: 100%;
+    width: 20%;
+    background-color: azure;
+}
+
+.UserSchool_Name{
+    height: 100%;
+    width: 70%;
+    background-color: aqua;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start
+}
+
+.UserSchool_Info{
+    height: 100%;
+    width: 10%;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    justify-items: center;
+    align-items: center;
+}
+
+.UserChild_Container{
+    height: 80%;
+    width: 100%;
+    background-color: rgb(207, 207, 207);
+    display: flex;
+}
+
+.UserChild_photo{
+    height: 93%;
+    width: 45%;
+    background-color: rgb(27, 244, 244);
+    margin: 10px;
+}
+
+.UserChild_Info{
+    height: 93%;
+    width: 55%;
+    background-color: beige;
+    margin: 10px;
+}
+
+.UserChild_Information{
+    height: 15%;
+    width: 96%;
+    background-color: rgb(7, 223, 239);
+    margin: 5px;
+}

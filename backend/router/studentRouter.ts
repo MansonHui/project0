@@ -1,6 +1,5 @@
 import { Router } from "express";
 import StudentController from "../controllers/StudentController";
-
 import { knex } from "../utils/knex";
 import StudentService from "../services/StudentService";
 import { checkToken } from "../utils/guard";
@@ -15,5 +14,3 @@ studentRouter.post(
   checkToken,
   studentController.getstudentData
 );
-
-studentRouter.get("/getstudentData", studentController.getstudentData);

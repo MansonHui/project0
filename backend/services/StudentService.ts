@@ -1,6 +1,7 @@
 import type { Knex } from "knex";
 
 export default class StudentService {
+  [x: string]: any;
   constructor(private knex: Knex) {}
 
   async getStudentData(
