@@ -24,6 +24,31 @@ export async function seed(knex: Knex): Promise<void> {
         student_id: 3,
         notice_id: 1,
       },
+      {
+        notice_choice_id: 3,
+        student_id: 4,
+        notice_id: 1,
+      },
+      {
+        notice_choice_id: 4,
+        student_id: 5,
+        notice_id: 1,
+      },
+      {
+        notice_choice_id: 5,
+        student_id: 6,
+        notice_id: 1,
+      },
+      {
+        notice_choice_id: 1,
+        student_id: 7,
+        notice_id: 1,
+      },
+      {
+        notice_choice_id: 1,
+        student_id: 8,
+        notice_id: 1,
+      },
     ]);
   } catch (err) {
     console.log(err);

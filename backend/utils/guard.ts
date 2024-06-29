@@ -29,6 +29,8 @@ export async function checkToken(
     req.body.userRoleEmail = decoded.email;
     req.body.userRoleName = decoded.userName;
 
+    console.log("decoded", decoded);
+
     return next();
   } catch (e) {
     res.status(500).json({ msg: "you are not logged in" });

@@ -17,13 +17,13 @@ export async function seed(knex: Knex): Promise<void> {
       },
       {
         detail: "Sport Uniform Payment",
-        amount: 480,
+        amount: 500,
         parent_id: 2,
         notice_student_relation_id: 2,
       },
       {
         detail: "Summer Sport Class Payment",
-        amount: 480,
+        amount: 500,
         parent_id: 2,
         notice_student_relation_id: 3,
       },

@@ -17,6 +17,14 @@ export async function seed(knex: Knex): Promise<void> {
         grade: 2,
         class_name: "B",
       },
+      {
+        grade: 3,
+        class_name: "C",
+      },
+      {
+        grade: 4,
+        class_name: "D",
+      },
     ]);
   } catch (err) {
     console.log(err);
