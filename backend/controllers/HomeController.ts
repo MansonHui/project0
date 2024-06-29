@@ -6,7 +6,7 @@ import HomeSerive from "../services/HomeService";
 export default class HomeController{
     router = express.Router();
     constructor(private homeService: HomeSerive){
-        // this.router.get("/getClassAllInfo", this.getAllClassInfo);
+        // this.router.get("/getClassAllInfo", this.);
     }
 
     getAllClassInfo = async (req: Request, res: Response) => {

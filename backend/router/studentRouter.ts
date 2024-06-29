@@ -1,6 +1,5 @@
 import { Router } from "express";
 import StudentController from "../controllers/StudentController";
-
 import { knex } from "../utils/knex";
 import StudentService from "../services/StudentService";
 import { checkToken } from "../utils/guard";
@@ -18,6 +17,12 @@ let studentController = new StudentController(studentService);
 
 studentRouter.get(
   "/getstudentData",
+  checkToken,
+  studentController.getstudentData
+);
+
+studentRouter.get(
+  "/getStudentData",
   checkToken,
   studentController.getstudentData
 );
