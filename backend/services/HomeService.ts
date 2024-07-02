@@ -8,32 +8,37 @@ export default class HomeSerive {
 
   async getALLClassInfo(userRole: string, userRoleId: number) {
     return await this.knex
+
       .select(
-        "schools.id",
-        "schools.full_name ",
-        "school_years.school_year",
-        "classes.grade",
-        "classes.class_name",
-        "students.id",
         "students.first_name",
         "students.last_name",
         "students.gender",
         "students.birthday",
-        "students.image",
-        "students.parent_id",
-        "students.school_id ",
-        "admins.id ",
-        "admins.admin_name",
-        "admins.school_id ",
-        "parents.id ",
-        "parents.username"
+        "students.image"
       )
-      .from("schools")
+      .from("students")
 
-      .innerJoin("admins", "schools.id", "admins.school_id")
+      .innerJoin(
+        "student_class_relation as scr",
+        "scr.student_id",
+        "students.id"
+      )
+      .select("scr.student_number")
 
-      .innerJoin("admin_class_relation as acr", "admins.id", " acr.admin_id")
-      .innerJoin("classes", "acr.admin_id", "classes.id")
+      .innerJoin("classes", "scr.class_id", "classes.id")
+      .select("classes.grade", "classes.class_name")
+
+      .innerJoin("admin_class_relation as acr", "classes.id", " acr.class_id")
+
+      .innerJoin("admins", "acr.admin_id", "admins.id")
+      .select("admins.admin_name")
+      .innerJoin("schools", "schools.id", "admins.school_id")
+
+      .select("schools.full_name", "schools.abbr_name")
+
+      .innerJoin("parents", "students.parent_id", "parents.id")
+
+      .select("parents.username")
 
       .innerJoin(
         "class_school_year_relation as csy",
@@ -42,11 +47,8 @@ export default class HomeSerive {
       )
       .innerJoin("school_years", "csy.school_year_id", "school_years.id")
 
-      .innerJoin("student_class_relation as scr", "scr.class_id", "classes.id")
+      .select("school_years.school_year")
 
-      .innerJoin("students", "scr.class_id", "students.id")
-
-      .innerJoin("parents", "students.parent_id", "students.id")
       .where(`${userRole}s.id`, userRoleId);
   }
 }
