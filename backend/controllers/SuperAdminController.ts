@@ -4,9 +4,9 @@ import { getSchoolAbbr, isEduExistInMail } from "../helper/getSchoolNameAbbr";
 import { getUserName } from "../helper/getUserNameFromEmail";
 // import { Upload } from "@aws-sdk/lib-storage";
 import dotenv from "dotenv";
-import formidable from "formidable";
-import fs from "fs";
-import path from "path";
+// import formidable from "formidable";
+// import fs from "fs";
+// import path from "path";
 
 dotenv.config();
 
@@ -115,52 +115,88 @@ export default class SuperAdminController {
     res.status(200).json(response_array);
   };
 
-  createStudent = (req: Request, res: Response) => {
-    const uploadDir = path.join(__dirname, "../uploads");
-    fs.mkdirSync(uploadDir, { recursive: true });
+  createStudent = async (req: Request, res: Response) => {
+    let {
+      email,
+      first_name,
+      last_name,
+      HKID_number,
+      birthday,
+      gender,
+      userRoleEmail,
+    } = req.body;
 
-    const form = formidable({
-      uploadDir,
-      keepExtensions: true,
-      maxFiles: 1,
-      maxFileSize: 1024 * 1024,
-      filter: (part) => part.mimetype?.startsWith("image/") || false,
-    });
+    let parentId = await this.superAdminService.getParentId(email as string);
 
-    form.parse(req, async (err, fields, files) => {
-      console.log("fields.email", fields.email);
-      let parentId = await this.superAdminService.getParentId(
-        fields.email as string
-      );
+    console.log("parentId", parentId.id);
 
-      let schoolId = await this.superAdminService.getSchoolId(
-        (await getSchoolAbbr(req.body.userRoleEmail)) as string
-      );
+    let schoolId = await this.superAdminService.getSchoolId(
+      (await getSchoolAbbr(userRoleEmail)) as string
+    );
 
-      console.log("parentId", parentId);
+    console.log("schoolId", schoolId);
 
-      let newStudentId = await this.superAdminService.createNewStudent(
-        fields.first_name as string,
-        fields.last_name as string,
-        fields.HKID_number as string,
-        fields.birthday as string,
-        fields.gender as string,
-        (files.image as formidable.File)?.newFilename,
-        parentId.id,
-        schoolId.id
-      );
+    let newStudentId = await this.superAdminService.createNewStudent(
+      first_name,
+      last_name,
+      HKID_number,
+      birthday,
+      gender,
+      parentId.id,
+      schoolId.id
+    );
 
-      let absolutePatth =
-        uploadDir + "/" + (files.image as formidable.File)?.newFilename;
+    console.log("createStudent", newStudentId);
 
-      console.log(absolutePatth);
-
-      console.log("newStudentId", newStudentId);
-
-      console.log({ err, fields, files });
-      res.json({ fields, files });
-    });
+    res.json({ newStudentId });
   };
+
+  // uploadStudentImage = (req: Request, res: Response) => {
+  //   const uploadDir = path.join(__dirname, "../uploads");
+  //   fs.mkdirSync(uploadDir, { recursive: true });
+
+  //   const form = formidable({
+  //     uploadDir,
+  //     keepExtensions: true,
+  //     maxFiles: 1,
+  //     maxFileSize: 1024 * 1024,
+  //     filter: (part) => part.mimetype?.startsWith("image/") || false,
+  //   });
+
+  //   form.parse(req, async (err, fields, files) => {
+  //     console.log("fields.email", fields.email);
+  //     let parentId = await this.superAdminService.getParentId(
+  //       fields.email as string
+  //     );
+
+  //     let schoolId = await this.superAdminService.getSchoolId(
+  //       (await getSchoolAbbr(req.body.userRoleEmail)) as string
+  //     );
+
+  //     console.log("parentId", parentId);
+
+  //     let newStudentId = await this.superAdminService.createNewStudent(
+  //       fields.first_name as string,
+  //       fields.last_name as string,
+  //       fields.HKID_number as string,
+  //       fields.birthday as string,
+  //       fields.gender as string,
+  //       (files.image as formidable.File)?.newFilename,
+  //       parentId.id,
+  //       schoolId.id
+  //     );
+
+  //     let absolutePatth =
+  //       uploadDir + "/" + (files.image as formidable.File)?.newFilename;
+
+  //     console.log(absolutePatth);
+
+  //     console.log("newStudentId", newStudentId);
+
+  //     console.log({ err, fields, files });
+  //     res.json({ fields, files });
+  //   });
+  // };
 
   getAllStudentData = async (req: Request, res: Response) => {
     let SchoolAbbr = await getSchoolAbbr(req.body.userRoleEmail);

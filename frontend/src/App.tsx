@@ -24,7 +24,7 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (authToken) navigate("/superAdmin");
+    if (authToken) navigate("/HomePage");
     else navigate("/");
   }, [authToken]);
 
