@@ -17,12 +17,12 @@ superAdminRouter.post(
   superAdminController.createAdmin
 );
 
-// superAdminRouter.post(
-//   "/createStudent",
-//   checkToken,
-//   isSuperAdmin,
-//   superAdminController.createStudent
-// );
+superAdminRouter.post(
+  "/createStudent",
+  checkToken,
+  isSuperAdmin,
+  superAdminController.createStudent
+);
 
 superAdminRouter.post(
   "/createParent",

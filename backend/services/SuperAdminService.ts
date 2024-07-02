@@ -98,10 +98,57 @@ export default class SuperAdminService {
       .select("schools.abbr_name")
 
       .join("parents", "parents.id", "=", "students.parent_id")
-      .select("username");
+      .select("username")
 
-    // .where(`schools.abbr_name`, abbrName);
+      .where(`schools.abbr_name`, abbrName);
 
     return result;
+  }
+
+  async getParentId(email: string) {
+    let parnetId = await this.knex
+      .select("parents.id")
+      .from("parents")
+      .where("email", email);
+
+    return parnetId[0];
+  }
+
+  async getSchoolId(school_Abbr: string) {
+    let schoolId = await this.knex
+      .select("schools.id")
+      .from("schools")
+      .where("abbr_name", school_Abbr);
+
+    return schoolId[0];
+  }
+
+  async createNewStudent(
+    first_name: string,
+    last_name: string,
+    HKID_number: string,
+    birthday: string,
+    gender: string,
+    newFilename: string,
+    parentId: number,
+    schoolId: number
+  ) {
+    return await this.knex("students")
+      .insert({
+        first_name: first_name,
+        last_name: last_name,
+        HKID_number: HKID_number,
+        birthday: birthday,
+
+        gender: gender,
+        image: newFilename,
+
+        parent_id: parentId,
+        school_id: schoolId,
+
+        created_at: this.knex.fn.now(),
+        updated_at: this.knex.fn.now(),
+      })
+      .returning("students.id");
   }
 }

@@ -1,10 +1,12 @@
 import { Request, Response } from "express";
 import SuperAdminService from "../services/SuperAdminService";
-import { getSchoolAbbr } from "../helper/getSchoolNameAbbr";
+import { getSchoolAbbr, isEduExistInMail } from "../helper/getSchoolNameAbbr";
 import { getUserName } from "../helper/getUserNameFromEmail";
 // import { Upload } from "@aws-sdk/lib-storage";
 import dotenv from "dotenv";
-// import formidable from "formidable";
+import formidable from "formidable";
+import fs from "fs";
+import path from "path";
 
 dotenv.config();
 
@@ -13,65 +15,71 @@ export default class SuperAdminController {
 
   createAdmin = async (req: Request, res: Response) => {
     console.log("req.body", req.body);
-    let emailListArray = req.body.emailList;
+    let email = req.body.email;
 
     // let emailArray = Object.keys(emailListObject).map(
     //   (key) => emailListObject[key]
     // );
     let response_array = [];
-    for (let result of emailListArray) {
-      let email = result;
-      let username = await getUserName(email);
-      let password = "1234567";
-      let existEmail = await this.superAdminService.checkDuplicateEmailAdmin(
-        email
-      );
-      let schoolAbbr = await getSchoolAbbr(email);
 
-      if (existEmail) {
-        response_array.push({ msg: `${email} already exists` });
-      }
+    let username = await getUserName(email);
+    let password = username;
+    let existEmail = await this.superAdminService.checkDuplicateEmailAdmin(
+      email
+    );
+    let newAdminSchoolAbbr = await getSchoolAbbr(email);
 
-      if (!existEmail) {
-        if (schoolAbbr) {
-          let getSchoolTable = await this.superAdminService.getSchoolTable(
-            schoolAbbr
-          );
+    let superAdminSchoolAbbr = await getSchoolAbbr(req.body.userRoleEmail);
 
-          if (getSchoolTable) {
-            let newAdminData = await this.superAdminService.createNewAdmin(
-              username,
-              email,
-              password,
-              getSchoolTable.id
+    let isEduExist = await isEduExistInMail(email);
+
+    if (!isEduExist) {
+      response_array.push({
+        msg: `wrong email format`,
+      });
+    }
+
+    if (isEduExist) {
+      if (newAdminSchoolAbbr) {
+        if (newAdminSchoolAbbr === superAdminSchoolAbbr) {
+          if (existEmail) {
+            response_array.push({ msg: `${email} already exists` });
+          }
+
+          if (!existEmail) {
+            let isSchoolExist = await this.superAdminService.getSchoolTable(
+              newAdminSchoolAbbr
             );
 
-            response_array.push({
-              msg: `new admins user account ${getSchoolTable.full_name} , ${newAdminData.admin_email} , ${newAdminData.password}`,
-            });
-          } else {
-            response_array.push({
-              msg: `your school not yet subscript our service`,
-            });
+            if (isSchoolExist) {
+              let newAdminData = await this.superAdminService.createNewAdmin(
+                username,
+                email,
+                password,
+                isSchoolExist.id
+              );
+
+              response_array.push({
+                msg: `new admins user account ${isSchoolExist.full_name} , ${newAdminData.admin_email} , ${newAdminData.password}`,
+              });
+
+              if (!isSchoolExist) {
+                response_array.push({
+                  msg: `your school not yet subscript our service`,
+                });
+              }
+            }
           }
         }
-        // if (!schoolAbbr) {
-        //   let newParentdetail = await this.superAdminService.createNewParent(
-        //     username,
-        //     email,
-        //     password
-        //   );
-
-        //   console.log(newParentdetail);
-
-        //   response_array.push({
-        //     msg: `${newParentdetail.email} established`,
-        //   });
-        // }
+        if (newAdminSchoolAbbr !== superAdminSchoolAbbr) {
+          response_array.push({
+            msg: `your are not admin for that school `,
+          });
+        }
       }
     }
 
-    res.status(200).json(response_array);
+    return res.status(200).json(response_array);
   };
 
   createParent = async (req: Request, res: Response) => {
@@ -107,16 +115,52 @@ export default class SuperAdminController {
     res.status(200).json(response_array);
   };
 
-  // createStudent = (req: Request, res: Response) => {
-  //   const searchForm = formidable({
-  //     uploadDir: "images/image_search",
-  //     keepExtensions: true,
-  //     maxFiles: 1,
-  //     maxFileSize: 1024 * 1024 * 5,
-  //     filter: (part) => part.mimetype?.startsWith("image/") || false,
+  createStudent = (req: Request, res: Response) => {
+    const uploadDir = path.join(__dirname, "../uploads");
+    fs.mkdirSync(uploadDir, { recursive: true });
 
-  //   });
-  // };
+    const form = formidable({
+      uploadDir,
+      keepExtensions: true,
+      maxFiles: 1,
+      maxFileSize: 1024 * 1024,
+      filter: (part) => part.mimetype?.startsWith("image/") || false,
+    });
+
+    form.parse(req, async (err, fields, files) => {
+      console.log("fields.email", fields.email);
+      let parentId = await this.superAdminService.getParentId(
+        fields.email as string
+      );
+
+      let schoolId = await this.superAdminService.getSchoolId(
+        (await getSchoolAbbr(req.body.userRoleEmail)) as string
+      );
+
+      console.log("parentId", parentId);
+
+      let newStudentId = await this.superAdminService.createNewStudent(
+        fields.first_name as string,
+        fields.last_name as string,
+        fields.HKID_number as string,
+        fields.birthday as string,
+        fields.gender as string,
+        (files.image as formidable.File)?.newFilename,
+        parentId.id,
+        schoolId.id
+      );
+
+      let absolutePatth =
+        uploadDir + "/" + (files.image as formidable.File)?.newFilename;
+
+      console.log(absolutePatth);
+
+      console.log("newStudentId", newStudentId);
+
+      console.log({ err, fields, files });
+      res.json({ fields, files });
+    });
+  };
 
   getAllStudentData = async (req: Request, res: Response) => {
     let SchoolAbbr = await getSchoolAbbr(req.body.userRoleEmail);
