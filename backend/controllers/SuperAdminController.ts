@@ -130,7 +130,7 @@ export default class SuperAdminController {
     form.parse(req, async (err, fields, files) => {
       console.log("fields.email", fields.email);
       let parentId = await this.superAdminService.getParentId(
-        fields.email as string
+        fields.email as unknown as string
       );
 
       let schoolId = await this.superAdminService.getSchoolId(
@@ -140,18 +140,18 @@ export default class SuperAdminController {
       console.log("parentId", parentId);
 
       let newStudentId = await this.superAdminService.createNewStudent(
-        fields.first_name as string,
-        fields.last_name as string,
-        fields.HKID_number as string,
-        fields.birthday as string,
-        fields.gender as string,
-        (files.image as formidable.File)?.newFilename,
+        fields.first_name as unknown as string,
+        fields.last_name as unknown as string,
+        fields.HKID_number as unknown as string,
+        fields.birthday as unknown as string,
+        fields.gender as unknown as string,
+        (files.image as unknown as formidable.File)?.newFilename,
         parentId.id,
         schoolId.id
       );
 
       let absolutePatth =
-        uploadDir + "/" + (files.image as formidable.File)?.newFilename;
+        uploadDir + "/" + (files.image as unknown as formidable.File)?.newFilename;
 
       console.log(absolutePatth);
 
