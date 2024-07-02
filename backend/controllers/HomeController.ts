@@ -10,7 +10,10 @@ export default class HomeController{
     }
 
     getAllClassInfo = async (req: Request, res: Response) => {
-        let getAllClassInfo = await this.homeService.getALLClassInfo();
+        let getAllClassInfo = await this.homeService.getALLClassInfo(
+            req.body.userRole,
+            req.body.userRoleId
+        );
 
         console.log("hihih",getAllClassInfo)
         res.status(200).json({ msg: "from all claass", getAllClassInfo})

@@ -25,6 +25,7 @@ app.use("/notice", noticeRouter);
 app.use("/student", studentRouter);
 app.use("/attendance", attendanceRouter);
 app.use("/Message", attendanceAndNoticeRouter);
+app.use("/images", express.static("uploads"));
 
 //***************************************** */ testing
 app.post("/", function (req: Request, res: Response) {});

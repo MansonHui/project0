@@ -1,9 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import { useGetMessageAll } from "../../api/messageAllPageAPI";
 
 
 import styles from "./MessageAllPage.module.css";
 
 export default function MessageAllPage() {
+  const navigate = useNavigate();
   const messageAll = useGetMessageAll();
 
   return (
@@ -12,7 +14,9 @@ export default function MessageAllPage() {
       {messageAll.status === "success" ? (
         messageAll.data.map((entry,idx) =>
           entry.grade !== null ? (
-            <div className={styles.Message} key={idx}>
+            <div onClick={() => {
+              navigate("../DetailNotice", { state: { id: entry.id, type: 'notice' } });
+            }} className={styles.Message} key={idx}>
               <div className={styles.Message_type}>
                 <div>School: {entry.full_name}</div>
               </div>
