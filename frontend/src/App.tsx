@@ -14,8 +14,10 @@ import AttendancePage from "./pages/attendance/AttendancePage";
 import MessageAllPage from "./pages/messageAll/MessageAllPage";
 import ParentPage from "./pages/parent/ParentPage";
 import Textarea from "./components/textarea/Textarea";
+import TeacherNoticePage from "./pages/teacherNotice/TeacherNoticePage";
+import DetailNoticePage from "./pages/detailNotice/DetailNoticePage";
 
-import RegisterPage from "./pages/register/RegisterPage";
+// import RegisterPage from "./pages/register/RegisterPage";
 
 function App() {
   const { authToken } = useAuth();
@@ -35,9 +37,11 @@ function App() {
           <Route path="/Message" element={<MessagePage />}>
 
           <Route path="/Message" element={<MessageAllPage />} />
-            <Route path="MessageAll" element={<MessageAllPage />} />
-            <Route path="Notices" element={<NoticePage />} />
-            <Route path="Attendance" element={<AttendancePage />} />
+            <Route path="MessageAll" element={<MessageAllPage />} > </Route>
+            <Route path="Notices" element={<NoticePage />} > </Route>
+            <Route path="DetailNotice" element={<DetailNoticePage />} > </Route>
+            <Route path="Attendance" element={<AttendancePage />} > </Route>
+            
           </Route>
 
           <Route path="/Drawing" element={<DrawPage />} >
@@ -45,7 +49,9 @@ function App() {
           
           </Route>
           <Route path="/AI" element={<AIAttendances />} />
-          <Route path="/Register" element={<RegisterPage />} />
+          {/* <Route path="/Register" element={<RegisterPage />} /> */}
+
+          <Route path="TeacherNotice" element={<TeacherNoticePage/>} ></Route>
       </Route>
     </Routes>
   );
