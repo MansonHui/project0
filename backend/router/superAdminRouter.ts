@@ -30,3 +30,10 @@ superAdminRouter.post(
   isSuperAdmin,
   superAdminController.createParent
 );
+
+superAdminRouter.get(
+  "/getAllStudentData",
+  checkToken,
+  isSuperAdmin,
+  superAdminController.getAllStudentData
+);

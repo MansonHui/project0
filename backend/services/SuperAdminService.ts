@@ -62,4 +62,46 @@ export default class SuperAdminService {
         .returning("*")
     )[0];
   }
+
+  async getAllStudentData(abbrName: string) {
+    let result = await this.knex
+      .select("first_name", "last_name", "image")
+      .from("students")
+
+      .join(
+        "student_class_relation as scr",
+        "scr.student_id",
+        "=",
+        "students.id"
+      )
+      .select("student_number")
+
+      .join("classes", "scr.class_id", "=", "classes.id")
+      .select("grade", "class_name")
+
+      .join(
+        "class_school_year_relation as csy",
+        "classes.id",
+        "=",
+        "csy.class_id"
+      )
+
+      .join("school_years", "csy.school_year_id", "=", "school_years.id")
+      .select("school_year")
+
+      .join("admin_class_relation as acr", "acr.class_id", "=", "classes.id")
+
+      .join("admins", "acr.admin_id", "=", "admins.id")
+      .select("admin_name")
+
+      .join("schools", "students.school_id", "=", "schools.id")
+      .select("schools.abbr_name")
+
+      .join("parents", "parents.id", "=", "students.parent_id")
+      .select("username");
+
+    // .where(`schools.abbr_name`, abbrName);
+
+    return result;
+  }
 }

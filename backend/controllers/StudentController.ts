@@ -13,7 +13,7 @@ export default class StudentController {
       req.body.userRole,
       req.body.userRoleId
     );
-    console.log("req.body.userRole", req.body.userRole);
+    console.log("req.body.userRoleEmail", req.body.userRoleEmail);
     res.json(studentData);
   };
 

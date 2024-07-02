@@ -19,32 +19,32 @@ export async function seed(knex: Knex): Promise<void> {
         option: "B",
         notice_id: 1,
         content: "football",
-        price: 480,
+        price: 500,
       },
       {
         option: "C",
         notice_id: 1,
         content: "volleyball",
-        price: 520,
+        price: 500,
       },
       {
         option: "D",
         notice_id: 1,
         content: "badminton",
-        price: 480,
+        price: 500,
       },
       {
         option: "E",
         notice_id: 1,
         content: "tennis",
-        price: 520,
+        price: 500,
       },
 
       {
         option: "A",
         notice_id: 2,
         content: "Required",
-        price: 480,
+        price: 500,
       },
       {
         option: "B",

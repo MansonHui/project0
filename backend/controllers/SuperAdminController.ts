@@ -117,4 +117,15 @@ export default class SuperAdminController {
 
   //   });
   // };
+
+  getAllStudentData = async (req: Request, res: Response) => {
+    let SchoolAbbr = await getSchoolAbbr(req.body.userRoleEmail);
+
+    console.log("SchoolAbbr", SchoolAbbr);
+    let studentData = await this.superAdminService.getAllStudentData(
+      SchoolAbbr!
+    );
+    console.log("req.body.userRoleEmail", req.body.userRoleEmail);
+    res.json(studentData);
+  };
 }
