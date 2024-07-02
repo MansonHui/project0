@@ -6,31 +6,35 @@ export default class HomeSerive {
     return this.knex("get_class");
   }
 
-  async getALLClassInfo() {
+  async getALLClassInfo(userRole: string, userRoleId: number) {
     return await this.knex
     .select(
-      "first_name",
-      "last_name",
-      "image",
-      "grade",
-      "class_name",
-      "student_number",
-      "admin_name",
-      "username",
-      "full_name"
+      'schools.id AS school_id',
+      'schools.full_name AS school_name',
+      'school_years.school_year',
+      'classes.grade',
+      'classes.class_name',
+      'students.id AS student_id',
+      'students.first_name',
+      'students.last_name',
+      'students.gender',
+      'students.birthday',
+      'students.image',
+      'students.parent_id',
+      'students.school_id AS student_school_id',
+      'admins.id AS admin_id',
+      'admins.admin_name',
+      'admins.school_id AS admin_school_id',
+      'parents.id AS parent_id',
+      'parents.username'
     )
-    .from("students")
-    .join(
-      "student_class_relation as scr",
-      "scr.student_id",
-      "=",
-      "students.id"
-    )
-    .join("classes", "scr.class_id", "=", "classes.id")
-    .join("admin_class_relation as acr", "classes.id", "=", "acr.class_id")
-    .join("admins", "admins.id", "=", "acr.admin_id")
-    .join("parents", "parents.id", "=", "students.parent_id")
-    .join("schools", "schools.id", "=", "admins.school_id")
+    .from('schools')
+    .innerJoin('school_years', 'schools.id', 'school_years.school_id')
+    .innerJoin('classes', 'schools.id', 'classes.id')
+    .innerJoin('students', 'schools.id', 'students.school_id')
+    .innerJoin('admins', 'schools.id', 'admins.school_id')
+    .innerJoin('parents', 'students.parent_id', 'parents.id')
+    .where(`${userRole}s.id`, userRoleId);
   }
 }
 
