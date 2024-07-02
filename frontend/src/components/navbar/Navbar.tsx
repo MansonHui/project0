@@ -49,6 +49,10 @@ export default function Navbar() {
           <div className={styles.navbar_function_logo}><StickyNote2RoundedIcon color="action"/></div>
           <div className={styles.navbar_function_text}>Register</div>
         </div>
+        <div onClick={()=>navigate("TeacherNotice")} className={styles.navbar_function}>
+          <div className={styles.navbar_function_logo}><StickyNote2RoundedIcon color="action"/></div>
+          <div className={styles.navbar_function_text}>TeacherNotice</div>
+        </div>
         
       </div>
       

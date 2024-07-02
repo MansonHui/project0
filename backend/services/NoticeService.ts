@@ -6,24 +6,28 @@ export default class NoticeSerice{
         return this.knex("get_notice")
     }
 
-    async getAllNotice(){
+    async getAllNotice(userRole: string, userRoleId: number){
+        console.log("check User Role",userRole)
         return(
-            await this.knex('students as s')
+            await this.knex('students')
             .select(
-              'c.grade',
-              'c.class_name',
-              'n.topic',
-              'n.content',
-              's.first_name',
-              's.last_name',
-              'sch.full_name',
-              'n.created_at'
+              'students.id',
+              'classes.grade',
+              'classes.class_name', 
+              'notices.topic',
+              'notices.content',
+              'students.first_name',
+              'students.last_name',
+              'schools.full_name',
+              'notices.created_at'
             )
-            .join('notice_student_relation as nsr', 's.id', '=', 'nsr.student_id')
-            .join('notices as n', 'nsr.notice_id', '=', 'n.id')
-            .join('student_class_relation as scr', 's.id', '=', 'scr.student_id')
-            .join('classes as c', 'scr.class_id', '=', 'c.id')
-            .join('schools as sch', 's.school_id', '=', 'sch.id')
+            .join('notice_student_relation', 'students.id', '=', 'notice_student_relation.student_id')
+            .join('notices', 'notice_student_relation.notice_id', '=', 'notices.id')
+            .join('student_class_relation', 'students.id', '=', 'student_class_relation.student_id')
+            .join('classes', 'student_class_relation.class_id', '=', 'classes.id')
+            .join('schools', 'students.school_id', '=', 'schools.id')
+
+            .where(`${userRole}_id`, userRoleId)
         )
     }
 }
@@ -33,16 +37,18 @@ export default class NoticeSerice{
 
 
 // SELECT 
-//   c.grade,
-//   c.class_name,
-//   n.topic,
-//   n.content,
-//   s.first_name,
-//   s.last_name,
-//   sch.full_name
-// FROM students s
-// INNER JOIN schools sch ON s.school_id = sch.id
-// INNER JOIN notice_student_relation nsr ON s.id = nsr.student_id
-// INNER JOIN notices n ON nsr.notice_id = n.id
-// INNER JOIN student_class_relation scr ON s.id = scr.student_id
-// INNER JOIN classes c ON scr.class_id = c.id
+//   students.id
+//   classes.grade,
+//   classes.class_name, 
+//   notices.topic,
+//   notices.content,
+//   students.first_name,
+//   students.last_name,
+//   schools.full_name,
+//   notices.created_at
+// FROM students
+// JOIN notice_student_relation ON students.id = notice_student_relation.student_id
+// JOIN notices ON notice_student_relation.notice_id = notices.id
+// JOIN student_class_relation ON students.id = student_class_relation.student_id
+// JOIN classes ON student_class_relation.class_id = classes.id
+// JOIN schools ON students.school_id = schools.id
