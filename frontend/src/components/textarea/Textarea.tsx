@@ -6,7 +6,7 @@ export default function Textarea(){
 
     return(
         <div>
-            1231231
+            <textarea>12312313123</textarea>
         </div>
     );
 }
