@@ -9,37 +9,53 @@ export default class HomeSerive {
   async getALLClassInfo(userRole: string, userRoleId: number) {
 
     return await this.knex
-    .select(
-      "first_name",
-      "last_name",
-      "image",
-      "grade",
-      "class_name",
-      "student_number",
-      "admin_name",
-      "username",
-      "full_name"
-    )
-    .from("students")
-    .join(
-      "student_class_relation as scr",
-      "scr.student_id",
-      "=",
-      "students.id"
-    )
-    .join("classes", "scr.class_id", "=", "classes.id")
-    .join("admin_class_relation as acr", "classes.id", "=", "acr.class_id")
-    .join("admins", "admins.id", "=", "acr.admin_id")
-    .join("parents", "parents.id", "=", "students.parent_id")
-    .join("schools", "schools.id", "=", "admins.school_id")
-    .where(`${userRole}s.id`, userRoleId);
+      .select(
+        "schools.id",
+        "schools.full_name ",
+        "school_years.school_year",
+        "classes.grade",
+        "classes.class_name",
+        "students.id",
+        "students.first_name",
+        "students.last_name",
+        "students.gender",
+        "students.birthday",
+        "students.image",
+        "students.parent_id",
+        "students.school_id ",
+        "admins.id ",
+        "admins.admin_name",
+        "admins.school_id ",
+        "parents.id ",
+        "parents.username"
+      )
+      .from("schools")
+
+      .innerJoin("admins", "schools.id", "admins.school_id")
+
+      .innerJoin("admin_class_relation as acr", "admins.id", " acr.admin_id")
+      .innerJoin("classes", "acr.admin_id", "classes.id")
+
+      .innerJoin(
+        "class_school_year_relation as csy",
+        "csy.class_id",
+        "classes.id"
+      )
+      .innerJoin("school_years", "csy.school_year_id", "school_years.id")
+
+      .innerJoin("student_class_relation as scr", "scr.class_id", "classes.id")
+
+      .innerJoin("students", "scr.class_id", "students.id")
+
+      .innerJoin("parents", "students.parent_id", "students.id")
+      .where(`${userRole}s.id`, userRoleId);
   }
 }
 
 // version 2
 // SELECT
 //     schools.id AS school_id,
-//     schools.full_name AS school_name, 
+//     schools.full_name AS school_name,
 //     school_years.school_year,
 //     classes.grade,
 //     classes.class_name,
@@ -89,9 +105,6 @@ export default class HomeSerive {
 // .innerJoin('students', 'schools.id', 'students.school_id')
 // .innerJoin('admins', 'schools.id', 'admins.school_id')
 // .innerJoin('parents', 'students.parent_id', 'parents.id')
-
-
-
 
 // version 1
 // SELECT DISTINCT
