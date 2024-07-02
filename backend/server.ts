@@ -8,6 +8,7 @@ import { noticeRouter } from "./router/noticeRouter";
 
 import { studentRouter } from "./router/studentRouter";
 import { attendanceRouter } from "./router/attendanceRouter";
+import { attendanceAndNoticeRouter } from "./router/attendanceAndNoticeRouter";
 
 const PORT = 8080;
 const app = express();
@@ -23,9 +24,11 @@ app.use("/home", homeRouter);
 app.use("/notice", noticeRouter);
 app.use("/student", studentRouter);
 app.use("/attendance", attendanceRouter);
+app.use("/Message", attendanceAndNoticeRouter);
 
 //***************************************** */ testing
 app.post("/", function (req: Request, res: Response) {});
+console.log("1233456");
 
 app.listen(PORT, () => {
   console.log(`listening to http://localhost:${PORT}/`);

@@ -6,6 +6,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import styles from "./Login.module.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import PopuploginPrivacyPolicy from "./loginPrivacyPolicy";
 
 export default function Login() {
   const [email, setEmail] = useState("chantaiming@gmail.com");
@@ -16,24 +17,26 @@ export default function Login() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    });
+    const res = await fetch(
+      `${process.env.REACT_APP_API_ENDPOINT}/auth/login`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      }
+    );
     const reponse = await res.json();
 
     if (res.ok) {
-      login(reponse.token)
-    }else{
-      alert("Login failed")
+      login(reponse.token);
+    } else {
+      alert("Login failed");
     }
-
   };
 
   const loginForm = (
@@ -62,7 +65,6 @@ export default function Login() {
       <input type="submit" value="Login" />
       {error && <div>{error}</div>}
     </form>
-    
   );
   const [checked, setChecked] = React.useState(false);
 
@@ -71,25 +73,36 @@ export default function Login() {
   };
 
   return (
-    <Box id={styles.loginContainer}>
-      <div id={styles.bannerContainer}>
-        <div id={styles.loginBanner}>BANNER</div>
-      </div>
-      <div id={styles.privacyPolicyAndOption}>
-        <div>
-          <label id={styles.privacyPolicy}>"Personal privacy policy"</label>
-          <div id={styles.agreeOptionBox}>
-            <FormControlLabel
-              id={styles.agreeOption}
-              control={<Switch checked={checked} onChange={handleChange} />}
-              label="Agree"
-            />
+      <Box id={styles.loginContainer}>
+        <div id={styles.bannerContainer}>
+          <div id={styles.loginBanner}></div>
+        </div>
+
+        <div id={styles.privacyPolicyAndOption}>
+          <div>
+            <label id={styles.privacyPolicy}>
+              <PopuploginPrivacyPolicy
+                // id="popup-without-portal-fixed"
+                id={styles.popupButton}
+                buttonLabel="Privacy Policy"
+           
+                strategy="fixed"
+              />
+            </label>
+
+            <div id={styles.agreeOptionBox}>
+              <FormControlLabel
+                id={styles.agreeOption}
+                control={<Switch checked={checked} onChange={handleChange} />}
+                label="Agree"
+              />
+            </div>
           </div>
+
           <Slide direction="up" in={checked} mountOnEnter unmountOnExit>
             {loginForm}
           </Slide>
         </div>
-      </div>
-    </Box>
+      </Box>
   );
 }

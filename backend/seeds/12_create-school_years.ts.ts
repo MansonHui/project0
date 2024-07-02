@@ -11,11 +11,18 @@ export async function seed(knex: Knex): Promise<void> {
     await knex("school_years").insert([
       {
         school_year: "2023-2024",
-        school_id: 1,
       },
       {
         school_year: "2022-2023",
-        school_id: 1,
+      },
+      {
+        school_year: "2023-2024",
+      },
+      {
+        school_year: "2023-2024",
+      },
+      {
+        school_year: "2023-2024",
       },
     ]);
   } catch (err) {

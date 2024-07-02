@@ -21,6 +21,12 @@ export async function seed(knex: Knex): Promise<void> {
         password: "5678",
         balance: 200,
       },
+      {
+        username: "fungkeung",
+        email: "fungkeung@gmail.com",
+        password: "9012",
+        balance: 300,
+      },
     ]);
   } catch (err) {
     console.log(err);

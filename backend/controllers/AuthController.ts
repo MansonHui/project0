@@ -30,7 +30,10 @@ export default class AuthController {
   };
 
   login = async (req: Request, res: Response) => {
-    let { email, password } = req.body;
+    let email = req.body.admin_email ? req.body.admin_email : req.body.email;
+    let password = req.body.password;
+
+    console.log(req.body);
 
     let loginUserData = await this.authService.login(email, password);
 
@@ -42,8 +45,13 @@ export default class AuthController {
       const payload = {
         userId: loginUserData.id,
         userRole: Object.keys(loginUserData)[0],
-        email: loginUserData.email,
-        userName: loginUserData.username,
+        email: loginUserData.email
+          ? loginUserData.email
+          : loginUserData.admin_email,
+        userName: loginUserData.username
+          ? loginUserData.username
+          : loginUserData.admin_name,
+        school_id: loginUserData.school_id ? loginUserData.school_id : null,
       };
 
       console.log("payload", payload);

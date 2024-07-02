@@ -10,6 +10,6 @@ export function LoginAuthGuard(props: { authToken: string | null }) {
       </>
     );
   } else {
-    return <Navigate to="/HomePage" />;
+    return <Navigate to="/" />;
   }
 }

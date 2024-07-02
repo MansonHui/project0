@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { knex } from "../utils/knex";
-import AttendanceService from "../services/attendanceService";
+import AttendanceService from "../services/AttendanceService";
 import AttendanceController from "../controllers/AttendanceController";
 import { checkToken } from "../utils/guard";
 

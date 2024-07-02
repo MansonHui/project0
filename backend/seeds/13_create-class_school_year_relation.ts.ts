@@ -17,6 +17,14 @@ export async function seed(knex: Knex): Promise<void> {
         school_year_id: 1,
         class_id: 2,
       },
+      {
+        school_year_id: 1,
+        class_id: 3,
+      },
+      {
+        school_year_id: 1,
+        class_id: 4,
+      },
     ]);
   } catch (err) {
     console.log(err);

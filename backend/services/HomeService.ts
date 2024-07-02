@@ -8,31 +8,90 @@ export default class HomeSerive {
 
   async getALLClassInfo() {
     return await this.knex
-      .select(
-        "c.id as class_id",
-        "c.class_name",
-        "c.grade",
-        "s.full_name as school_name",
-        "sy.school_year",
-        "a.admin_name as admin_username",
-        "st.first_name as student_first_name",
-        "st.last_name as student_last_name",
-        "st.image AS student_image",
-        "p.username as parent_username"
-      )
-      .from("student_class_relation as sc")
-      .join("admin_class_relation as ac", "sc.class_id", "=", "ac.class_id")
-      .join("classes as c", "sc.class_id", "=", "c.id")
-      .join("class_school_year_relation as csy", "c.id", "csy.class_id")
-      .join("school_years as sy", "csy.school_year_id", "sy.id")
-      .join("admins as a", "ac.admin_id", "=", "a.id")
-      .join("students as st", "sc.student_id", "=", "st.id")
-      .join("schools as s", "a.school_id", "=", "s.id")
-      .leftJoin("parents as p", "st.id", "=", "p.id")
-      .distinct();
+    .select(
+      "first_name",
+      "last_name",
+      "image",
+      "grade",
+      "class_name",
+      "student_number",
+      "admin_name",
+      "username",
+      "full_name"
+    )
+    .from("students")
+    .join(
+      "student_class_relation as scr",
+      "scr.student_id",
+      "=",
+      "students.id"
+    )
+    .join("classes", "scr.class_id", "=", "classes.id")
+    .join("admin_class_relation as acr", "classes.id", "=", "acr.class_id")
+    .join("admins", "admins.id", "=", "acr.admin_id")
+    .join("parents", "parents.id", "=", "students.parent_id")
+    .join("schools", "schools.id", "=", "admins.school_id")
   }
 }
 
+// version 2
+// SELECT
+//     schools.id AS school_id,
+//     schools.full_name AS school_name, 
+//     school_years.school_year,
+//     classes.grade,
+//     classes.class_name,
+//     students.id AS student_id,
+//     students.first_name,
+//     students.last_name,
+//     students.gender,
+//     students.birthday,
+//     students.image,
+//     students.parent_id,
+//     students.school_id AS student_school_id,
+//     admins.id AS admin_id,
+//     admins.admin_name,
+//     admins.school_id AS admin_school_id,
+//     parents.id AS parent_id,
+//     parents.username
+// FROM schools
+// INNER JOIN school_years ON schools.id = school_years.school_id
+// INNER JOIN classes ON schools.id = classes.id
+// INNER JOIN students ON schools.id = students.school_id
+// INNER JOIN admins ON schools.id = admins.school_id
+// INNER JOIN parents ON students.parent_id = parents.id
+
+// .select(
+//   'schools.id AS school_id',
+//   'schools.full_name AS school_name',
+//   'school_years.school_year',
+//   'classes.grade',
+//   'classes.class_name',
+//   'students.id AS student_id',
+//   'students.first_name',
+//   'students.last_name',
+//   'students.gender',
+//   'students.birthday',
+//   'students.image',
+//   'students.parent_id',
+//   'students.school_id AS student_school_id',
+//   'admins.id AS admin_id',
+//   'admins.admin_name',
+//   'admins.school_id AS admin_school_id',
+//   'parents.id AS parent_id',
+//   'parents.username'
+// )
+// .from('schools')
+// .innerJoin('school_years', 'schools.id', 'school_years.school_id')
+// .innerJoin('classes', 'schools.id', 'classes.id')
+// .innerJoin('students', 'schools.id', 'students.school_id')
+// .innerJoin('admins', 'schools.id', 'admins.school_id')
+// .innerJoin('parents', 'students.parent_id', 'parents.id')
+
+
+
+
+// version 1
 // SELECT DISTINCT
 //   c.id AS class_id,
 //   c.class_name,
@@ -53,3 +112,26 @@ export default class HomeSerive {
 // INNER JOIN students st ON sc.student_id = st.id
 // INNER JOIN schools s ON a.school_id = s.id
 // LEFT JOIN parents p ON st.id = p.id
+
+// .select(
+//   "c.id as class_id",
+//   "c.class_name",
+//   "c.grade",
+//   "s.full_name as school_name",
+//   "st.id as student_id",
+//   "sy.school_year",
+//   "a.admin_name as admin_username",
+//   "st.first_name as student_first_name",
+//   "st.last_name as student_last_name",
+//   "st.image AS student_image",
+//   "p.username as parent_username"
+// )
+// .from("student_class_relation as sc")
+// .join("admin_class_relation as ac", "sc.class_id", "=", "ac.class_id")
+// .join("classes as c", "sc.class_id", "=", "c.id")
+// .join("class_school_year_relation as csy", "c.id", "csy.class_id")
+// .join("school_years as sy", "csy.school_year_id", "sy.id")
+// .join("admins as a", "ac.admin_id", "=", "a.id")
+// .join("students as st", "sc.student_id", "=", "st.id")
+// .join("schools as s", "a.school_id", "=", "s.id")
+// .join("parents as p", "st.id", "=", "p.id");

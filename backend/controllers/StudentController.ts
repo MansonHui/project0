@@ -9,12 +9,15 @@ export default class StudentController {
   constructor(private studentService: StudentService) {}
 
   getstudentData = async (req: Request, res: Response) => {
-    let studentData = await this.studentService.getStudentData(
+    let studentData = await this.studentService.getAllStudentData(
       req.body.userRole,
-      req.body.userRoleId,
-      req.body.studentId
+      req.body.userRoleId
     );
-    console.log("req.body.userRole", req.body.userRole);
+    console.log("req.body.userRoleEmail", req.body.userRoleEmail);
     res.json(studentData);
+  };
+
+  getOwnStudentProfile = async (req: Request, res: Response) => {
+  
   };
 }
