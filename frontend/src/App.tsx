@@ -13,7 +13,9 @@ import AttendancePage from "./pages/attendance/AttendancePage";
 
 import MessageAllPage from "./pages/messageAll/MessageAllPage";
 import ParentPage from "./pages/parent/ParentPage";
-import RegisterPage from "./pages/register/RegisterPage";
+// import RegisterPage from "./pages/register/RegisterPage";
+
+import SuperAdminPage from "./pages/superAdmin/superAdminPage";
 
 function App() {
   const { authToken } = useAuth();
@@ -23,22 +25,23 @@ function App() {
     if (authToken) navigate("/HomePage");
     else navigate("/");
   }, [authToken]);
-  
+
   return (
     <Routes>
       <Route path="/" element={<Login />} />
-        <Route element={<LoginAuthGuard authToken={authToken} />}>
-          <Route path="/HomePage" element={<HomePage />} />
-          {/* <Route path="/HomePage" element={<ParentPage />} /> */}
-          <Route path="/Message" element={<MessagePage />}>
+      <Route element={<LoginAuthGuard authToken={authToken} />}>
+        <Route path="/HomePage" element={<HomePage />} />
+        {/* <Route path="/HomePage" element={<ParentPage />} /> */}
+        <Route path="/Message" element={<MessagePage />}>
           <Route path="/Message" element={<MessageAllPage />} />
-            <Route path="MessageAll" element={<MessageAllPage />} />
-            <Route path="Notices" element={<NoticePage />} />
-            <Route path="Attendance" element={<AttendancePage />} />
-          </Route>
-          <Route path="/Drawing" element={<DrawPage />} />
-          <Route path="/AI" element={<AIAttendances />} />
-          <Route path="/Register" element={<RegisterPage />} />
+          <Route path="MessageAll" element={<MessageAllPage />} />
+          <Route path="Notices" element={<NoticePage />} />
+          <Route path="Attendance" element={<AttendancePage />} />
+        </Route>
+        <Route path="/Drawing" element={<DrawPage />} />
+        <Route path="/AI" element={<AIAttendances />} />
+        {/* <Route path="/Register" element={<RegisterPage />} /> */}
+        <Route path="/superAdmin" element={<SuperAdminPage />} />
       </Route>
     </Routes>
   );
