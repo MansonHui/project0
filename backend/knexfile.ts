@@ -17,7 +17,7 @@ const config: { [key: string]: Knex.Config } = {
     },
     pool: {
       min: 2,
-      max: 30,
+      max: 20,
     },
     migrations: {
       tableName: "knex_migrations",
@@ -33,7 +33,7 @@ const config: { [key: string]: Knex.Config } = {
     },
     pool: {
       min: 2,
-      max: 30,
+      max: 20,
     },
     migrations: {
       tableName: "knex_migrations",
@@ -43,13 +43,14 @@ const config: { [key: string]: Knex.Config } = {
   production: {
     client: "postgresql",
     connection: {
-      database: process.env.DB_NAME,
-      user: process.env.DB_USERNAME,
+      database: process.env.POSTGRES_DB,
+      user: process.env.POSTGRES_USER,
       password: process.env.DB_PASSWORD,
+      host: process.env.POSTGRES_HOST
     },
     pool: {
       min: 2,
-      max: 30,
+      max: 20,
     },
     migrations: {
       tableName: "knex_migrations",

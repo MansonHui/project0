@@ -16,30 +16,15 @@
     "@types/node": "^17.0.45",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "express": "^4.19.2",
-    "react": "^18.3.1",
-    "react-axios": "^2.0.6",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^6.24.0",
-=======
-=======
     "file-loader": "^6.2.0",
->>>>>>> refs/remotes/origin/main
     "knex": "^3.1.0",
     "react": "^18.3.1",
     "react-axios": "^2.0.6",
     "react-dom": "^18.3.1",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.23.1",
->>>>>>> refs/remotes/origin/main
     "react-scripts": "5.0.1",
     "styled-components": "^6.1.11",
-<<<<<<< HEAD
-    "ts-node-dev": "^2.0.0",
-=======
->>>>>>> refs/remotes/origin/main
     "typescript": "^5.5.2",
     "web-vitals": "^2.1.4",
     "workbox-background-sync": "^6.6.0",
@@ -79,12 +64,7 @@
       "last 1 safari version"
     ]
   },
-<<<<<<< HEAD
-  "main": "index.js",
-  "license": "MIT"
-=======
   "devDependencies": {
     "ts-loader": "^9.5.1"
   }
->>>>>>> refs/remotes/origin/main
 }
