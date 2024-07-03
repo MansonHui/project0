@@ -1,14 +1,16 @@
 import { useState } from "react";
 import styles from "./RegisterPage.module.css";
 
+// interface RegisteParentFromData {
+//   email: string;
+//   password: string;
+// }
+
 export default function RegisteParentFrom() {
-  const [parentName, setParentName] = useState("");
-  const [parentEmail, setParentEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("tsangmeimei@gmail.com");
+  const [password, setPassword] = useState("12345");
 
   const [showParentInput, setShowParentInput] = useState(false);
-
-  
 
   const handleParentCheckboxChange = (e: {
     target: { checked: boolean | ((prevState: boolean) => boolean) };
@@ -18,52 +20,60 @@ export default function RegisteParentFrom() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const res = await fetch(
-      `${process.env.REACT_APP_API_ENDPOINT}/superadmin/createParent`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: parentName,
-          email: parentEmail,
-          password: phoneNumber,
-        }),
-      }
-    );
+    try {
+      await fetch(
+        `${process.env.REACT_APP_API_ENDPOINT}/superadmin/createParent`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+        }
+      );
+    } catch (error) {
+      console.error("Error registering Parent:", error);
+    }
   };
-
-  
 
   const registeParent = (
     <div>
-      <div>
+      <form onSubmit={handleSubmit}>
         {showParentInput && (
           <div>
             parent
+
             <div>
-              parentName: <input />
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="email"
+                required
+              />
             </div>
             <div>
-              parentEmail: <input />
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="password"
+                required
+              />
             </div>
-            <div>
-              phoneNumber: <input />
-            </div>
-            <div>
-              confirm phoneNumber: <input />
-            </div>
-            <button type="submit">Sumbit</button>
+            <button type="submit">Register</button>
           </div>
         )}
-      </div>
+      </form>
     </div>
   );
 
   return (
-    <form onSubmit={handleSubmit}>
-
+    <div>
       <div>
         <label>
           Register Parent
@@ -75,6 +85,6 @@ export default function RegisteParentFrom() {
         </label>
       </div>
       {registeParent}
-    </form>
+    </div>
   );
 }

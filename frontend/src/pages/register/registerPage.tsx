@@ -21,7 +21,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div>
       <label>
         {" "}
         <RegisteAdminFrom />
@@ -41,6 +41,6 @@ export default function RegisterPage() {
         {" "}
         <RegisteStudentFrom />
       </label>
-    </form>
+    </div>
   );
 }

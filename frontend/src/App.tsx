@@ -24,7 +24,7 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (authToken) navigate("/HomePage");
+    if (authToken) navigate("/Register");
     else navigate("/");
   }, [authToken]);
 

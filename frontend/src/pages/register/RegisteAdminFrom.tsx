@@ -1,75 +1,73 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./RegisterPage.module.css";
 
-export default function RegisteAdminFrom() {
-  const [adminName, setAdminName] = useState("");
-  const [adminEmail, setAdminEmail] = useState("");
-  const [password, setPassword] = useState("");
+interface RegisteAdminFromData {
+  email: string;
+}
+
+const RegisteAdminFrom: React.FC = () => {
   const [showAdminInput, setShowAdminInput] = useState(false);
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    const res = await fetch(
-      `${process.env.REACT_APP_API_ENDPOINT}/superadmin/createAdmin`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: adminName,
-          admin_email: adminEmail,
-          password: password,
-        }),
-      }
-    );
+  const [registeAdminFromData, setSegisteAdminFromData] =
+    useState<RegisteAdminFromData>({
+      email: "YYLam@stpeter.edu.hk",
+
+    });
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      await fetch(
+        `${process.env.REACT_APP_API_ENDPOINT}/superadmin/createAdmin`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(registeAdminFromData),
+        }
+      );
+    } catch (error) {
+      console.error("Error registering user:", error);
+    }
+  };
+
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
   };
 
   const handleAdminCheckboxChange = (e: {
     target: { checked: boolean | ((prevState: boolean) => boolean) };
   }) => {
+
     setShowAdminInput(e.target.checked);
   };
 
   const registeTeacher = (
-    <div>
-      <div>
-        {showAdminInput && (
+    <form onSubmit={handleSubmit}>
+      {showAdminInput && (
+        <div>
+          teacher
+
           <div>
-            teacher
-            <div>
-              <input
-                type="Name"
-                value={adminName}
-                onChange={(e) => setAdminName(e.target.value)}
-                placeholder="Name"
-                required
-              />
-            </div>
-            <div>
-              <input
-                type="email"
-                value={adminEmail}
-                onChange={(e) => setAdminEmail(e.target.value)}
-                placeholder="email"
-                required
-              />
-            </div>
-            <div>
-              password: <input />
-            </div>
-            <div>
-              confirm password: <input />
-            </div>
-            <button type="submit">Sumbit</button>
+            <input
+              type="email"
+              value={registeAdminFromData.email}
+              onChange={handleInputChange}
+              placeholder="email"
+              required
+            />
           </div>
-        )}
-      </div>
-    </div>
+          <button type="submit">Register</button>
+        </div>
+      )}
+    </form>
   );
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div>
       <div>
         <label>
           Register Teacher
@@ -81,6 +79,8 @@ export default function RegisteAdminFrom() {
         </label>
       </div>
       {registeTeacher}
-    </form>
+    </div>
   );
-}
+};
+
+export default RegisteAdminFrom;
