@@ -37,3 +37,10 @@ superAdminRouter.get(
   isSuperAdmin,
   superAdminController.getAllStudentData
 );
+
+superAdminRouter.post(
+  "/uploadStudentImage",
+  checkToken,
+  isSuperAdmin,
+  superAdminController.createStudent
+);

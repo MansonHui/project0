@@ -1,0 +1,67 @@
+.MainContainer{
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+
+    height: 850px;
+    width: 94%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/* .TeacherContainer{
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    justify-self: center;
+    
+
+    height: 15%;
+    width: 93%;
+    margin: 20px;
+}
+
+.TeacherNoticeContainer{
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    
+
+    height: 78%;
+    width: 93%;
+    margin: 20px;
+} */
+
+.Noitce{
+
+    margin: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+
+    height: 20%;
+    width: 93%;
+}
+
+.Grade{
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+
+    height: 20%;
+    width: 93%;
+}
+
+.Topic{
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+
+    height: 60%;
+    width: 93%;
+}
+

@@ -129,26 +129,24 @@ export default class SuperAdminService {
     HKID_number: string,
     birthday: string,
     gender: string,
-    newFilename: string,
     parentId: number,
     schoolId: number
   ) {
-    return await this.knex("students")
-      .insert({
-        first_name: first_name,
-        last_name: last_name,
-        HKID_number: HKID_number,
-        birthday: birthday,
+    return (
+      await this.knex("students")
+        .insert({
+          first_name: first_name,
+          last_name: last_name,
+          HKID_number: HKID_number,
+          birthday: birthday,
+          gender: gender,
+          parent_id: parentId,
+          school_id: schoolId,
 
-        gender: gender,
-        image: newFilename,
-
-        parent_id: parentId,
-        school_id: schoolId,
-
-        created_at: this.knex.fn.now(),
-        updated_at: this.knex.fn.now(),
-      })
-      .returning("students.id");
+          created_at: this.knex.fn.now(),
+          updated_at: this.knex.fn.now(),
+        })
+        .returning("students.id")
+    )[0];
   }
 }

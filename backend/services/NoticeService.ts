@@ -15,7 +15,7 @@ export default class NoticeSerice{
               'classes.grade',
               'classes.class_name', 
               'notices.topic',
-              'notices.content',
+            //   'notices.content',
               'students.first_name',
               'students.last_name',
               'schools.full_name',
