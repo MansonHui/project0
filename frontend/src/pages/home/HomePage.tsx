@@ -19,7 +19,7 @@ export default function HomePage() {
           <div className={styles.UserSchool_Container}>
             <div className={styles.UserSchool_Logo}></div>
             <div className={styles.UserSchool_Name}>
-              <p>School: {entry.school_name}</p>
+              <p>School: {entry.full_name}</p>
             </div>
             <div className={styles.UserSchool_Info}>
               <MoreVertIcon fontSize="large" />

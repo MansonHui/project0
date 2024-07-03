@@ -18,6 +18,7 @@ interface getClassType {
 			admin_name: string;
 			admin_school_id: number;
 			username: string;
+      full_name: string;
 }
 
 export function useGetAllClass() {
