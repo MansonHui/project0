@@ -9,7 +9,7 @@ import { noticeRouter } from "./router/noticeRouter";
 import { studentRouter } from "./router/studentRouter";
 import { attendanceRouter } from "./router/attendanceRouter";
 import { attendanceAndNoticeRouter } from "./router/attendanceAndNoticeRouter";
-import { teacherNoticeRouter } from "./router/TeacherNoticeRouter";
+import { teacherNoticeRouter } from "./router/teacherNoticeRouter";
 
 const PORT = 8080;
 const app = express();
