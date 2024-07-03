@@ -9,8 +9,8 @@ import { useAuth } from "../../hooks/useAuth";
 import PopuploginPrivacyPolicy from "./loginPrivacyPolicy";
 
 export default function Login() {
-  const [email, setEmail] = useState("chantaiming@gmail.com");
-  const [password, setPassword] = useState("1234");
+  const [email, setEmail] = useState("super@stpeter.edu.hk");
+  const [password, setPassword] = useState("stpeter");
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { login } = useAuth();

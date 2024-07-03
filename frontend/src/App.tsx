@@ -17,7 +17,7 @@ import Textarea from "./components/textarea/Textarea";
 import TeacherNoticePage from "./pages/teacherNotice/TeacherNoticePage";
 import DetailNoticePage from "./pages/detailNotice/DetailNoticePage";
 
-// import RegisterPage from "./pages/register/RegisterPage";
+import RegisterPage from "./pages/register/RegisterPage";
 import SuperAdminPage from "./pages/superAdmin/superAdminPage";
 function App() {
   const { authToken } = useAuth();
@@ -54,7 +54,7 @@ function App() {
           <Route path="Textarea" element={<Textarea />}></Route>
         </Route>
         <Route path="/AI" element={<AIAttendances />} />
-        {/* <Route path="/Register" element={<RegisterPage />} /> */}
+        <Route path="/Register" element={<RegisterPage />} />
 
         <Route path="TeacherNotice" element={<TeacherNoticePage />}></Route>
         <Route path="/superAdmin" element={<SuperAdminPage />} />
