@@ -27,10 +27,12 @@ app.use("/student", studentRouter);
 app.use("/attendance", attendanceRouter);
 app.use("/Message", attendanceAndNoticeRouter);
 app.use("/images", express.static("uploads"));
-app.use("/teacherNotice",teacherNoticeRouter)
+app.use("/teacherNotice", teacherNoticeRouter);
 
 //***************************************** */ testing
-app.post("/", function (req: Request, res: Response) {});
+app.get("/", function (req: Request, res: Response) {
+  res.send("hello world");
+});
 console.log("1233456");
 
 app.listen(PORT, () => {
