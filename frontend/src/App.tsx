@@ -15,8 +15,8 @@ import ParentPage from "./pages/parent/ParentPage";
 import Textarea from "./components/textarea/Textarea";
 import TeacherNoticePage from "./pages/teacherNotice/TeacherNoticePage";
 
+import RegisterPage from "./pages/register/RegisterPage";
 
-// import RegisterPage from "./pages/register/RegisterPage";
 import SuperAdminPage from "./pages/superAdmin/superAdminPage";
 import NoticeDetailPage from "./pages/noticeDetail/NoticeDetailPage";
 import EditNoticePage from "./pages/editlNotice/EditNoticePage";
@@ -51,9 +51,7 @@ function App() {
           </Route>
         </Route>
 
-        <Route path="/EditNotice" element={<EditNoticePage />}>
-  
-        </Route>
+        <Route path="/EditNotice" element={<EditNoticePage />}></Route>
         <Route path="/AI" element={<AIAttendances />} />
         {/* <Route path="/Register" element={<RegisterPage />} /> */}
 
