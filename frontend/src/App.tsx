@@ -17,7 +17,7 @@ import Textarea from "./components/textarea/Textarea";
 import TeacherNoticePage from "./pages/teacherNotice/TeacherNoticePage";
 import DetailNoticePage from "./pages/detailNotice/DetailNoticePage";
 
-import RegisterPage from "./pages/register/RegisterPage";
+import RegisterPage from "./pages/register/registerPage";
 import SuperAdminPage from "./pages/superAdmin/superAdminPage";
 function App() {
   const { authToken } = useAuth();

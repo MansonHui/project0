@@ -92,7 +92,7 @@ export default function Login() {
               <PopuploginPrivacyPolicy
                 // id="popup-without-portal-fixed"
                 id={styles.popupButton}
-                buttonLabel="Privacy Policy"
+                buttonLabel="Privacy PolicyXXXX"
            
                 strategy="fixed"
               />
