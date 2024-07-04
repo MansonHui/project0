@@ -208,4 +208,28 @@ export default class SuperAdminController {
     console.log("req.body.userRoleEmail", req.body.userRoleEmail);
     res.json(studentData);
   };
+
+  createNotices = async (req: Request, res: Response) => {
+    console.log("check req notice_choice", req.body.notice_choice);
+
+    // Declare a String
+
+    // Use String split() method to
+    // Convert String to an Array
+    // let optionArr = optionStr.split(",");
+    // let schoolAbbr = await getSchoolAbbr(req.body.userRoleEmail);
+
+    // console.log("schoolAbbr", schoolAbbr);
+
+    let createNotices = await this.superAdminService.createNotices(
+      req.body.topic,
+      req.body.content,
+      req.body.notice_choice,
+      req.body.grade,
+      req.body.class_name,
+      req.body.school_id
+    );
+
+    res.status(200).json({ msg: "create Notices", createNotices });
+  };
 }

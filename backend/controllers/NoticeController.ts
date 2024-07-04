@@ -7,7 +7,7 @@ export default class NoticeController {
   constructor(private noticeService: NoticeSerice) {}
 
   getAllNotices = async (req: Request, res: Response) => {
-    console.log("check req body",req.body)
+    console.log("check req body", req.body);
     let getAllNotice = await this.noticeService.getAllNotice(
       req.body.userRole,
       req.body.userRoleId

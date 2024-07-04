@@ -9,7 +9,7 @@ import { noticeRouter } from "./router/noticeRouter";
 import { studentRouter } from "./router/studentRouter";
 import { attendanceRouter } from "./router/attendanceRouter";
 import { attendanceAndNoticeRouter } from "./router/attendanceAndNoticeRouter";
-import { teacherNoticeRouter } from "./router/TeacherNoticeRouter";
+import { teacherNoticeRouter } from "./router/teacherNoticeRouter";
 
 const PORT = 8080;
 const app = express();
@@ -27,11 +27,10 @@ app.use("/student", studentRouter);
 app.use("/attendance", attendanceRouter);
 app.use("/Message", attendanceAndNoticeRouter);
 app.use("/images", express.static("uploads"));
-app.use("/teacherNotice",teacherNoticeRouter)
+app.use("/teacherNotice", teacherNoticeRouter);
 
 //***************************************** */ testing
 app.post("/", function (req: Request, res: Response) {});
-console.log("1233456");
 
 app.listen(PORT, () => {
   console.log(`listening to http://localhost:${PORT}/`);

@@ -29,6 +29,8 @@ export async function checkToken(
     req.body.userRoleEmail = decoded.email;
     req.body.userRoleName = decoded.userName;
 
+    req.body.school_id = decoded.school_id;
+
     console.log("decoded", decoded);
 
     return next();

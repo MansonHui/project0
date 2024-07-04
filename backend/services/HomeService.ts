@@ -6,7 +6,11 @@ export default class HomeSerive {
     return this.knex("get_class");
   }
 
-  async getALLClassInfo(userRole: string, userRoleId: number) {
+  async getALLClassInfo(
+    userRole: string,
+    userRoleId: number,
+    school_id: number
+  ) {
     return await this.knex
 
       .select(
@@ -50,6 +54,7 @@ export default class HomeSerive {
       .select("school_years.school_year")
 
       .where(`${userRole}s.id`, userRoleId);
+    // .where("students.school_id", school_id);
   }
 }
 
