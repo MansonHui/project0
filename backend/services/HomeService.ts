@@ -2,59 +2,115 @@ import { Knex } from "knex";
 
 export default class HomeSerive {
   constructor(private knex: Knex) {}
-  table() {
-    return this.knex("get_class");
-  }
+  // table() {
+  //   return this.knex("get_class");
+  // }
 
   async getALLClassInfo(
     userRole: string,
     userRoleId: number,
     school_id: number
   ) {
-    return await this.knex
+    if (userRole === "admin") {
+      console.log("userRole111", userRole);
+      let result = await this.knex
 
-      .select(
-        "students.first_name",
-        "students.last_name",
-        "students.gender",
-        "students.birthday",
-        "students.image"
-      )
-      .from("students")
+        .select(
+          "students.first_name",
+          "students.last_name",
+          "students.gender",
+          "students.birthday",
+          "students.image"
+        )
+        .from("students")
 
-      .innerJoin(
-        "student_class_relation as scr",
-        "scr.student_id",
-        "students.id"
-      )
-      .select("scr.student_number")
+        .innerJoin(
+          "student_class_relation as scr",
+          "scr.student_id",
+          "students.id"
+        )
+        .select("scr.student_number")
 
-      .innerJoin("classes", "scr.class_id", "classes.id")
-      .select("classes.grade", "classes.class_name")
+        .innerJoin("classes", "scr.class_id", "classes.id")
+        .select("classes.grade", "classes.class_name")
 
-      .innerJoin("admin_class_relation as acr", "classes.id", " acr.class_id")
+        .innerJoin("admin_class_relation as acr", "classes.id", " acr.class_id")
 
-      .innerJoin("admins", "acr.admin_id", "admins.id")
-      .select("admins.admin_name")
-      .innerJoin("schools", "schools.id", "admins.school_id")
+        .innerJoin("admins", "acr.admin_id", "admins.id")
+        .select("admins.admin_name")
+        .innerJoin("schools", "schools.id", "admins.school_id")
 
-      .select("schools.full_name", "schools.abbr_name")
+        .select("schools.full_name", "schools.abbr_name")
 
-      .innerJoin("parents", "students.parent_id", "parents.id")
+        .innerJoin("parents", "students.parent_id", "parents.id")
 
-      .select("parents.username")
+        .select("parents.username")
 
-      .innerJoin(
-        "class_school_year_relation as csy",
-        "csy.class_id",
-        "classes.id"
-      )
-      .innerJoin("school_years", "csy.school_year_id", "school_years.id")
+        .innerJoin(
+          "class_school_year_relation as csy",
+          "csy.class_id",
+          "classes.id"
+        )
+        .innerJoin("school_years", "csy.school_year_id", "school_years.id")
 
-      .select("school_years.school_year")
+        .select("school_years.school_year")
 
-      .where(`${userRole}s.id`, userRoleId);
-    // .where("students.school_id", school_id);
+        .where(`${userRole}s.id`, userRoleId)
+        .where("students.school_id", school_id);
+
+      return result;
+    } else if (userRole === "parent") {
+      console.log("userRole", userRole);
+
+      let result = await this.knex
+
+        .select(
+          "students.first_name",
+          "students.last_name",
+          "students.gender",
+          "students.birthday",
+          "students.image"
+        )
+        .from("students")
+
+        .innerJoin(
+          "student_class_relation as scr",
+          "scr.student_id",
+          "students.id"
+        )
+        .select("scr.student_number")
+
+        .innerJoin("classes", "scr.class_id", "classes.id")
+        .select("classes.grade", "classes.class_name")
+
+        .innerJoin("admin_class_relation as acr", "classes.id", " acr.class_id")
+
+        .innerJoin("admins", "acr.admin_id", "admins.id")
+        .select("admins.admin_name")
+        .innerJoin("schools", "schools.id", "students.school_id")
+
+        .select("schools.full_name", "schools.abbr_name")
+
+        .innerJoin("parents", "students.parent_id", "parents.id")
+
+        .select("parents.username")
+
+        .innerJoin(
+          "class_school_year_relation as csy",
+          "csy.class_id",
+          "classes.id"
+        )
+        .innerJoin("school_years", "csy.school_year_id", "school_years.id")
+
+        .select("school_years.school_year")
+
+        .where(`${userRole}s.id`, userRoleId);
+      console.log("getme 1");
+      return result;
+    }
+
+    console.log("getme 2");
+    return;
   }
 }
 

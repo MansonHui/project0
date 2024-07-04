@@ -17,6 +17,7 @@ import TeacherNoticePage from "./pages/teacherNotice/TeacherNoticePage";
 import DetailNoticePage from "./pages/detailNotice/DetailNoticePage";
 
 import RegisterPage from "./pages/register/RegisterPage";
+
 import SuperAdminPage from "./pages/superAdmin/superAdminPage";
 import EditNoticePage from "./pages/editlNotice/EditNoticePage";
 function App() {
@@ -50,9 +51,7 @@ function App() {
           </Route>
         </Route>
 
-        <Route path="/EditNotice" element={<EditNoticePage />}>
-  
-        </Route>
+        <Route path="/EditNotice" element={<EditNoticePage />}></Route>
         <Route path="/AI" element={<AIAttendances />} />
         <Route path="/Register" element={<RegisterPage />} />
 
