@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import "./App.css";
 import Login from "./pages/login/loginPage";
 import HomePage from "./pages/home/HomePage";
-import DrawPage from "./pages/drawNotice/DrawPage";
 import AIAttendances from "./pages/scan/AIAttendances";
 import MessagePage from "./pages/message/MessagePage";
 import NoticePage from "./pages/notice/NoticePage";
@@ -17,14 +16,15 @@ import Textarea from "./components/textarea/Textarea";
 import TeacherNoticePage from "./pages/teacherNotice/TeacherNoticePage";
 import DetailNoticePage from "./pages/detailNotice/DetailNoticePage";
 
-// import RegisterPage from "./pages/register/RegisterPage";
+import RegisterPage from "./pages/register/RegisterPage";
 import SuperAdminPage from "./pages/superAdmin/superAdminPage";
+import EditNoticePage from "./pages/editlNotice/EditNoticePage";
 function App() {
   const { authToken } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (authToken) navigate("/HomePage");
+    if (authToken) navigate("/HomePage ");
     else navigate("/");
   }, [authToken]);
 
@@ -50,11 +50,11 @@ function App() {
           </Route>
         </Route>
 
-        <Route path="/Drawing" element={<DrawPage />}>
-          <Route path="Textarea" element={<Textarea />}></Route>
+        <Route path="/EditNotice" element={<EditNoticePage />}>
+  
         </Route>
         <Route path="/AI" element={<AIAttendances />} />
-        {/* <Route path="/Register" element={<RegisterPage />} /> */}
+        <Route path="/Register" element={<RegisterPage />} />
 
         <Route path="TeacherNotice" element={<TeacherNoticePage />}></Route>
         <Route path="/superAdmin" element={<SuperAdminPage />} />

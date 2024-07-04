@@ -18,7 +18,7 @@ export async function checkToken(
     const token = permit.check(req);
 
     if (!token) {
-      return res.status(400).json({ msg: "not log in" });
+      return res.status(401).json({ msg: "not log in" });
     }
 
     const decoded = jwtSimple.decode(token, process.env.JWT_SECRET!);
