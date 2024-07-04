@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import "./App.css";
 import Login from "./pages/login/loginPage";
 import HomePage from "./pages/home/HomePage";
-import DrawPage from "./pages/drawNotice/DrawPage";
 import AIAttendances from "./pages/scan/AIAttendances";
 import MessagePage from "./pages/message/MessagePage";
 import NoticePage from "./pages/notice/NoticePage";
@@ -19,6 +18,7 @@ import DetailNoticePage from "./pages/detailNotice/DetailNoticePage";
 
 import RegisterPage from "./pages/register/registerPage";
 import SuperAdminPage from "./pages/superAdmin/superAdminPage";
+import EditNoticePage from "./pages/editlNotice/EditNoticePage";
 function App() {
   const { authToken } = useAuth();
   const navigate = useNavigate();
@@ -50,7 +50,7 @@ function App() {
           </Route>
         </Route>
 
-        <Route path="/Drawing" element={<DrawPage />}>
+        <Route path="/EditNotice" element={<EditNoticePage />}>
           <Route path="Textarea" element={<Textarea />}></Route>
         </Route>
         <Route path="/AI" element={<AIAttendances />} />
