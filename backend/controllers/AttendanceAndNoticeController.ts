@@ -9,7 +9,9 @@ export default class AttendanceAndNoticeController{
     getAllAttendanceAndNoticeRouters = async (req: Request, res: Response) => {
         let getAllAttendanceAndNotice = await this.attendanceAndNoticeService.getAll(
             req.body.userRole,
-            req.body.userRoleId
+            req.body.userRoleId,
+            parseInt(req.query.noticeId! as string),
+            parseInt(req.query.studentId! as string)
         );
 
         res.status(200).json({msg: "from All", getAllAttendanceAndNotice})

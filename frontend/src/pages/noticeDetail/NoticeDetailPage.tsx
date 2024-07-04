@@ -1,19 +1,24 @@
-import styles from "./DeatailNoticePage.module.css";
-import { getNoticeType, useGetallNotice } from "../../api/noticePageAPI";
+import { useGetNoticeDetail } from "../../api/noticeDetailPageAPI";
+import styles from "./NoticeDetailPage.module.css";
+
 import { useLocation, useNavigate } from "react-router-dom";
 
-export default function DetailNoticePage() {
+export default function NoticeDetailPage() {
   const navigate = useNavigate();
-  const allNotice = useGetallNotice();
   let location = useLocation();
-  console.log('location',location)
+  console.log("location", location);
+
+  const NoticeDetail = useGetNoticeDetail(
+    location.state.notice_id,
+    location.state.student_id
+  );
 
   return (
     <div>
-      {allNotice.map((entry) => (
+      {NoticeDetail.map((entry) => (
         <div className={styles.Message}>
           <div className={styles.Message_type}>
-            <div>School: {entry.full_name}</div>
+            <div>School: {entry.school_name}</div>
           </div>
           <div className={styles.Message_type}>
             <div>
@@ -27,9 +32,9 @@ export default function DetailNoticePage() {
           <div className={styles.Message_Detail}>
             <div>
               {entry.topic}
-              {entry.content}
+              {entry.notice_content}
             </div>
-            <div>{entry.created_at}</div>
+            <div>{entry.notice_created_at}</div>
           </div>
 
           <button

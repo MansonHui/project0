@@ -15,10 +15,11 @@ import MessageAllPage from "./pages/messageAll/MessageAllPage";
 import ParentPage from "./pages/parent/ParentPage";
 import Textarea from "./components/textarea/Textarea";
 import TeacherNoticePage from "./pages/teacherNotice/TeacherNoticePage";
-import DetailNoticePage from "./pages/detailNotice/DetailNoticePage";
 
-import RegisterPage from "./pages/register/RegisterPage";
+
+// import RegisterPage from "./pages/register/RegisterPage";
 import SuperAdminPage from "./pages/superAdmin/superAdminPage";
+import NoticeDetailPage from "./pages/noticeDetail/NoticeDetailPage";
 function App() {
   const { authToken } = useAuth();
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ function App() {
           <Route path="Notices" element={<NoticePage />}>
             {" "}
           </Route>
-          <Route path="DetailNotice" element={<DetailNoticePage />}>
+          <Route path="NoticeDetail" element={<NoticeDetailPage />}>
             {" "}
           </Route>
           <Route path="Attendance" element={<AttendancePage />}>
@@ -54,7 +55,7 @@ function App() {
           <Route path="Textarea" element={<Textarea />}></Route>
         </Route>
         <Route path="/AI" element={<AIAttendances />} />
-        <Route path="/Register" element={<RegisterPage />} />
+        {/* <Route path="/Register" element={<RegisterPage />} /> */}
 
         <Route path="TeacherNotice" element={<TeacherNoticePage />}></Route>
         <Route path="/superAdmin" element={<SuperAdminPage />} />
