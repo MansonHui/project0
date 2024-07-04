@@ -16,7 +16,7 @@ import Textarea from "./components/textarea/Textarea";
 import TeacherNoticePage from "./pages/teacherNotice/TeacherNoticePage";
 import DetailNoticePage from "./pages/detailNotice/DetailNoticePage";
 
-import RegisterPage from "./pages/register/registerPage";
+import RegisterPage from "./pages/register/RegisterPage";
 import SuperAdminPage from "./pages/superAdmin/superAdminPage";
 import EditNoticePage from "./pages/editlNotice/EditNoticePage";
 function App() {
