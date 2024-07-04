@@ -24,7 +24,7 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (authToken) navigate("/HomePage");
+    if (authToken) navigate("/HomePage ");
     else navigate("/");
   }, [authToken]);
 
@@ -51,7 +51,7 @@ function App() {
         </Route>
 
         <Route path="/EditNotice" element={<EditNoticePage />}>
-          <Route path="Textarea" element={<Textarea />}></Route>
+  
         </Route>
         <Route path="/AI" element={<AIAttendances />} />
         <Route path="/Register" element={<RegisterPage />} />

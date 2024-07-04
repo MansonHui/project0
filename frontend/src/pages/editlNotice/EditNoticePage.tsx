@@ -6,6 +6,12 @@ import {
   Button,
 } from "@mui/material";
 import { useState } from "react";
+import styles from "./EditNoticePage.module.css";
+import { createGlobalStyle } from 'styled-components';
+
+const GlobalStyles = createGlobalStyle`
+
+`;
 
 export default function EditNoticePage() {
   const [formControls, setFormControls] = useState<
@@ -60,14 +66,15 @@ export default function EditNoticePage() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>
-        Post title: <input defaultValue="title" />
-      </label>
-      <label>
-        Edit your post:
-        <textarea name="postContent" defaultValue="" rows={4} cols={40} />
-      </label>
-      <hr />
+      <div id={styles.titleAndTextArea}>
+        <label id={styles.title}>
+          <input defaultValue="title" />
+        </label>
+        <label id={styles.textArea}>
+          <textarea />
+        </label>
+      </div>
+
       <div>
         {formControls.map((control, index) => (
           <FormGroup key={index}>
@@ -82,11 +89,11 @@ export default function EditNoticePage() {
             />
             {control.showInput && (
               <TextField
-                label={`Input ${control.label}`}
+                label={`Option ${control.label}`}
                 variant="outlined"
                 size="small"
                 style={{ marginTop: "8px" }}
-                name={`input${control.label}`}
+                name={`Option${control.label}`}
               />
             )}
           </FormGroup>
@@ -95,13 +102,15 @@ export default function EditNoticePage() {
           <Button onClick={handleAddFormControl}>Add</Button>
           <Button onClick={handleRemoveFormControl}>Reduce</Button>
         </div>
-        <label>
-          grade: <input defaultValue="grade" />
-        </label>
-        <p />
-        <label>
-          class: <input defaultValue="class" />
-        </label>
+        <div>
+          <label>
+            grade: <input defaultValue="grade" />
+          </label>
+          <p />
+          <label>
+            class: <input defaultValue="class" />
+          </label>
+        </div>
       </div>
       <button type="reset">Reset edits</button>
       <button type="submit">Save post</button>
