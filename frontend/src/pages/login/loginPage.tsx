@@ -30,6 +30,7 @@ export default function Login() {
       {
         method: "POST",
         headers: {
+          Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
