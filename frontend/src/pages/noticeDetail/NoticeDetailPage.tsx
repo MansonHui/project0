@@ -22,19 +22,50 @@ export default function NoticeDetailPage() {
           </div>
           <div className={styles.Message_type}>
             <div>
-              Class: {entry.grade}
-              {entry.class_name}
-            </div>
-            <div>
-              Student: {entry.last_name} {entry.first_name}
+              <div>
+                Class: {entry.grade}
+                {entry.class_name} StudentNuber: {entry.student_number}
+              </div>
+              <div>
+                Student: {entry.last_name} {entry.first_name}
+              </div>
             </div>
           </div>
           <div className={styles.Message_Detail}>
             <div>
-              {entry.topic}
-              {entry.notice_content}
+              To: {entry.parent_username}
+              <p>{entry.topic}</p>
+              <p>{entry.notice_content}</p>
+              <div className={styles.OptionContainer}>
+                <div className={styles.ChoicesContainer}>
+                  {entry.notice_choices.map((choice, index) => (
+                    <div key={index} className={styles.Choice}>
+                      <input
+                        type="radio"
+                        name={`notice_choice_${entry.notice_id}`}
+                        value={choice}
+                      />
+                      <label>{choice}</label>
+                    </div>
+                  ))}
+                </div>
+
+                <div className={styles.ChoicesContentsContainer}>
+                  {entry.notice_choice_contents.map((content, index) => (
+                    <div key={index}>{content}</div>
+                  ))}
+                </div>
+
+                <div className={styles.ChoicesPricesContainer}>
+                  {entry.notice_choice_prices.map((price, index) => (
+                    <div key={index}>${price}</div>
+                  ))}
+                </div>
+                
+              </div>
+              <button>Submit</button>
             </div>
-            <div>{entry.notice_created_at}</div>
+            <div className={styles.createdAt}>{entry.created_at}</div>
           </div>
 
           <button

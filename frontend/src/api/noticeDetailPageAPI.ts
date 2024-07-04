@@ -1,5 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 
+type NoticeChoice = string
+type NoticeContent = string
+type NoticePrice = string
+
 export interface getNoticeDetailType {
   first_name: string;
   last_name: string;
@@ -12,21 +16,13 @@ export interface getNoticeDetailType {
   notice_id: number;
   topic: string;
   notice_content: string;
-  notice_created_at: string;
+  created_at: string;
   parent_username: string;
   admin_name: string;
-  notice_choices: {
-    label: string;
-    value: string;
-  }[];
-  notice_choice_contents: {
-    label: string;
-    value: string;
-  }[];
-  notice_choice_prices: {
-    label: string;
-    value: string;
-  }[];
+  notice_choices: NoticeChoice[];
+
+  notice_choice_contents: NoticeContent[];
+  notice_choice_prices: NoticePrice[];
 }
 
 export interface getNoticeDetailOptionType {}

@@ -122,8 +122,8 @@ JOIN admin_class_relation ON admin_class_relation.class_id = classes.id
 JOIN admins ON admin_class_relation.admin_id = admins.id
 JOIN parents ON students.parent_id = parents.id
 JOIN notice_choice ON notice_choice.notice_id = notices.id
-WHERE notices.id = 1
-  AND student_class_relation.student_id = 1
+WHERE notices.id = ${noticeId}
+  AND student_class_relation.student_id = ${studentId}
 GROUP BY 
   students.first_name,
   students.last_name,
