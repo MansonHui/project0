@@ -4,7 +4,6 @@ import NoticeService from "../services/NoticeService";
 import NoticeController from "../controllers/NoticeController";
 import { checkToken } from "../utils/guard";
 
-
 export const noticeRouter = Router();
 const noticeService = new NoticeService(knex);
 let noticeController = new NoticeController(noticeService);

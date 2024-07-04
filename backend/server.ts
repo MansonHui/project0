@@ -29,7 +29,7 @@ app.use("/student", studentRouter);
 app.use("/attendance", attendanceRouter);
 app.use("/Message", attendanceAndNoticeRouter);
 app.use("/images", express.static("uploads"));
-app.use("/teacherNotice",teacherNoticeRouter)
+app.use("/teacherNotice", teacherNoticeRouter);
 
 
 
@@ -38,7 +38,6 @@ app.use("/teacherNotice",teacherNoticeRouter)
 
 //***************************************** */ testing
 app.post("/", function (req: Request, res: Response) {});
-console.log("1233456");
 
 app.listen(PORT, () => {
   console.log(`listening to http://localhost:${PORT}/`);

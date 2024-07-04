@@ -149,4 +149,133 @@ export default class SuperAdminService {
         .returning("students.id")
     )[0];
   }
+
+  async createNotices(
+    topic: string,
+    content: string,
+    optionStr: any,
+    grade: number,
+    class_name: string,
+    school_id: number
+  ) {
+    // Insert data into the "notices" table
+    const [noticeId] = await this.knex("notices")
+      .insert({
+        topic: topic,
+        content: content,
+        created_at: this.knex.fn.now(),
+        updated_at: this.knex.fn.now(),
+      })
+      .returning("id");
+
+    console.log("noticeId", noticeId.id);
+
+    for (const eachOption in optionStr) {
+      console.log("eachOption", eachOption);
+      // Insert data into the "notice_choice" table
+      await this.knex("notice_choice").insert({
+        option: eachOption,
+        content: optionStr[eachOption].content,
+        price: optionStr[eachOption].price,
+        notice_id: noticeId.id,
+        created_at: this.knex.fn.now(),
+        updated_at: this.knex.fn.now(),
+      });
+    }
+
+    const [classId] = await this.knex
+      .select("classes.id")
+      .from("classes")
+      .where("grade", grade)
+      .where("class_name", class_name);
+
+    console.log("classIdfrom  ", classId.id);
+
+    // const [schoolID] = await this.knex
+    //   .select("schools.id")
+    //   .where("schools.abbr_name", schoolAbbr);
+
+    // console.log("classIdfrom  ", schoolID.id);
+
+    const studentsId = await this.knex
+      .select("students.id")
+      .from("students")
+      .join("student_class_relation as scr", "scr.student_id", "students.id")
+      .where("scr.class_id", classId.id)
+      .where("students.school_id", school_id);
+
+    console.log("studentsId  ", studentsId[0]);
+
+    for (const eachStudentId of studentsId) {
+      console.log("eachStudentId.id", eachStudentId.id);
+
+      await this.knex("notice_student_relation").insert({
+        notice_id: noticeId.id as number,
+        student_id: eachStudentId.id as number,
+        created_at: this.knex.fn.now(),
+        updated_at: this.knex.fn.now(),
+      });
+    }
+
+    // Perform joins with other tables
+    let result = await this.knex("notices")
+      .join("notice_choice", "notices.id", "notice_choice.notice_id")
+      .join("notice_student_relation as nsr", "notices.id", "nsr.notice_id")
+      // .join("students", "students.id", "nsr.student_id")
+      // .join("student_class_relation as scr", "students.id", "scr.student_id")
+      // .join("classes", "classes.id", "scr.class_id")
+      // .join("schools", "schools.id", "students.school_id")
+      // .join("admins", "admins.school_id", "schools.id")
+      // .where("classes.id", classId.id)
+      .where("notices.id", noticeId.id)
+      .returning("*");
+
+    return result;
+
+    // return await this.knex("notices")
+    //   .insert({
+    //     topic: topic,
+    //     content: content,
+    //     created_at: this.knex.fn.now(),
+    //     updated_at: this.knex.fn.now(),
+    //   })
+    //   .join("notice_choice", "notices.id", "notice_choice.notice_id")
+    //   .join("notice_student_relation as nsr", "notices.id", "nsr.notice_id")
+    //   .join("students", "students.id", "nsr.student_id")
+    //   .join("student_class_relation as scr", "students.id", "scr.student_id")
+    //   .join("classes", "classes.id", "scr.class_id")
+    //   .join("schools", "schools.id", "students.school_id")
+    //   .join("admins", "admins.school_id", "schools.id")
+    //   .where("classes.id", classid)
+    //   .where("admins.id", userRoleId)
+    //   .returning("notices.id")
+    //   .then((response) => {
+    //     return this.knex("notice_choice")
+    //       .insert({
+    //         option: option,
+    //         notice_id: response[0].id,
+    //         created_at: this.knex.fn.now(),
+    //         updated_at: this.knex.fn.now(),
+    //       })
+    //       .returning("*");
+    //   })
+    //   .then((response) => {
+    //     return this.knex("notice_student_relation")
+    //       .insert({
+    //         notice_id: response[0].id,
+    //         created_at: this.knex.fn.now(),
+    //         updated_at: this.knex.fn.now(),
+    //       })
+    //       .returning("*");
+    //   })
+    //   .then((response) => {
+    //     return this.knex("students")
+    //       .insert({
+    //         notice_id: response[0].id,
+    //         created_at: this.knex.fn.now(),
+    //         updated_at: this.knex.fn.now(),
+    //       })
+    //       .returning("*");
+    //   });
+  }
 }

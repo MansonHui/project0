@@ -26,6 +26,27 @@ export async function seed(knex: Knex): Promise<void> {
         admin_id: 7,
       },
     ]);
+
+    // for (let i = 1; i < 25; i++) {
+    //   await knex("admin_class_relation").insert([
+    //     {
+    //       class_id: i,
+    //       admin_id: 2,
+    //     },
+    //     {
+    //       class_id: i,
+    //       admin_id: 4,
+    //     },
+    //     {
+    //       class_id: i,
+    //       admin_id: 6,
+    //     },
+    //     {
+    //       class_id: i,
+    //       admin_id: 8,
+    //     },
+    //   ]);
+    // }
   } catch (err) {
     console.log(err);
     await txn.rollback();

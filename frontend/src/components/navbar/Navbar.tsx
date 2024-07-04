@@ -33,9 +33,9 @@ export default function Navbar() {
           <div className={styles.navbar_function_logo}><AnnouncementRoundedIcon color="action"/></div>
           <div className={styles.navbar_function_text}>Instant Messaging 即時通訊</div>
         </div>
-        <div onClick={()=>navigate("Drawing")} className={styles.navbar_function}>
+        <div onClick={()=>navigate("EditNotice")} className={styles.navbar_function}>
           <div className={styles.navbar_function_logo}><EmailRoundedIcon color="action"/></div>
-          <div className={styles.navbar_function_text}>Drawing Notice</div>
+          <div className={styles.navbar_function_text}>Editorial Notice</div>
         </div>
         <div onClick={()=>navigate("AI")} className={styles.navbar_function}>
           <div className={styles.navbar_function_logo}><StickyNote2RoundedIcon color="action"/></div>

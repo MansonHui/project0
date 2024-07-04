@@ -44,3 +44,10 @@ superAdminRouter.post(
   isSuperAdmin,
   superAdminController.createStudent
 );
+
+superAdminRouter.post(
+  "/createNotice",
+  checkToken,
+  isSuperAdmin,
+  superAdminController.createNotices
+);
