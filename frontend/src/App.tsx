@@ -15,7 +15,7 @@ import ParentPage from "./pages/parent/ParentPage";
 import Textarea from "./components/textarea/Textarea";
 import TeacherNoticePage from "./pages/teacherNotice/TeacherNoticePage";
 
-import RegisterPage from "./pages/register/RegisterPage";
+import RegisterPage from "./pages/register/registerPage";
 
 import SuperAdminPage from "./pages/superAdmin/superAdminPage";
 import NoticeDetailPage from "./pages/noticeDetail/NoticeDetailPage";
@@ -34,7 +34,7 @@ function App() {
       <Route path="/" element={<Login />} />
       <Route element={<LoginAuthGuard authToken={authToken} />}>
         <Route path="/HomePage" element={<HomePage />} />
-        {/* <Route path="/HomePage" element={<ParentPage />} /> */}
+        {/* <Route path="/HomePage" element={<RegisterPage />} /> */}
         <Route path="/Message" element={<MessagePage />}>
           <Route path="/Message" element={<MessageAllPage />} />
           <Route path="MessageAll" element={<MessageAllPage />}>
@@ -53,7 +53,7 @@ function App() {
 
         <Route path="/EditNotice" element={<EditNoticePage />}></Route>
         <Route path="/AI" element={<AIAttendances />} />
-        {/* <Route path="/Register" element={<RegisterPage />} /> */}
+        
 
         <Route path="TeacherNotice" element={<TeacherNoticePage />}></Route>
         <Route path="/superAdmin" element={<SuperAdminPage />} />
