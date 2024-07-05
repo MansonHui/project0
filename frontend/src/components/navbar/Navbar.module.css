@@ -1,12 +1,20 @@
-.navbar_container{
+/* .navbar_container{
     position: absolute;
     display: block;
     z-index: 100;
     top: -10px;
     left: -5px;
     height: 937px;
-    width: 300px;
+    width: 50vw;
     background-color: rgb(178, 178, 178);
+} */
+
+.navbar_container {
+    position: fixed;
+    left: 0vh;
+    bottom: 0vh;
+    width: 40vw;
+    height: 100vh;
 }
 
 .navbar_logo_container{
@@ -20,6 +28,13 @@
     height: 60%;
     width: 100%;
     background-color: yellow;
+}
+
+.navbar_info_container{
+    height: 25%;
+    width: 100%;
+    background-color: aqua;
+    position: relative;
 }
 
 .navbar_function{
@@ -44,13 +59,6 @@
     text-align: start;
     align-content: center;
     
-}
-
-.navbar_info_container{
-    height: 25%;
-    width: 100%;
-    background-color: aqua;
-    position: relative;
 }
 
 .navbar_info_GobackButton{

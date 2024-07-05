@@ -10,41 +10,52 @@ import PopuploginPrivacyPolicy from "./loginPrivacyPolicy";
 
 export default function Login() {
   // super admin AC and password
-  // const [email, setEmail] = useState("super@stpeter.edu.hk");
-  // const [password, setPassword] = useState("stpeter");
+  const [email, setEmail] = useState("super@stpeter.edu.hk");
+  const [password, setPassword] = useState("stpeter");
   // teacher AC and password
   // const [email, setEmail] = useState("choiping@stpeter.edu.hk");
   // const [password, setPassword] = useState("0000");
   // // parent AC and password
-  const [email, setEmail] = useState("chantaiming@gmail.com");
-  const [password, setPassword] = useState("1234");
-  
+  // const [email, setEmail] = useState("chantaiming@gmail.com");
+  // const [password, setPassword] = useState("1234");
+
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { login } = useAuth();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const res = await fetch(
-      `${process.env.REACT_APP_API_ENDPOINT}/auth/login`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      }
-    );
-    const reponse = await res.json();
+    try {
+      console.log(loginForm);
+      const response = await fetch(
+        `${process.env.REACT_APP_API_ENDPOINT}/auth/login`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+        }
+      );
 
-    if (res.ok) {
-      login(reponse.token);
-    } else {
-      alert("Login failed");
+      if (response.ok) {
+        const data = await response.json();
+        login(data.token);
+      } else {
+        const error = await response.json();
+        setError(error.message || "Login failed");
+      }
+    } catch (err) {
+      console.error(err);
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unknown error occurred. Please try again later.");
+      }
     }
   };
 
@@ -82,35 +93,34 @@ export default function Login() {
   };
 
   return (
-    <Box>
-      <div id={styles.loginContainer}>
-        <div id={styles.loginTop}>
-          <div id={styles.loginBanner}></div>
-        </div>
-        <div id={styles.loginCoreBackground}>
-          <div id={styles.privacyPolicyAndOption}>
-            <label id={styles.privacyPolicy}>
-              <PopuploginPrivacyPolicy
-                // id="popup-without-portal-fixed"
-                id={styles.popupButton}
-                buttonLabel="privacyPolicy"
-                strategy="fixed"
-              />
-            </label>
+    <div id={styles.loginBody}>
+      <Box>
+        <div id={styles.loginContainer}>
+          <div id={styles.loginCoreBackground}>
+            <div id={styles.privacyPolicyAndOption}>
+              <label id={styles.privacyPolicy}>
+                <PopuploginPrivacyPolicy
+                  // id="popup-without-portal-fixed"
+                  id={styles.popupButton}
+                  buttonLabel="privacyPolicy"
+                  strategy="fixed"
+                />
+              </label>
 
-            <div id={styles.agreeOptionBox}>
-              <FormControlLabel
-                id={styles.agreeOption}
-                control={<Switch checked={checked} onChange={handleChange} />}
-                label="Agree"
-              />
-              <Slide direction="up" in={checked} mountOnEnter unmountOnExit>
-                {loginForm}
-              </Slide>
+              <div id={styles.agreeOptionBox}>
+                <FormControlLabel
+                  id={styles.agreeOption}
+                  control={<Switch checked={checked} onChange={handleChange} />}
+                  label="Agree"
+                />
+                <Slide direction="up" in={checked} mountOnEnter unmountOnExit>
+                  {loginForm}
+                </Slide>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </Box>
+      </Box>
+    </div>
   );
 }
