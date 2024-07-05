@@ -41,5 +41,19 @@ export default class NoticeController {
     }
   };
 
-  choiceNotice = async (req: Request, res: Response) => {}
+  insertChoice = async (req: Request, res: Response) => {
+    const { studentId, noticeId } = req.params;
+    const { noticeChoiceId } = req.body;
+
+    try {
+      await this.noticeService.insertChoice(
+        Number(studentId),
+        Number(noticeId),
+        Number(noticeChoiceId)
+      );
+      res.status(200).json({ message: 'Record updated' });
+    } catch (error) {
+      res.status(500).json({ message: 'Error updating record', error });
+    }
+  }
 }
