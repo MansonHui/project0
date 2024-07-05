@@ -8,4 +8,10 @@ export const noticeRouter = Router();
 const noticeService = new NoticeService(knex);
 let noticeController = new NoticeController(noticeService);
 
-noticeRouter.get("/getAllNotice", checkToken, noticeController.getAllNotices);
+
+
+
+
+noticeRouter.get("/getAllNotice",checkToken,noticeController.getAllNotices)
+noticeRouter.get("/getNoticeDetail",checkToken,noticeController.getNoticeDetails)
+noticeRouter.post("/choiceNotices",checkToken,noticeController.choiceNotice)
