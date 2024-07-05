@@ -16,6 +16,8 @@ export default class HomeController {
     );
 
     console.log("hihih", getAllClassInfo);
+
+    console.log("req.body.form ", req.body);
     res.status(200).json({ msg: "from all claass", getAllClassInfo });
   };
 }
