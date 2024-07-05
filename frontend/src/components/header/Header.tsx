@@ -11,7 +11,7 @@ import Menu from "@mui/material/Menu";
 import CreateIcon from "@mui/icons-material/Create";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Navbar from "../navbar/Navbar";
-import { Outlet } from "react-router-dom";
+import styles from "./Header.module.css";
 
 export default function MenuHeaderBar() {
   let [isHide, setIsHide] = React.useState(true);
@@ -41,7 +41,7 @@ export default function MenuHeaderBar() {
     <>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
-          <Toolbar>
+        <Toolbar className={styles.header}>
             <IconButton
               onClick={() => {
                 setIsHide(!isHide);
