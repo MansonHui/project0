@@ -18,7 +18,7 @@ export default function Login() {
   // // parent AC and password
   const [email, setEmail] = useState("chantaiming@gmail.com");
   const [password, setPassword] = useState("1234");
-  
+
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -42,6 +42,7 @@ export default function Login() {
     const reponse = await res.json();
 
     if (res.ok) {
+      console.log("reponse", reponse);
       login(reponse.token);
     } else {
       alert("Login failed");
@@ -82,36 +83,35 @@ export default function Login() {
   };
 
   return (
-      <Box id={styles.loginContainer}>
-        <div id={styles.bannerContainer}>
-          <div id={styles.loginBanner}></div>
-        </div>
+    <Box id={styles.loginContainer}>
+      <div id={styles.bannerContainer}>
+        <div id={styles.loginBanner}></div>
+      </div>
 
-        <div id={styles.privacyPolicyAndOption}>
-          <div>
-            <label id={styles.privacyPolicy}>
-              <PopuploginPrivacyPolicy
-                // id="popup-without-portal-fixed"
-                id={styles.popupButton}
-                buttonLabel="Privacy PolicyXXXX"
-           
-                strategy="fixed"
-              />
-            </label>
+      <div id={styles.privacyPolicyAndOption}>
+        <div>
+          <label id={styles.privacyPolicy}>
+            <PopuploginPrivacyPolicy
+              // id="popup-without-portal-fixed"
+              id={styles.popupButton}
+              buttonLabel="Privacy PolicyXXXX"
+              strategy="fixed"
+            />
+          </label>
 
-            <div id={styles.agreeOptionBox}>
-              <FormControlLabel
-                id={styles.agreeOption}
-                control={<Switch checked={checked} onChange={handleChange} />}
-                label="Agree"
-              />
-            </div>
+          <div id={styles.agreeOptionBox}>
+            <FormControlLabel
+              id={styles.agreeOption}
+              control={<Switch checked={checked} onChange={handleChange} />}
+              label="Agree"
+            />
           </div>
-
-          <Slide direction="up" in={checked} mountOnEnter unmountOnExit>
-            {loginForm}
-          </Slide>
         </div>
-      </Box>
+
+        <Slide direction="up" in={checked} mountOnEnter unmountOnExit>
+          {loginForm}
+        </Slide>
+      </div>
+    </Box>
   );
 }

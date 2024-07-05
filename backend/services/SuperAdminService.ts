@@ -168,7 +168,7 @@ export default class SuperAdminService {
       })
       .returning("id");
 
-    console.log("noticeId", noticeId.id);
+    console.log("noticeId.id", noticeId.id);
 
     for (const option of optionStr) {
       // console.log({
@@ -183,7 +183,7 @@ export default class SuperAdminService {
         option: option.option,
         content: option.content,
         price: option.price,
-        notice_id: noticeId.id,
+        notice_id: noticeId.id as number,
         created_at: this.knex.fn.now(),
         updated_at: this.knex.fn.now(),
       });
@@ -214,8 +214,6 @@ export default class SuperAdminService {
       .where("scr.class_id", classId.id)
       .where("students.school_id", school_id);
 
-    console.log("studentsId  ", studentsId);
-
     for (const eachStudentId of studentsId) {
       console.log("eachStudentId.id", eachStudentId.id);
 
@@ -226,7 +224,7 @@ export default class SuperAdminService {
         updated_at: this.knex.fn.now(),
       });
 
-      console.log("studentsIdinside ", studentsId);
+      console.log("studentsIdinside ", eachStudentId);
     }
 
     // Perform joins with other tables
@@ -241,6 +239,8 @@ export default class SuperAdminService {
       // .where("classes.id", classId.id)
       .where("notices.id", noticeId.id)
       .returning("*");
+
+    console.log("result", result);
 
     return result;
   }
