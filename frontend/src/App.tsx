@@ -14,18 +14,17 @@ import MessageAllPage from "./pages/messageAll/MessageAllPage";
 import ParentPage from "./pages/parent/ParentPage";
 import Textarea from "./components/textarea/Textarea";
 import TeacherNoticePage from "./pages/teacherNotice/TeacherNoticePage";
-import DetailNoticePage from "./pages/detailNotice/DetailNoticePage";
 
 import RegisterPage from "./pages/register/RegisterPage";
-
 import SuperAdminPage from "./pages/superAdmin/superAdminPage";
+import NoticeDetailPage from "./pages/noticeDetail/NoticeDetailPage";
 import EditNoticePage from "./pages/editlNotice/EditNoticePage";
 function App() {
   const { authToken } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (authToken) navigate("/HomePage ");
+    if (authToken) navigate("/HomePage");
     else navigate("/");
   }, [authToken]);
 
@@ -43,7 +42,7 @@ function App() {
           <Route path="Notices" element={<NoticePage />}>
             {" "}
           </Route>
-          <Route path="DetailNotice" element={<DetailNoticePage />}>
+          <Route path="NoticeDetail" element={<NoticeDetailPage />}>
             {" "}
           </Route>
           <Route path="Attendance" element={<AttendancePage />}>

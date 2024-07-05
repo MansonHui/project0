@@ -15,4 +15,31 @@ export default class NoticeController {
 
     res.status(200).json({ msg: "from all Notices", getAllNotice });
   };
+
+  getNoticeDetails = async (req: Request, res: Response) => {
+    console.log("check req body", req.body);
+
+    try {
+      const getNoticeDetail = await this.noticeService.getNoticeDetail(
+        req.body.userRole,
+        req.body.userRoleId,
+        parseInt(req.query.noticeId! as string),
+        parseInt(req.query.studentId! as string)
+      );
+
+      console.log("check getDetail", getNoticeDetail.rows[0]);
+
+      res.status(200).json({
+        msg: "from Notice Detail",
+        getNoticeDetail: getNoticeDetail.rows,
+      });
+    } catch (error) {
+      console.error("Error in getNoticeDetails:", error);
+      res
+        .status(500)
+        .json({ error: "An error occurred while fetching notice details" });
+    }
+  };
+
+  choiceNotice = async (req: Request, res: Response) => {}
 }

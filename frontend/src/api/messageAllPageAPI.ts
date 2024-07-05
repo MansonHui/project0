@@ -37,7 +37,10 @@ export function useGetMessageAll(): {
       // return result.(((MessageAll)))) <==== wrong ;
     },
   });
+  console.log(data);
   if (isLoading || error || !data || isFetching) {
     return { status: "loading", data: [] };
+    
+    
   } else return data;
 }

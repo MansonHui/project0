@@ -2,13 +2,19 @@ import { Request, Response } from "express";
 import SuperAdminService from "../services/SuperAdminService";
 import { getSchoolAbbr, isEduExistInMail } from "../helper/getSchoolNameAbbr";
 import { getUserName } from "../helper/getUserNameFromEmail";
-// import { Upload } from "@aws-sdk/lib-storage";
+import AWS from "aws-sdk";
 import dotenv from "dotenv";
-// import formidable from "formidable";
-// import fs from "fs";
-// import path from "path";
+import formidable from "formidable";
+import path from "path";
+import fs from "fs";
 
 dotenv.config();
+
+AWS.config.update({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.REGION,
+});
 
 export default class SuperAdminController {
   constructor(private superAdminService: SuperAdminService) {}
@@ -151,52 +157,62 @@ export default class SuperAdminController {
     res.json({ newStudentId });
   };
 
-  // uploadStudentImage = (req: Request, res: Response) => {
-  //   const uploadDir = path.join(__dirname, "../uploads");
-  //   fs.mkdirSync(uploadDir, { recursive: true });
+  uploadStudentImage = (req: Request, res: Response) => {
+    const uploadDir = path.join(__dirname, "../uploads");
+    fs.mkdirSync(uploadDir, { recursive: true });
 
-  //   const form = formidable({
-  //     uploadDir,
-  //     keepExtensions: true,
-  //     maxFiles: 1,
-  //     maxFileSize: 1024 * 1024,
-  //     filter: (part) => part.mimetype?.startsWith("image/") || false,
-  //   });
+    const form = formidable({
+      uploadDir,
+      keepExtensions: true,
+      maxFiles: 1,
+      maxFileSize: 1024 * 1024,
+      filter: (part) => part.mimetype?.startsWith("image/") || false,
+    });
 
-  //   form.parse(req, async (err, fields, files) => {
-  //     console.log("fields.email", fields.email);
-  //     let parentId = await this.superAdminService.getParentId(
-  //       fields.email as string
-  //     );
+    form.parse(req, async (err, fields, files) => {
+      console.log("files.image", files.image);
+      let student_id_int = parseInt((fields.student_id as string[])[0]);
+      let studentId = await this.superAdminService.uploadStudentImage(
+        student_id_int,
 
-  //     let schoolId = await this.superAdminService.getSchoolId(
-  //       (await getSchoolAbbr(req.body.userRoleEmail)) as string
-  //     );
+        (files.image as formidable.File[])[0].newFilename
+      );
 
-  //     console.log("parentId", parentId);
+      let absolutePath =
+        uploadDir + "\\" + (files.image as formidable.File[])[0].newFilename;
 
-  //     let newStudentId = await this.superAdminService.createNewStudent(
-  //       fields.first_name as string,
-  //       fields.last_name as string,
-  //       fields.HKID_number as string,
-  //       fields.birthday as string,
-  //       fields.gender as string,
-  //       (files.image as formidable.File)?.newFilename,
-  //       parentId.id,
-  //       schoolId.id
-  //     );
+      const rekognition = new AWS.Rekognition();
 
-  //     let absolutePatth =
-  //       uploadDir + "/" + (files.image as formidable.File)?.newFilename;
+      const readImageFile = (filePath: string): Buffer => {
+        return fs.readFileSync(path.resolve(__dirname, filePath));
+      };
 
-  //     console.log(absolutePatth);
+      // Function to index faces
+      const indexFaces = async (imagePath: string, collectionId: string) => {
+        try {
+          const imageBuffer = readImageFile(imagePath);
 
-  //     console.log("newStudentId", newStudentId);
+          const params = {
+            CollectionId: collectionId,
+            ExternalImageId: studentId?.toString(),
+            Image: {
+              Bytes: imageBuffer,
+            },
+          };
 
-  //     console.log({ err, fields, files });
-  //     res.json({ fields, files });
-  //   });
-  // };
+          const result = await rekognition.indexFaces(params).promise();
+          console.log("Face indexing result:", result);
+        } catch (error) {
+          console.error("Error indexing faces:", error);
+        }
+      };
+      const collectionId = "testing";
+
+      indexFaces(absolutePath, collectionId);
+
+      res.json({ fields, files });
+    });
+  };
 
   getAllStudentData = async (req: Request, res: Response) => {
     let SchoolAbbr = await getSchoolAbbr(req.body.userRoleEmail);
@@ -210,26 +226,32 @@ export default class SuperAdminController {
   };
 
   createNotices = async (req: Request, res: Response) => {
-    console.log("check req notice_choice", req.body.notice_choice);
+    try {
+      const { topic, content, notice_choice, grade, class_name, school_id } =
+        req.body;
+      // console.log({topic, content, notice_choice, grade, class_name, school_id})
+      // Declare a String
 
-    // Declare a String
+      // Use String split() method to
+      // Convert String to an Array
+      // let optionArr = optionStr.split(",");
+      // let schoolAbbr = await getSchoolAbbr(req.body.userRoleEmail);
 
-    // Use String split() method to
-    // Convert String to an Array
-    // let optionArr = optionStr.split(",");
-    // let schoolAbbr = await getSchoolAbbr(req.body.userRoleEmail);
+      // console.log("schoolAbbr", schoolAbbr);
 
-    // console.log("schoolAbbr", schoolAbbr);
+      let createNotices = await this.superAdminService.createNotices(
+        topic,
+        content,
+        notice_choice,
+        grade,
+        class_name,
+        school_id
+      );
 
-    let createNotices = await this.superAdminService.createNotices(
-      req.body.topic,
-      req.body.content,
-      req.body.notice_choice,
-      req.body.grade,
-      req.body.class_name,
-      req.body.school_id
-    );
-
-    res.status(200).json({ msg: "create Notices", createNotices });
+      res.status(200).json({ msg: "create Notices", createNotices });
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({ msg: "fail Notices", e });
+    }
   };
 }

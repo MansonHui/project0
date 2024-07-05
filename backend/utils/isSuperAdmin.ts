@@ -11,7 +11,6 @@ export async function isSuperAdmin(
 ) {
   try {
     if ("super" === (await getUserName(req.body.userRoleEmail))) {
-      console.log("req.body", req.body);
       return next();
     }
 

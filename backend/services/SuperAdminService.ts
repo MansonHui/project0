@@ -153,7 +153,7 @@ export default class SuperAdminService {
   async createNotices(
     topic: string,
     content: string,
-    optionStr: any,
+    optionStr: any[],
     grade: number,
     class_name: string,
     school_id: number
@@ -170,19 +170,29 @@ export default class SuperAdminService {
 
     console.log("noticeId", noticeId.id);
 
-    for (const eachOption in optionStr) {
-      console.log("eachOption", eachOption);
-      // Insert data into the "notice_choice" table
+    for (const option of optionStr) {
+      // console.log({
+      //   option: option.option,
+      //   content: option.content,
+      //   price: option.price,
+      //   notice_id: noticeId.id,
+      //   created_at: this.knex.fn.now(),
+      //   updated_at: this.knex.fn.now(),
+      // })
       await this.knex("notice_choice").insert({
-        option: eachOption,
-        content: optionStr[eachOption].content,
-        price: optionStr[eachOption].price,
+        option: option.option,
+        content: option.content,
+        price: option.price,
         notice_id: noticeId.id,
         created_at: this.knex.fn.now(),
         updated_at: this.knex.fn.now(),
       });
     }
 
+    console.log({
+      grade,
+      class_name,
+    });
     const [classId] = await this.knex
       .select("classes.id")
       .from("classes")
@@ -204,7 +214,7 @@ export default class SuperAdminService {
       .where("scr.class_id", classId.id)
       .where("students.school_id", school_id);
 
-    console.log("studentsId  ", studentsId[0]);
+    console.log("studentsId  ", studentsId);
 
     for (const eachStudentId of studentsId) {
       console.log("eachStudentId.id", eachStudentId.id);
@@ -215,6 +225,8 @@ export default class SuperAdminService {
         created_at: this.knex.fn.now(),
         updated_at: this.knex.fn.now(),
       });
+
+      console.log("studentsIdinside ", studentsId);
     }
 
     // Perform joins with other tables
@@ -231,51 +243,32 @@ export default class SuperAdminService {
       .returning("*");
 
     return result;
+  }
 
-    // return await this.knex("notices")
-    //   .insert({
-    //     topic: topic,
-    //     content: content,
-    //     created_at: this.knex.fn.now(),
-    //     updated_at: this.knex.fn.now(),
-    //   })
-    //   .join("notice_choice", "notices.id", "notice_choice.notice_id")
-    //   .join("notice_student_relation as nsr", "notices.id", "nsr.notice_id")
-    //   .join("students", "students.id", "nsr.student_id")
-    //   .join("student_class_relation as scr", "students.id", "scr.student_id")
-    //   .join("classes", "classes.id", "scr.class_id")
-    //   .join("schools", "schools.id", "students.school_id")
-    //   .join("admins", "admins.school_id", "schools.id")
-    //   .where("classes.id", classid)
-    //   .where("admins.id", userRoleId)
-    //   .returning("notices.id")
-    //   .then((response) => {
-    //     return this.knex("notice_choice")
-    //       .insert({
-    //         option: option,
-    //         notice_id: response[0].id,
-    //         created_at: this.knex.fn.now(),
-    //         updated_at: this.knex.fn.now(),
-    //       })
-    //       .returning("*");
-    //   })
-    //   .then((response) => {
-    //     return this.knex("notice_student_relation")
-    //       .insert({
-    //         notice_id: response[0].id,
-    //         created_at: this.knex.fn.now(),
-    //         updated_at: this.knex.fn.now(),
-    //       })
-    //       .returning("*");
-    //   })
-    //   .then((response) => {
-    //     return this.knex("students")
-    //       .insert({
-    //         notice_id: response[0].id,
-    //         created_at: this.knex.fn.now(),
-    //         updated_at: this.knex.fn.now(),
-    //       })
-    //       .returning("*");
-    //   });
+  async uploadStudentImage(student_id: number, image: any) {
+    try {
+      let updatedRows = await this.knex("students")
+        .where("id", student_id)
+        .update({ image: image })
+        .returning("id");
+
+      if (updatedRows.length > 0) {
+        console.log(`Image updated for student with ID ${student_id}`);
+        return updatedRows[0]!.id as string;
+      } else {
+        console.log(`Student with ID ${student_id} not found.`);
+        return null;
+      }
+    } catch (error) {
+      console.error("Error updating student image:", error);
+      throw error; // Handle the error appropriately in your application
+    }
+
+    // let [studentid] = await this.knex("students")
+    //   .update({ image: image })
+    //   .where("students.id", student_id)
+    //   .returning("students.id");
+
+    // return studentid.id;
   }
 }

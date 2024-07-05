@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useGetMessageAll } from "../../api/messageAllPageAPI";
 
-
 import styles from "./MessageAllPage.module.css";
 
 export default function MessageAllPage() {
@@ -10,13 +9,22 @@ export default function MessageAllPage() {
 
   return (
     <div>
-          {/* // 新加status 判斷是否 */}
+      {/* // 新加status 判斷是否 */}
       {messageAll.status === "success" ? (
-        messageAll.data.map((entry,idx) =>
+        messageAll.data.map((entry) =>
           entry.grade !== null ? (
-            <div onClick={() => {
-              navigate("../DetailNotice", { state: { id: entry.id, type: 'notice' } });
-            }} className={styles.Message} key={idx}>
+            <div
+              onClick={() => {
+                navigate("../NoticeDetail", {
+                  state: {
+                    notice_id: entry.notice_id,
+                    type: "notice",
+                    student_id: entry.student_id,
+                  },
+                });
+              }}
+              className={styles.Message}
+            >
               <div className={styles.Message_type}>
                 <div>School: {entry.full_name}</div>
               </div>
@@ -36,7 +44,7 @@ export default function MessageAllPage() {
               </div>
             </div>
           ) : (
-            <div className={styles.Message} key={idx}>
+            <div className={styles.Message}>
               <div className={styles.Message_type}>
                 <div>
                   Name: {entry.last_name} {entry.first_name}
