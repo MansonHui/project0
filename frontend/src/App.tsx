@@ -16,7 +16,6 @@ import Textarea from "./components/textarea/Textarea";
 import TeacherNoticePage from "./pages/teacherNotice/TeacherNoticePage";
 
 import RegisterPage from "./pages/register/registerPage";
-
 import SuperAdminPage from "./pages/superAdmin/superAdminPage";
 import NoticeDetailPage from "./pages/noticeDetail/NoticeDetailPage";
 import EditNoticePage from "./pages/editlNotice/EditNoticePage";
@@ -53,7 +52,7 @@ function App() {
 
         <Route path="/EditNotice" element={<EditNoticePage />}></Route>
         <Route path="/AI" element={<AIAttendances />} />
-        
+        <Route path="/Register" element={<RegisterPage />} />
 
         <Route path="TeacherNotice" element={<TeacherNoticePage />}></Route>
         <Route path="/superAdmin" element={<SuperAdminPage />} />

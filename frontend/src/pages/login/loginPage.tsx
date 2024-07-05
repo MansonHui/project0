@@ -82,19 +82,18 @@ export default function Login() {
   };
 
   return (
-      <Box id={styles.loginContainer}>
-        <div id={styles.bannerContainer}>
+    <Box>
+      <div id={styles.loginContainer}>
+        <div id={styles.loginTop}>
           <div id={styles.loginBanner}></div>
         </div>
-
-        <div id={styles.privacyPolicyAndOption}>
-          <div>
+        <div id={styles.loginCoreBackground}>
+          <div id={styles.privacyPolicyAndOption}>
             <label id={styles.privacyPolicy}>
               <PopuploginPrivacyPolicy
                 // id="popup-without-portal-fixed"
                 id={styles.popupButton}
-                buttonLabel="Privacy PolicyXXXX"
-           
+                buttonLabel="privacyPolicy"
                 strategy="fixed"
               />
             </label>
@@ -105,13 +104,13 @@ export default function Login() {
                 control={<Switch checked={checked} onChange={handleChange} />}
                 label="Agree"
               />
+              <Slide direction="up" in={checked} mountOnEnter unmountOnExit>
+                {loginForm}
+              </Slide>
             </div>
           </div>
-
-          <Slide direction="up" in={checked} mountOnEnter unmountOnExit>
-            {loginForm}
-          </Slide>
         </div>
-      </Box>
+      </div>
+    </Box>
   );
 }

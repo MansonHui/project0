@@ -42,7 +42,7 @@ superAdminRouter.post(
   "/uploadStudentImage",
   checkToken,
   isSuperAdmin,
-  superAdminController.createStudent
+  superAdminController.uploadStudentImage
 );
 
 superAdminRouter.post(
