@@ -31,7 +31,7 @@ export async function checkToken(
 
     req.body.school_id = decoded.school_id;
 
-    console.log("decoded", decoded);
+    // console.log("decoded", decoded);
 
     return next();
   } catch (e) {

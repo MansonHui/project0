@@ -153,7 +153,7 @@ export default class SuperAdminService {
   async createNotices(
     topic: string,
     content: string,
-    optionStr: any,
+    optionStr: any[],
     grade: number,
     class_name: string,
     school_id: number
@@ -170,19 +170,29 @@ export default class SuperAdminService {
 
     console.log("noticeId", noticeId.id);
 
-    for (const eachOption in optionStr) {
-      console.log("eachOption", eachOption);
-      // Insert data into the "notice_choice" table
+    for (const option of optionStr) {
+      // console.log({
+      //   option: option.option,
+      //   content: option.content,
+      //   price: option.price,
+      //   notice_id: noticeId.id,
+      //   created_at: this.knex.fn.now(),
+      //   updated_at: this.knex.fn.now(),
+      // })
       await this.knex("notice_choice").insert({
-        option: eachOption,
-        content: optionStr[eachOption].content,
-        price: optionStr[eachOption].price,
+        option: option.option,
+        content: option.content,
+        price: option.price,
         notice_id: noticeId.id,
         created_at: this.knex.fn.now(),
         updated_at: this.knex.fn.now(),
       });
     }
 
+    console.log({
+      grade,
+      class_name
+    })
     const [classId] = await this.knex
       .select("classes.id")
       .from("classes")
