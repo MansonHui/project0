@@ -210,8 +210,9 @@ export default class SuperAdminController {
   };
 
   createNotices = async (req: Request, res: Response) => {
-    console.log("check req notice_choice", req.body.notice_choice);
-
+   try {
+    const {topic, content, notice_choice, grade, class_name, school_id} = req.body
+    // console.log({topic, content, notice_choice, grade, class_name, school_id})
     // Declare a String
 
     // Use String split() method to
@@ -222,14 +223,15 @@ export default class SuperAdminController {
     // console.log("schoolAbbr", schoolAbbr);
 
     let createNotices = await this.superAdminService.createNotices(
-      req.body.topic,
-      req.body.content,
-      req.body.notice_choice,
-      req.body.grade,
-      req.body.class_name,
-      req.body.school_id
+      topic, content, notice_choice, grade, class_name,
+      school_id
     );
 
     res.status(200).json({ msg: "create Notices", createNotices });
+   } catch (e) {
+    console.log(e)
+    res.status(400).json({ msg: "fail Notices", e });
+
+   }
   };
 }
