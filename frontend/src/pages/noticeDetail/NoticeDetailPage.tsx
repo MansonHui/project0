@@ -1,5 +1,6 @@
 import { useGetNoticeDetail } from "../../api/noticeDetailPageAPI";
 import styles from "./NoticeDetailPage.module.css";
+import { useState } from "react";
 
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -12,6 +13,8 @@ export default function NoticeDetailPage() {
     location.state.notice_id,
     location.state.student_id
   );
+
+  const [selectedChoiceId, setSelectedChoiceId] = useState<number | null>(null);
 
   return (
     <div>
@@ -38,14 +41,19 @@ export default function NoticeDetailPage() {
               <p>{entry.notice_content}</p>
               <div className={styles.OptionContainer}>
                 <div className={styles.ChoicesContainer}>
-                  {entry.notice_choices.map((choice, index) => (
+                  {entry.notice_choice_ids.map((choiceId, index) => (
                     <div key={index} className={styles.Choice}>
                       <input
                         type="radio"
                         name={`notice_choice_${entry.notice_id}`}
-                        value={choice}
+                        value={choiceId}
+                        checked={
+                          entry.notice_choice_id.toString() == choiceId
+                            ? true
+                            : false
+                        }
                       />
-                      <label>{choice}</label>
+                      <label>{entry.notice_choices[index]} </label>
                     </div>
                   ))}
                 </div>
@@ -61,7 +69,6 @@ export default function NoticeDetailPage() {
                     <div key={index}>${price}</div>
                   ))}
                 </div>
-                
               </div>
               <button>Submit</button>
             </div>

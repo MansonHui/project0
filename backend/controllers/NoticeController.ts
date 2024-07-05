@@ -40,4 +40,6 @@ export default class NoticeController {
         .json({ error: "An error occurred while fetching notice details" });
     }
   };
+
+  choiceNotice = async (req: Request, res: Response) => {}
 }
