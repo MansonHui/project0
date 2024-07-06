@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 export interface getNoticeType{
-    notice_id:number
+    notice_id:number;
     student_id: number;
     grade: number;
     class_name: string;

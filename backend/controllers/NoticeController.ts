@@ -42,14 +42,19 @@ export default class NoticeController {
   };
 
   insertChoice = async (req: Request, res: Response) => {
-    const { studentId, noticeId } = req.params;
-    const { noticeChoiceId } = req.body;
-
     try {
-      await this.noticeService.insertChoice(
-        Number(studentId),
-        Number(noticeId),
-        Number(noticeChoiceId)
+      req.body.userRole,
+      req.body.userRoleId
+      const { studentId, noticeId } = req.params;
+      const { noticeChoiceId } = req.body;
+      const studentIdNumber = Number(studentId);
+      const noticeIdNumber = Number(noticeId);
+      
+        await this.noticeService.insertChoice(
+          studentIdNumber,
+          noticeIdNumber,
+          noticeChoiceId
+        
       );
       res.status(200).json({ message: 'Record updated' });
     } catch (error) {
