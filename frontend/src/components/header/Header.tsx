@@ -12,9 +12,13 @@ import CreateIcon from "@mui/icons-material/Create";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Navbar from "../navbar/Navbar";
 import styles from "./Header.module.css";
+import { Drawer, List, ListItem, ListItemText } from "@mui/material";
 
 export default function MenuHeaderBar() {
   let [isHide, setIsHide] = React.useState(true);
+  const toggleNavbar = () => {
+    setIsHide((prevState) => !prevState);
+  };
 
   const [navBarOpacity, setNavBarOpacity] = React.useState(0);
   const handleMenuClick = () => {
@@ -41,18 +45,27 @@ export default function MenuHeaderBar() {
     <>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
-        <Toolbar className={styles.header}>
+          <Toolbar className={styles.header}>
             <IconButton
-              onClick={() => {
-                setIsHide(!isHide);
-              }}
+              id={styles.navbarButton}
               size="large"
               edge="start"
               color="inherit"
               aria-label="menu"
-              sx={{ mr: 2 }}
+              onClick={toggleNavbar}
             >
-              {isHide ? <></> : <Navbar />}
+              <Drawer
+                anchor="left"
+                open={!isHide}
+                onClose={toggleNavbar}
+                classes={{
+                  paper: styles.drawerPaper,
+                }}
+              >
+                <List>
+                <Navbar />
+                </List>
+              </Drawer>
               <MenuIcon />
             </IconButton>
 
@@ -60,7 +73,7 @@ export default function MenuHeaderBar() {
               UserName
             </Typography>
             {auth && (
-              <div>
+              <div id={styles.userACButton}>
                 <IconButton
                   size="large"
                   aria-label="account of current user"
@@ -101,7 +114,6 @@ export default function MenuHeaderBar() {
           </Toolbar>
         </AppBar>
       </Box>
-
     </>
   );
 }

@@ -1,3 +1,18 @@
 .header {
     background-color: rgba(112, 131, 236, 0.5);
+    height: 6.5vh;
+  }
+
+  .drawerPaper {
+    width: 240px;
+    animation: slideIn 0.5s ease-in-out;
+  }
+  
+  @keyframes slideIn {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
   }

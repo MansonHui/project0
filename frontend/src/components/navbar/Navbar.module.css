@@ -10,59 +10,66 @@
 } */
 
 .navbar_container {
-    position: fixed;
-    left: 0vh;
-    bottom: 0vh;
-    width: 40vw;
-    height: 100vh;
+  z-index: 100;
+  position: fixed;
+  left: 0vh;
+  bottom: 0vh;
+  width: 55.9vw;
+  height: 100vh;
 }
 
-.navbar_logo_container{
-    height: 15%;
-    width: 100%;
-    background-color: blueviolet;
-    pointer-events: none;
+.navbar_logo_container {
+  height: 6.5vh;
+  width: 55.9vw;
+  background-image: url(./img/navbarBannerSunAndSky.png);
+  background-size: cover;
+  overflow: hidden;
 }
 
-.navbar_function_container{
-    height: 60%;
-    width: 100%;
-    background-color: yellow;
+.navbar_function_container {
+  height: 100vh;
+  width: 55.9vw;
+  background-size: 105% 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  overflow: hidden;
+  background-image: url(./img//navbarBottonGrass.png);
+  background-color:#3ab3d4;
 }
 
-.navbar_info_container{
-    height: 25%;
-    width: 100%;
-    background-color: aqua;
-    position: relative;
+.navbar_info_container {
+  height: 25%;
+  width: 100%;
+  background-color: aqua;
+  position: relative;
 }
 
-.navbar_function{
-    height: 10%;
-    width: 100%;
-    background-color: antiquewhite;
-    border-bottom: 2px solid #ccc;
-    display: flex;
+.navbar_function {
+  height: 12vh;
+  width: 55.9vw;
+  background-color: antiquewhite;
+  border-bottom: 2px solid #ccc;
+  display: flex;
+}
+/* 
+.navbar_function_logo {
+  height: 100%;
+  width: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+.navbar_function_text {
+  color: black;
+  font-size: medium;
+  text-align: start;
+  align-content: center;
 }
 
-.navbar_function_logo{
-    height: 100%;
-    width: 15%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.navbar_function_text{
-    color: black;
-    font-size: medium;
-    text-align: start;
-    align-content: center;
-    
-}
-
-.navbar_info_GobackButton{
-    position: absolute;
-    bottom: 1%;
-    right: 1%;
+.navbar_info_GobackButton {
+  position: absolute;
+  bottom: 1%;
+  right: 1%;
 }
