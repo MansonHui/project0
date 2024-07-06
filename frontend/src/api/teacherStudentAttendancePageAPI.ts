@@ -1,32 +1,33 @@
 import { useQuery } from "@tanstack/react-query";
 
-export interface getTeacherNoticeType{
-    id: number;
-    admin_name: string;
-    grade: string;
+export interface getTeacherStudentAttendanceType{
+    id: string;
+    admins_id: number;
+    class_id: number;
+    class_grade: string;
     class_name: string;
-    school_year: string;
-    notice_id: number;
-    notices_id: number;
-    notices_topic: string;
-    created_at: string;
+    attendance_date: string;
+    total_in: string;
+    total_out: string;
+
 }
 
-export function useGetTeacherNotice(){
+export function useGetTeacherStudentAttendance(){
     const {isLoading, error, data, isFetching } = useQuery ({
-        queryKey:["allTeacherNotice"],
+        queryKey:["allNotice"],
         queryFn: async() => {
-            let res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/teacherNotice/getTeacherNotice`,{
+            let res = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/forTeacherGetAttendance/getForTeacherGetAttendance`,{
                 method: "GET",
                 headers: {
                   "Content-Type": "application/json",
                   Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
                 },
-            })
+              })
             let result = await res.json()
 
-            return result.getTeacherNotice as getTeacherNoticeType[];
+            return result.getForTeacherGetAttendance as getTeacherStudentAttendanceType[]
         }
+
     })
     if(isLoading || error || !data || isFetching) {
         return [];

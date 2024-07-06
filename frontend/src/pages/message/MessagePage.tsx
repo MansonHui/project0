@@ -4,7 +4,6 @@ import { useGetallNotice } from "../../api/noticePageAPI";
 import { Outlet, useNavigate } from "react-router-dom";
 import MessageAllPage from "../messageAll/MessageAllPage";
 
-
 export default function MessagePage() {
   const navigate = useNavigate();
 
@@ -14,33 +13,31 @@ export default function MessagePage() {
         <div className={styles.Filter_Container}>
           <Button
             onClick={() => navigate("/Message/MessageAll")}
-            variant="outlined"
+            variant="contained"
+            className={styles.bootstrapButton}
           >
             All
           </Button>
           <Button
             onClick={() => navigate("/Message/Notices")}
-            variant="outlined"
+            variant="contained"
+            className={styles.bootstrapButton}
           >
             Notice
           </Button>
           <Button
             onClick={() => navigate("/Message/Attendance")}
-            variant="outlined"
+            variant="contained"
+            className={styles.bootstrapButton}
           >
             Attendances
           </Button>
         </div>
 
         <div className={styles.Message_Container}>
-          
-          
           <>
-          
-          <Outlet />
+            <Outlet />
           </>
-          
-          
         </div>
       </div>
     </div>

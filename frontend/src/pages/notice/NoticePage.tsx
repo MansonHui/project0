@@ -20,6 +20,7 @@ export default function NoticePage() {
             });
           }}
           className={styles.Message}
+          
         >
           <div className={styles.Message_type}>
             <div>School: {entry.full_name}</div>

@@ -93,6 +93,28 @@ GROUP BY
   admins.admin_name,
   notice_student_relation.notice_choice_id;`);
   }
+
+  async insertChoice(student_id: number, notice_id: number, notice_choice_id: number) {
+    let result = await this.knex('notice_student_relation')
+      .update({ notice_choice_id: notice_choice_id })
+      .where('student_id', student_id)
+      .andWhere('notice_id', notice_id);
+  
+    return result;
+  }
+
+    // return await this.knex('notice_student_relation')
+    // .where({ student_id, notice_id })
+    // .update({ notice_choice_id })
+    // .then(() => {
+    //   console.log('Record updated');
+    // });
+
+      
+  
+
+
+
 }
 
 // adams code
