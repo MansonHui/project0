@@ -15,7 +15,7 @@ import ParentPage from "./pages/parent/ParentPage";
 import Textarea from "./components/textarea/Textarea";
 import TeacherNoticePage from "./pages/teacherNotice/TeacherNoticePage";
 
-import RegisterPage from "./pages/register/registerPage";
+import RegisterPage from "./pages/register/RegisterPage";
 import SuperAdminPage from "./pages/superAdmin/superAdminPage";
 import NoticeDetailPage from "./pages/noticeDetail/NoticeDetailPage";
 import EditNoticePage from "./pages/editlNotice/EditNoticePage";
