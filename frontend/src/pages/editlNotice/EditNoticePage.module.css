@@ -1,24 +1,79 @@
-
 #titleAndTextArea {
-  background-color: aqua;
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 35%;
+  border-style: inset;
+  border-width: 3px;
+  /* border-color: #8189d3; */
+  padding: 10px;
 }
 
-#title {
-  margin: 15px;
-  font-size: 3vw;
-  height: 5vh;
+#titleArea {
+  padding: 1vh;
+  padding-top: 2vh;
+  display: flex;
+  justify-content: space-evenly;
 }
 
-#title input {
-  font-size: 3vw;
+#titleInput {
+  font-size: 2.2vh;
   height: 3vh;
+  /* background-color: white; */
+  border-style: inset;
+  border-width: 3px;
+  /* border-color: #8189d3; */
+  padding: 10px;
 }
 
 #textArea textarea {
-  font-size: 5vw;
-  height: 30vh;
+  font-size: 6vw;
+  height: 25vh;
+  border-style: inset;
+  border-width: 3px;
+  /* border-color: #8189d3; */
+  padding: 10px;
+}
+
+#choiceArea {
+  margin: 1vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+#addAndReduceAndGradeAndClassNameAndSendAndReset {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 6vh;
+  width: 100vw;
+}
+
+#addAndReduceArea {
+  display: flex;
+  margin: 3vh;
+  justify-content: space-around;
+}
+
+#gradeAndClassNameAndSendAndResetArea {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 1vh;
+}
+
+#gradeInput,
+#classNameInput {
+  display: flex;
+  padding: 1vw;
+  margin: 1vw;
+  font-size: 2vh;
+  width: 13vw;
+  size: 10px;
+}
+
+input[type="text"],
+[type="text"] {
+  background-color: white;
 }
