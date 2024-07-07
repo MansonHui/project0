@@ -9,6 +9,7 @@ export interface getTeacherNoticeType{
     notice_id: number;
     notices_id: number;
     notices_topic: string;
+    created_at: string;
 }
 
 export function useGetTeacherNotice(){

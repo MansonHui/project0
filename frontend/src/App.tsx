@@ -19,12 +19,14 @@ import RegisterPage from "./pages/register/registerPage";
 import SuperAdminPage from "./pages/superAdmin/superAdminPage";
 import NoticeDetailPage from "./pages/noticeDetail/NoticeDetailPage";
 import EditNoticePage from "./pages/editlNotice/EditNoticePage";
+import TeacherNoticeDetailPage from "./pages/teacherNoticeDetail/TeacherNoticeDetailPage";
+import TeacherStudentAttendancePage from "./pages/teacherStudentAttendance/TeacherStudentAttendancePage";
 function App() {
   const { authToken } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (authToken) navigate("/HomePage");
+    if (authToken) navigate("/EditNotice");
     else navigate("/");
   }, [authToken]);
 
@@ -33,7 +35,7 @@ function App() {
       <Route path="/" element={<Login />} />
       <Route element={<LoginAuthGuard authToken={authToken} />}>
         <Route path="/HomePage" element={<HomePage />} />
-        {/* <Route path="/HomePage" element={<ParentPage />} /> */}
+        {/* <Route path="/HomePage" element={<RegisterPage />} /> */}
         <Route path="/Message" element={<MessagePage />}>
           <Route path="/Message" element={<MessageAllPage />} />
           <Route path="MessageAll" element={<MessageAllPage />}>
@@ -54,7 +56,11 @@ function App() {
         <Route path="/AI" element={<AIAttendances />} />
         <Route path="/Register" element={<RegisterPage />} />
 
-        <Route path="TeacherNotice" element={<TeacherNoticePage />}></Route>
+        <Route path="/TeacherNotice" element={<TeacherNoticePage />}>
+        </Route>
+        <Route path="TeacherNoticeDetail" element={<TeacherNoticeDetailPage/>}/>
+        <Route path="/TeacherStudentAttendance" element={<TeacherStudentAttendancePage/>} ></Route>
+        
         <Route path="/superAdmin" element={<SuperAdminPage />} />
       </Route>
     </Routes>

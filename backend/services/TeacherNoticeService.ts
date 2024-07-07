@@ -10,60 +10,63 @@ export default class TeacherNoticeService {
     return await this.knex
 
     .select(
-        "admins.id",
-        "admins.admin_name",
-        "classes.grade",
-        "classes.class_name",
-        "school_years.school_year",
-        "notice_student_relation.notice_id",
-        "notices.id as notices_id", 
-        "notices.topic as notices_topic",
+      "admins.id",
+      "admins.admin_name",
+      "classes.grade",
+      "classes.class_name",
+      "school_years.school_year",
+      "notice_student_relation.notice_id",
+      "notices.id as notices_id",
+      "notices.topic as notices_topic",
+      "notices.created_at"
+    )
+    .from("admins")
+    .innerJoin(
+      "admin_class_relation",
+      "admins.id",
+      "admin_class_relation.admin_id"
+    )
+    .innerJoin("classes", "admin_class_relation.class_id", "classes.id")
+    .innerJoin(
+      "class_school_year_relation",
+      "classes.id",
+      "class_school_year_relation.class_id"
+    )
+    .innerJoin(
+      "school_years",
+      "class_school_year_relation.school_year_id",
+      "school_years.id"
+    )
+    .innerJoin(
+      "student_class_relation",
+      "classes.id",
+      "student_class_relation.class_id"
+    )
+    .innerJoin("students", "student_class_relation.student_id", "students.id")
+    .innerJoin(
+      "notice_student_relation",
+      "students.id",
+      "notice_student_relation.student_id"
+    )
+    .leftJoin(
+      "notices",
+      "notice_student_relation.notice_id",
+      "notices.id"
+    )
+    .where("admins.id", userRoleId)
+    .orderBy('notice_student_relation.notice_id', 'desc')
+    .groupBy(
+      "admins.id",
+      "admins.admin_name",
+      "classes.grade",
+      'classes.class_name',
+      "school_years.school_year",
+      "notice_student_relation.notice_id",
+      "notices.id",
+      "notices.topic",
+      "notices.created_at"
         
-      )
-      .from("admins")
-      .innerJoin(
-        "admin_class_relation",
-        "admins.id",
-        "admin_class_relation.admin_id"
-      )
-      .innerJoin("classes", "admin_class_relation.class_id", "classes.id")
-      .innerJoin(
-        "class_school_year_relation",
-        "classes.id",
-        "class_school_year_relation.class_id"
-      )
-      .innerJoin(
-        "school_years",
-        "class_school_year_relation.school_year_id",
-        "school_years.id"
-      )
-      .innerJoin(
-        "student_class_relation",
-        "classes.id",
-        "student_class_relation.class_id"
-      )
-      .innerJoin("students", "student_class_relation.student_id", "students.id")
-      .innerJoin(
-        "notice_student_relation",
-        "students.id",
-        "notice_student_relation.student_id"
-      )
-      .leftJoin(
-        "notices",
-        "notice_student_relation.notice_id",
-        "notices.id"
-      )
-      .where("admins.id", userRoleId)
-      .orderBy('notice_student_relation.notice_id', 'desc')
-      .groupBy(
-        "admins.id",
-        "admins.admin_name",
-        "classes.grade",
-        'classes.class_name',
-        "school_years.school_year",
-        "notice_student_relation.notice_id",
-        "notices.id",
-        "notices.topic",
+
         
       );
 
@@ -76,7 +79,8 @@ export default class TeacherNoticeService {
 //   admins.admin_name,
 //   classes.grade,
 //   school_years.school_year,
-//   notice_student_relation.notice_id
+//   notice_student_relation.notice_id,
+//   notices.created_at
 // FROM admins
 // INNER JOIN admin_class_relation ON admins.id = admin_class_relation.admin_id
 // INNER JOIN classes ON admin_class_relation.class_id = classes.id
@@ -85,10 +89,12 @@ export default class TeacherNoticeService {
 // INNER JOIN student_class_relation ON classes.id = student_class_relation.class_id
 // INNER JOIN students ON student_class_relation.student_id = students.id
 // INNER JOIN notice_student_relation ON students.id = notice_student_relation.student_id
+// INNER JOIN notices ON notice_student_relation.notice_id = notices.id
 // WHERE admins.id = 1
 // GROUP BY
 //   admins.id,
 //   admins.admin_name,
 //   classes.grade,
 //   school_years.school_year,
-//   notice_student_relation.notice_id
+//   notice_student_relation.notice_id,
+//   notices.created_at

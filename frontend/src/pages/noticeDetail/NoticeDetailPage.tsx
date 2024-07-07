@@ -1,3 +1,4 @@
+import React from "react";
 import { useGetNoticeDetail } from "../../api/noticeDetailPageAPI";
 import styles from "./NoticeDetailPage.module.css";
 import { useState } from "react";
@@ -14,8 +15,21 @@ export default function NoticeDetailPage() {
     location.state.student_id
   );
 
+  // let [isHide, setIsHide] = React.useState(false);
+  // let [isSelect, setIsSelect] = React.useState(false);
   const [selectedChoiceId, setSelectedChoiceId] = useState<number | null>(null);
 
+  // const handleClick = () => {
+  //   setIsHide(true);
+  // };
+  const handleRadioChange = (choiceId: number) => {
+    setSelectedChoiceId(choiceId);
+    // setIsHide(false);
+  };
+
+  const handleSubmit = () => {
+    console.log("selected what", selectedChoiceId);
+  };
   return (
     <div>
       {NoticeDetail.map((entry) => (
@@ -41,7 +55,41 @@ export default function NoticeDetailPage() {
               <p>{entry.notice_content}</p>
               <div className={styles.OptionContainer}>
                 <div className={styles.ChoicesContainer}>
-                  {entry.notice_choice_ids.map((choiceId, index) => (
+                  {entry.notice_choice_ids.map((choiceId, index) => {
+                    if (entry.notice_choice_id === null) {
+                      return (
+                        <div key={index} className={styles.Choice}>
+                          <input
+                            type="radio"
+                            name={`notice_choice_${entry.notice_id}`}
+                            value={choiceId}
+                            onChange={() => handleRadioChange(Number(choiceId))}
+                          />
+                          <label>{entry.notice_choices[index]}</label>
+                        </div>
+                      );
+                    } else {
+                      return (
+                        <div key={index} className={styles.Choice}>
+                          <input
+                            type="radio"
+                            name={`notice_choice_${entry.notice_id}`}
+                            value={choiceId}
+                            checked={
+                              entry.notice_choice_id.toString() == choiceId
+                                ? true
+                                : false
+                            }
+                            // onChange={() => handleRadioChange(Number(choiceId))}
+                            disabled={false}
+                          />
+                          <label>{entry.notice_choices[index]}</label>
+                        </div>
+                      );
+                    }
+                  })}
+
+                  {/* {entry.notice_choice_ids.map((choiceId, index) => (
                     <div key={index} className={styles.Choice}>
                       <input
                         type="radio"
@@ -55,7 +103,7 @@ export default function NoticeDetailPage() {
                       />
                       <label>{entry.notice_choices[index]} </label>
                     </div>
-                  ))}
+                  ))} */}
                 </div>
 
                 <div className={styles.ChoicesContentsContainer}>
@@ -70,7 +118,9 @@ export default function NoticeDetailPage() {
                   ))}
                 </div>
               </div>
-              <button>Submit</button>
+              {entry.notice_choice_id == null && (
+                <button onClick={handleSubmit}>Submit</button>
+              )}
             </div>
             <div className={styles.createdAt}>{entry.created_at}</div>
           </div>
