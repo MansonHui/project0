@@ -10,8 +10,6 @@ export default class StudentService {
         "image",
         "first_name",
         "last_name",
-        "image",
-
         "full_name"
       )
       .from("students")
