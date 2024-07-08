@@ -6,7 +6,8 @@ import StickyNote2RoundedIcon from "@mui/icons-material/StickyNote2Rounded";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import EmailIcon from "@mui/icons-material/Email";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
-import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
+import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
+import DoneAllIcon from "@mui/icons-material/DoneAll";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import TeacherStudentAttendancePage from "../../pages/teacherStudentAttendance/TeacherStudentAttendancePage";
 
@@ -45,7 +46,7 @@ export default function Navbar() {
           <div className={styles.navbar_function_logo}>
             <EditIcon />
           </div>
-          <h6 className={styles.navbar_function_text}>Editorial Notice</h6>
+          <h6 className={styles.navbar_function_text}>Edit Notice</h6>
         </div>
 
         <div
@@ -77,12 +78,10 @@ export default function Navbar() {
           className={styles.navbarButton}
         >
           <div className={styles.navbar_function_logo}>
-          <TeacherStudentAttendancePage />
+            <DoneAllIcon />
           </div>
-          <h6 className={styles.navbar_function_text}>TeacherStudentAttendance</h6>
+          <h6 className={styles.navbar_function_text}>Attendance</h6>
         </div>
-
-       
 
         <div className={styles.navbarButton}>
           <div className={styles.navbar_function_logo}>
@@ -90,7 +89,6 @@ export default function Navbar() {
           </div>
           <h6 className={styles.navbar_function_text}>Payment</h6>
         </div>
-       
       </div>
     </div>
   );
