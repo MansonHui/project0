@@ -1,11 +1,10 @@
-import styles from "./AIAttendances.module.css"
+import styles from "./AIAttendances.module.css";
 
-
-export default function AIAttendances(){
-
-    return(
-        <div className={styles.ScanContainer}>
-            <h1> Scan your face @@ </h1>
-        </div>
-    )
+export default function AIAttendances() {
+  return (
+    <form id={styles.AIAttendancesPage}>
+      <div id={styles.AIAttendances}></div>
+      <div id={styles.doubleTickIcon}></div>
+    </form>
+  );
 }

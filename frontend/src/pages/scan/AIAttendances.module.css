@@ -1,13 +1,27 @@
-.ScanContainer{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-52%, -48%);
+#AIAttendancesPage {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 90vh;
+  align-items: center;
+}
 
-    margin: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+#AIAttendances {
+  background-image: url(./img/WhatsApp\ Image\ 2024-07-08\ at\ 15.19.29_ee30714b.jpg);
+  width: 80vw;
+  height: 80vh;
+  background-size: cover;
+  background-position: center;
+  filter: blur(6px);
+}
 
-    height: 90%;
-    width: 93%;
+#doubleTickIcon {
+  position: absolute;
+  left: 65vw;
+  top: 82vh;
+  background-size: cover;
+  background-position: center;
+  width: 33vw;
+  height: 12vh;
+  background-image: url(./img/doubleTickIcon.png);
 }
