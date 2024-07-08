@@ -6,8 +6,10 @@ import StickyNote2RoundedIcon from "@mui/icons-material/StickyNote2Rounded";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import EmailIcon from "@mui/icons-material/Email";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
-import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
+import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
+import DoneAllIcon from "@mui/icons-material/DoneAll";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import TeacherStudentAttendancePage from "../../pages/teacherStudentAttendance/TeacherStudentAttendancePage";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -44,7 +46,7 @@ export default function Navbar() {
           <div className={styles.navbar_function_logo}>
             <EditIcon />
           </div>
-          <h6 className={styles.navbar_function_text}>Editorial Notice</h6>
+          <h6 className={styles.navbar_function_text}>Edit Notice</h6>
         </div>
 
         <div
@@ -62,7 +64,6 @@ export default function Navbar() {
           </div>
           <h6 className={styles.navbar_function_text}>AI Attendances</h6>
         </div>
-
         <div
           onClick={() => navigate("TeacherNotice")}
           className={styles.navbarButton}
@@ -72,6 +73,16 @@ export default function Navbar() {
           </div>
           <h6 className={styles.navbar_function_text}>TeacherNotice</h6>
         </div>
+        <div
+          onClick={() => navigate("TeacherStudentAttendance")}
+          className={styles.navbarButton}
+        >
+          <div className={styles.navbar_function_logo}>
+            <DoneAllIcon />
+          </div>
+          <h6 className={styles.navbar_function_text}>Attendance</h6>
+        </div>
+
         <div className={styles.navbarButton}>
           <div className={styles.navbar_function_logo}>
             <MonetizationOnIcon />
