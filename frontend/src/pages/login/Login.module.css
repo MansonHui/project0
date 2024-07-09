@@ -1,4 +1,4 @@
-#loginBody{
+#loginBody {
   height: 100vh;
   width: 100vw;
   background-size: 105% 100%;
@@ -8,11 +8,21 @@
   background-image: url("./img/campusStyleLoginPageBackgroundKid.jpg");
   overflow: hidden;
 }
+#ecParentLogo {
+  position: absolute;
+  top: 6vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100vw;
+  height: 12vh;
+  background-image: url(./img/E-C-Parnet-7-8-2024.png);
+}
 
 #loginCoreBackground {
   display: flex;
-  height: 50vh;
-  width: 100ch;
+  height: 60vh;
+  width: 100vh;
   align-items: flex-end;
   justify-content: center;
 }
@@ -41,17 +51,15 @@
 #loginCore {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   position: fixed;
   top: 50%;
-  transform: translate(-50%, -50%);
-  height: auto;
   padding: 30px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  background-color: #6dae68;
   z-index: 999;
+  transform: translateY(-20px);
+  animation: emerge 0.5s ease forwards, float 3s ease-in-out infinite;
+  border-radius: 5vh;
+  outline: 0.5rem solid #997239;
 }
 
 .loginCore-overlay {
@@ -77,23 +85,22 @@
   margin: 15px;
 }
 
-.input {
+#email input,
+#password input {
   height: 2vh;
   width: 300px;
+  background-color: azure;
 }
 
 #popupBox {
-  color: rgb(244, 238, 240);
-  font-size: small;
   position: relative;
-  left: 9px;
-  width: 40ch;
+  color: azure;
+  width: 40vh;
   height: 50vh;
-  padding: 10px;
-  margin: 10px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  margin: 1px;
-  background-image: url(./img//PopuploginPrivacyPolicyBackground.jpg);
+  padding: 5px;
+  background-color: #3f653c;
+  transform: translateY(1vh);
+  animation: emerge 0.5s ease forwards, float 3s ease-in-out infinite;
+  border-radius: 5vh;
+  outline: 0.5rem solid #997239;
 }

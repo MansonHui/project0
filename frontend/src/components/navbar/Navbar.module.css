@@ -4,6 +4,7 @@
   align-items: center;
   height: 10vh;
   width: 10vh;
+  
 }
 
 .navbar_function_container {
@@ -18,7 +19,7 @@
   bottom: 0vh;
   width: 55.9vw;
   height: 100vh;
-  background-color: #58a7e3;
+  background-color: #42b6d7;
 }
 
 .navbar_logo_container {
@@ -30,29 +31,19 @@
 }
 
 .navbarButton {
-  background-image: linear-gradient(
-      to right,
-      rgba(255, 255, 255, 0.9),
-      rgba(255, 255, 255, 0.8),
-      rgba(255, 255, 255, 0.7),
-      rgba(255, 255, 255, 0.6),
-      rgba(255, 255, 255, 0.5),
-      rgba(255, 255, 255, 0.4),
-      rgba(255, 255, 255, 0.3),
-      rgba(255, 255, 255, 0.3),
-      rgba(255, 255, 255, 0.3)
-    ),
-    url(./img/navbarBottonGrass.png);
   background-color: #f8f8f8;
   background-repeat: no-repeat;
   background-size: cover;
   overflow: hidden;
-  height: 12vh;
-  width: 55.9vw;
-  border-bottom: 2px solid #1f0eb1;
+  height: 10vh;
+  width: 54.9vw;
+  /* border-bottom: 2px solid #1f0eb1; */
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  transform: translateY(-20px);
+  animation: emerge 0.5s ease forwards, float 3s ease-in-out infinite;
+  border: 2px dashed rgba(86, 169, 218, 0.7);
 }
 
 .navbar_function_text {

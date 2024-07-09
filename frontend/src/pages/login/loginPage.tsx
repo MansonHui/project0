@@ -7,14 +7,17 @@ import styles from "./Login.module.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import PopuploginPrivacyPolicy from "./loginPrivacyPolicy";
+import LoginIcon from "@mui/icons-material/Login";
+import Button from "@mui/material/Button/Button";
+import TextField from "@mui/material/TextField";
 
 export default function Login() {
   // super admin AC and password
   // const [email, setEmail] = useState("super@stpeter.edu.hk");
   // const [password, setPassword] = useState("stpeter");
   // teacher AC and password
-  // const [email, setEmail] = useState("choiping@stpeter.edu.hk");
-  // const [password, setPassword] = useState("0000");
+  const [email, setEmail] = useState("choiping@stpeter.edu.hk");
+  const [password, setPassword] = useState("0000");
   // // parent AC and password
   const [email, setEmail] = useState("chantaiming@gmail.com");
   const [password, setPassword] = useState("1234");
@@ -63,26 +66,35 @@ export default function Login() {
     <form onSubmit={handleSubmit} id={styles.loginCore}>
       <div id={styles.loginInputBar}>
         <div id={styles.welcome}>Welcome</div>
-        <div id={styles.email}>
-          <input
+        <Box id={styles.email}>
+          <TextField
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="email"
             required
           />
-        </div>
-        <div id={styles.password}>
-          <input
+        </Box>
+        <Box id={styles.password}>
+          <TextField
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="password"
             required
           />
-        </div>
+        </Box>
       </div>
-      <input type="submit" value="Login" />
+
+      <Button
+        id={styles.sendButton}
+        variant="contained"
+        color="success"
+        startIcon={<LoginIcon />}
+        type="submit"
+      >
+        SEND
+      </Button>
       {error && <div>{error}</div>}
     </form>
   );
@@ -94,13 +106,13 @@ export default function Login() {
 
   return (
     <div id={styles.loginBody}>
+      <div id={styles.ecParentLogo}></div>
       <Box>
         <div id={styles.loginContainer}>
           <div id={styles.loginCoreBackground}>
             <div id={styles.privacyPolicyAndOption}>
               <label id={styles.privacyPolicy}>
                 <PopuploginPrivacyPolicy
-                  // id="popup-without-portal-fixed"
                   id={styles.popupButton}
                   buttonLabel="privacyPolicy"
                   strategy="fixed"

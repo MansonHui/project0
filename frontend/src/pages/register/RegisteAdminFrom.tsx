@@ -1,18 +1,11 @@
 import { useEffect, useState } from "react";
 import styles from "./RegisterPage.module.css";
-
-interface RegisteAdminFromData {
-  email: string;
-}
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 
 const RegisteAdminFrom: React.FC = () => {
-  const [showAdminInput, setShowAdminInput] = useState(false);
-
-  const [registeAdminFromData, setSegisteAdminFromData] =
-    useState<RegisteAdminFromData>({
-      email: "YYLam@stpeter.edu.hk",
-
-    });
+  const [email, setEmail] = useState("");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -25,7 +18,9 @@ const RegisteAdminFrom: React.FC = () => {
             Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(registeAdminFromData),
+          body: JSON.stringify({
+            email: email,
+          }),
         }
       );
     } catch (error) {
@@ -33,54 +28,35 @@ const RegisteAdminFrom: React.FC = () => {
     }
   };
 
-  const handleInputChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-  };
-
-  const handleAdminCheckboxChange = (e: {
-    target: { checked: boolean | ((prevState: boolean) => boolean) };
-  }) => {
-
-    setShowAdminInput(e.target.checked);
-  };
-
   const registeTeacher = (
-    <form onSubmit={handleSubmit}>
-      {showAdminInput && (
-        <div>
-          teacher
+    <form onSubmit={handleSubmit} id={styles.RegisteAdminFrom}>
+      <div id={styles.registeAdminIcon}></div>
+      <div id={styles.registeAdminInfo}>
+        <Box>
+          <TextField
+            id={styles.registeAdimnInput}
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="email"
+            required
+          />
+        </Box>
+        <p />
 
-          <div>
-            <input
-              type="email"
-              value={registeAdminFromData.email}
-              onChange={handleInputChange}
-              placeholder="email"
-              required
-            />
-          </div>
-          <button type="submit">Register</button>
-        </div>
-      )}
+        <Button
+          id={styles.registeAdminButton}
+          type="submit"
+          variant="contained"
+          color="success"
+        >
+          Register
+        </Button>
+      </div>
     </form>
   );
 
-  return (
-    <div>
-      <div>
-        <label>
-          Register Teacher
-          <input
-            type="checkbox"
-            checked={showAdminInput}
-            onChange={handleAdminCheckboxChange}
-          />
-        </label>
-      </div>
-      {registeTeacher}
-    </div>
-  );
+  return <div>{registeTeacher}</div>;
 };
 
 export default RegisteAdminFrom;
