@@ -8,8 +8,7 @@ export default function MessageAllPage() {
   const messageAll = useGetMessageAll();
 
   return (
-    <div>
-      {/* // 新加status 判斷是否 */}
+    <div id={styles.messageAllPage}>
       {messageAll.status === "success" ? (
         messageAll.data.map((entry) =>
           entry.grade !== null ? (
