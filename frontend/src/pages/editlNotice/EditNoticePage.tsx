@@ -9,17 +9,18 @@ import { useState } from "react";
 import styles from "./EditNoticePage.module.css";
 import { createGlobalStyle } from "styled-components";
 import { useForm, useFieldArray } from "react-hook-form";
-import { request } from "http";
 
 const GlobalStyles = createGlobalStyle`
   /* Add your global styles here */
 `;
+
 interface NoticeChoice {
-  option: String
-  content: String
-  price: number
-  defaultChecked: boolean
+  option: string;
+  content: string;
+  price: number;
+  defaultChecked: boolean;
 }
+
 interface FormData {
   class_name: string;
   content: string;
@@ -39,31 +40,33 @@ export default function EditNoticePage() {
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
-      class_name: "B",
+      class_name: "A",
       content: "i go to school by bus 123",
-      grade: "2",
-      notice_choice : [{
-        option : "A",
-        content: "content",
-        price: 0,
-        defaultChecked: true
-      }],
-      topic: "topic123"
+      grade: "1",
+      notice_choice: [
+        {
+          option: "A",
+          content: "content",
+          price: 0,
+          defaultChecked: true,
+        },
+      ],
+      topic: "topic123",
     },
     reValidateMode: "onChange",
   });
 
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
-    control, // control props comes from useForm (optional: if you are using FormProvider)
-    name: "notice_choice", // unique name for your Field Array
+    control,
+    name: "notice_choice",
   });
 
-  function generateAtoZ(prevValue: String) {
-    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  function generateAtoZ(prevValue: string): string {
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const prevIndex = alphabet.indexOf(prevValue.toUpperCase());
-    
+
     if (prevIndex === -1) {
-      return 'A';
+      return "A";
     } else {
       const nextIndex = (prevIndex + 1) % alphabet.length;
       return alphabet[nextIndex];
@@ -72,33 +75,32 @@ export default function EditNoticePage() {
 
   const handleAddFormControl = () => {
     let value = "A";
-    if (fields.length) {
-      value = generateAtoZ(fields[fields.length - 1].option)
+    if (fields.length > 0) {
+      value = generateAtoZ(fields[fields.length - 1].option);
     }
-     
+
     const choice: NoticeChoice = {
       option: value,
-      content: '',
+      content: "",
       price: 0,
-      defaultChecked: true
-    }
-    append(choice)
+      defaultChecked: true,
+    };
+    append(choice);
   };
 
   const handleRemoveFormControl = () => {
     if (fields.length > 0) {
-      remove(fields.length - 1)
+      remove(fields.length - 1);
     }
- 
   };
 
   const handleSwitchChange = (index: number, checked: boolean) => {
-    const data = getValues()
-    setValue(`notice_choice.${index}.defaultChecked`, checked); 
+    const data = getValues();
+    setValue(`notice_choice.${index}.defaultChecked`, checked);
   };
 
   async function handleSubmita(data: FormData) {
-      console.log(data);
+    console.log(data);
     try {
       await fetch(
         `${process.env.REACT_APP_API_ENDPOINT}/superadmin/createNotice`,
@@ -121,13 +123,13 @@ export default function EditNoticePage() {
       <div id={styles.titleAndTextArea}>
         <label id={styles.title}>
           <input
-            type="text"          
+            type="text"
             placeholder="topic"
             {...register("topic")}
           />
         </label>
         <label id={styles.textArea}>
-          <textarea           
+          <textarea
             placeholder="content"
             {...register("content")}
           />
@@ -136,11 +138,11 @@ export default function EditNoticePage() {
 
       <div>
         {fields.map((control, index) => (
-         <FormGroup key={control.id}>
+          <FormGroup key={control.id}>
             <FormControlLabel
               control={
                 <Switch
-                {...register(`notice_choice.${index}.defaultChecked`)}
+                  {...register(`notice_choice.${index}.defaultChecked`)}
                   defaultChecked={control.defaultChecked}
                   onChange={(_, checked) => handleSwitchChange(index, checked)}
                 />
@@ -150,7 +152,7 @@ export default function EditNoticePage() {
 
             {control.defaultChecked && (
               <TextField
-                label={`choice ${control.content}`}
+                label={`choice ${control.option}`}
                 variant="outlined"
                 size="small"
                 style={{ marginTop: "8px" }}
@@ -161,7 +163,6 @@ export default function EditNoticePage() {
               />
             )}
           </FormGroup>
-          
         ))}
         <div>
           <Button onClick={handleAddFormControl}>Add</Button>

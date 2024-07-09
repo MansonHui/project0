@@ -19,6 +19,7 @@ import RegisterPage from "./pages/register/RegisterPage";
 import SuperAdminPage from "./pages/superAdmin/superAdminPage";
 import NoticeDetailPage from "./pages/noticeDetail/NoticeDetailPage";
 import EditNoticePage from "./pages/editlNotice/EditNoticePage";
+
 function App() {
   const { authToken } = useAuth();
   const navigate = useNavigate();

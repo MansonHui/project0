@@ -51,3 +51,10 @@ superAdminRouter.post(
   isSuperAdmin,
   superAdminController.createNotices
 );
+
+superAdminRouter.post(
+  "/createAttendance",
+  checkToken,
+  isSuperAdmin,
+  superAdminController.createAttendance
+);

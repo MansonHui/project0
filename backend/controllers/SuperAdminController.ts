@@ -4,9 +4,10 @@ import { getSchoolAbbr, isEduExistInMail } from "../helper/getSchoolNameAbbr";
 import { getUserName } from "../helper/getUserNameFromEmail";
 import AWS from "aws-sdk";
 import dotenv from "dotenv";
-import formidable from "formidable";
+
 import path from "path";
-import fs from "fs";
+
+import { formatDateTimeToNumber } from "../helper/formatDateTimeToNumber";
 
 dotenv.config();
 
@@ -142,7 +143,7 @@ export default class SuperAdminController {
 
     console.log("schoolId", schoolId);
 
-    let newStudentId = await this.superAdminService.createNewStudent(
+    let newStudentDetail = await this.superAdminService.createNewStudent(
       first_name,
       last_name,
       HKID_number,
@@ -152,66 +153,9 @@ export default class SuperAdminController {
       schoolId.id
     );
 
-    console.log("createStudent", newStudentId);
+    console.log("createStudent", newStudentDetail);
 
-    res.json({ newStudentId });
-  };
-
-  uploadStudentImage = (req: Request, res: Response) => {
-    const uploadDir = path.join(__dirname, "../uploads");
-    fs.mkdirSync(uploadDir, { recursive: true });
-
-    const form = formidable({
-      uploadDir,
-      keepExtensions: true,
-      maxFiles: 1,
-      maxFileSize: 1024 * 1024,
-      filter: (part) => part.mimetype?.startsWith("image/") || false,
-    });
-
-    form.parse(req, async (err, fields, files) => {
-      console.log("files.image", files.image);
-      let student_id_int = parseInt((fields.student_id as string[])[0]);
-      let studentId = await this.superAdminService.uploadStudentImage(
-        student_id_int,
-
-        (files.image as formidable.File[])[0].newFilename
-      );
-
-      let absolutePath =
-        uploadDir + "\\" + (files.image as formidable.File[])[0].newFilename;
-
-      const rekognition = new AWS.Rekognition();
-
-      const readImageFile = (filePath: string): Buffer => {
-        return fs.readFileSync(path.resolve(__dirname, filePath));
-      };
-
-      // Function to index faces
-      const indexFaces = async (imagePath: string, collectionId: string) => {
-        try {
-          const imageBuffer = readImageFile(imagePath);
-
-          const params = {
-            CollectionId: collectionId,
-            ExternalImageId: studentId?.toString(),
-            Image: {
-              Bytes: imageBuffer,
-            },
-          };
-
-          const result = await rekognition.indexFaces(params).promise();
-          console.log("Face indexing result:", result);
-        } catch (error) {
-          console.error("Error indexing faces:", error);
-        }
-      };
-      const collectionId = "testing";
-
-      indexFaces(absolutePath, collectionId);
-
-      res.json({ fields, files });
-    });
+    res.json({ newStudentDetail });
   };
 
   getAllStudentData = async (req: Request, res: Response) => {
@@ -253,5 +197,184 @@ export default class SuperAdminController {
       console.log(e);
       res.status(400).json({ msg: "fail Notices", e });
     }
+  };
+
+  uploadStudentImage = async (req: Request, res: Response) => {
+    const studentDate = JSON.parse(req.body.studentData);
+
+    let { id, first_name, last_name, created_at } = studentDate;
+
+    console.log("studentDate", studentDate);
+
+    const numericDateTime = await formatDateTimeToNumber(created_at);
+
+    const base64Data = req.body.image.replace(/^data:image\/\w+;base64,/, "");
+    const buffer = Buffer.from(base64Data, "base64");
+
+    let newFilename = `${last_name}${first_name}${numericDateTime}.jpg`;
+
+    console.log(newFilename);
+
+    const imagePath = path.join(__dirname, `../uploads/${newFilename}`);
+
+    console.log("imagePath", imagePath);
+
+    require("fs").writeFileSync(imagePath, buffer);
+
+    let studentId = await this.superAdminService.uploadStudentImage(
+      id,
+      newFilename
+    );
+
+    console.log("Image saved successfully:", imagePath);
+
+    const rekognition = new AWS.Rekognition();
+
+    // const readImageFile = (filePath: string): Buffer => {
+    //   return fs.readFileSync(path.resolve(__dirname, filePath));
+    // };
+
+    // Function to index faces
+    const indexFaces = async (buffer: Buffer, collectionId: string) => {
+      try {
+        // const imageBuffer = readImageFile(imagePath);
+
+        const params = {
+          CollectionId: collectionId,
+          ExternalImageId: studentId?.toString(),
+          Image: {
+            Bytes: buffer,
+          },
+        };
+
+        const result = await rekognition.indexFaces(params).promise();
+        console.log("Face indexing result:", result.FaceRecords![0].Face);
+        return result.FaceRecords![0].Face;
+      } catch (error) {
+        console.error("Error indexing faces:", error);
+        return;
+      }
+    };
+    const collectionId = "testing";
+
+    let result = await indexFaces(buffer, collectionId);
+
+    console.log("result", result);
+
+    res.status(200).json({ msg: "photocaptured" });
+  };
+
+  createAttendance = async (req: Request, res: Response) => {
+    const base64Data = req.body.image.replace(/^data:image\/\w+;base64,/, "");
+    const buffer = Buffer.from(base64Data, "base64");
+    const collectionId = "testing";
+    const rekognition = new AWS.Rekognition();
+
+    // Function to index faces
+    const searchFaceByImage = async (buffer: Buffer, collectionId: string) => {
+      try {
+        const params = {
+          CollectionId: collectionId,
+          FaceMatchThreshold: 80,
+          Image: {
+            Bytes: buffer,
+          },
+        };
+
+        const result = await rekognition.searchFacesByImage(params).promise();
+
+        return result;
+      } catch (error) {
+        console.error("server error:", error);
+        return;
+      }
+    };
+
+    let resultbyphotoindex = await searchFaceByImage(buffer, collectionId);
+
+    if (resultbyphotoindex) {
+      if (resultbyphotoindex!.FaceMatches!.length > 0) {
+        if (resultbyphotoindex!.FaceMatches![0].Face) {
+          console.log(
+            "resultbyphotoindex",
+            resultbyphotoindex!.FaceMatches![0].Face!.ExternalImageId
+          );
+
+          let student_id_string =
+            resultbyphotoindex!.FaceMatches![0].Face!.ExternalImageId;
+
+          let student_id_number = parseInt(student_id_string as string);
+
+          let attendanceRecord = await this.superAdminService.checkAttendance(
+            student_id_number
+          );
+
+          console.log("attendanceRecord", attendanceRecord);
+
+          if (attendanceRecord.length === 0) {
+            let result = await this.superAdminService.createInAttendance(
+              student_id_number
+            );
+
+            res.json({
+              msg: "wellcome your first school day",
+              result: result.created_at,
+              in_out: result.in_out,
+            });
+          }
+
+          if (attendanceRecord.length > 0) {
+            console.log("attendanceRecord.length", attendanceRecord.length);
+            const latestAttendanceDate = new Date(
+              attendanceRecord[0].created_at
+            );
+            const formattedlatestAttendanceDate =
+              latestAttendanceDate.toDateString();
+
+            const today = new Date();
+
+            const formattedrtoday = today.toDateString();
+
+            if (formattedlatestAttendanceDate === formattedrtoday) {
+              if (attendanceRecord[0].in_out === "out") {
+                await this.superAdminService.createInAttendance(
+                  student_id_number
+                );
+
+                res.json({
+                  msg: "welcome to school",
+                });
+              }
+              if (attendanceRecord[0].in_out === "in") {
+                await this.superAdminService.createOutAttendance(
+                  student_id_number
+                );
+
+                res.json({
+                  msg: "Goodbye",
+                });
+              }
+            }
+
+            if (formattedlatestAttendanceDate !== formattedrtoday) {
+              await this.superAdminService.createInAttendance(
+                student_id_number
+              );
+
+              return res.json({
+                msg: "welcome to school",
+              });
+            }
+
+            // return res.json({
+            //   msg: attendanceRecord[0].created_at,
+            //   in_out: attendanceRecord[0].in_out,
+            // });
+          }
+        }
+      } else res.json({ msg: "no face match" });
+    } else res.json({ msg: "pleae take photo again" });
+
+    return;
   };
 }

@@ -11,15 +11,12 @@ import { attendanceRouter } from "./router/attendanceRouter";
 import { attendanceAndNoticeRouter } from "./router/attendanceAndNoticeRouter";
 import { teacherNoticeRouter } from "./router/teacherNoticeRouter";
 
-
-
 const PORT = 8080;
 const app = express();
 
 app.use(cors());
-
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.use("/auth", authRouter);
 app.use("/superAdmin", superAdminRouter);
@@ -30,11 +27,6 @@ app.use("/attendance", attendanceRouter);
 app.use("/Message", attendanceAndNoticeRouter);
 app.use("/images", express.static("uploads"));
 app.use("/teacherNotice", teacherNoticeRouter);
-
-
-
-
-
 
 //***************************************** */ testing
 app.post("/", function (req: Request, res: Response) {});

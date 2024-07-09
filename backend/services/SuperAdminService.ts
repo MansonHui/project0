@@ -146,7 +146,12 @@ export default class SuperAdminService {
           created_at: this.knex.fn.now(),
           updated_at: this.knex.fn.now(),
         })
-        .returning("students.id")
+        .returning([
+          "students.id",
+          "students.first_name",
+          "students.last_name",
+          "students.created_at",
+        ])
     )[0];
   }
 
@@ -170,6 +175,8 @@ export default class SuperAdminService {
 
     console.log("noticeId.id", noticeId.id);
 
+    console.log("optionStr", optionStr);
+
     for (const option of optionStr) {
       // console.log({
       //   option: option.option,
@@ -178,7 +185,7 @@ export default class SuperAdminService {
       //   notice_id: noticeId.id,
       //   created_at: this.knex.fn.now(),
       //   updated_at: this.knex.fn.now(),
-      // })
+      // });
       await this.knex("notice_choice").insert({
         option: option.option,
         content: option.content,
@@ -217,20 +224,24 @@ export default class SuperAdminService {
     for (const eachStudentId of studentsId) {
       console.log("eachStudentId.id", eachStudentId.id);
 
-      await this.knex("notice_student_relation").insert({
-        notice_id: noticeId.id as number,
-        student_id: eachStudentId.id as number,
-        created_at: this.knex.fn.now(),
-        updated_at: this.knex.fn.now(),
-      });
+      let notice_student_relation_id = await this.knex(
+        "notice_student_relation"
+      )
+        .insert({
+          notice_id: noticeId.id as number,
+          student_id: eachStudentId.id as number,
+          created_at: this.knex.fn.now(),
+          updated_at: this.knex.fn.now(),
+        })
+        .returning("id");
 
-      console.log("studentsIdinside ", eachStudentId);
+      console.log("notice_student_relation_id ", notice_student_relation_id);
     }
 
     // Perform joins with other tables
     let result = await this.knex("notices")
       .join("notice_choice", "notices.id", "notice_choice.notice_id")
-      .join("notice_student_relation as nsr", "notices.id", "nsr.notice_id")
+      // .join("notice_student_relation as nsr", "notices.id", "nsr.notice_id")
       // .join("students", "students.id", "nsr.student_id")
       // .join("student_class_relation as scr", "students.id", "scr.student_id")
       // .join("classes", "classes.id", "scr.class_id")
@@ -270,5 +281,43 @@ export default class SuperAdminService {
     //   .returning("students.id");
 
     // return studentid.id;
+  }
+
+  async checkAttendance(student_id_number: number) {
+    let existingRecordCurrentDate = await this.knex("student_attendance as sa")
+      .select("created_at")
+      .select("in_out")
+      .where("sa.student_id", student_id_number)
+      .orderBy("created_at", "desc");
+
+    // console.log("existingRecordCurrentDate", existingRecordCurrentDate);
+
+    return existingRecordCurrentDate;
+  }
+
+  async createInAttendance(student_id_number: number) {
+    let [createdInRecord] = await this.knex("student_attendance as sa")
+      .insert({
+        student_id: student_id_number,
+        in_out: "in",
+      })
+      .where("sa.student_id", student_id_number)
+      .returning("sa.student_id");
+    console.log("createdInRecord", createdInRecord);
+    return createdInRecord;
+  }
+
+  async createOutAttendance(student_id_number: number) {
+    let [createdOutRecord] = await this.knex("student_attendance as sa")
+      .join("students as s", "s.id", "sa.student_id")
+      .insert({
+        student_id: student_id_number,
+        in_out: "out",
+      })
+      .where("sa.student_id", student_id_number)
+      .returning("sa.student_id");
+
+    console.log("createdOutRecord", createdOutRecord);
+    return createdOutRecord;
   }
 }

@@ -10,14 +10,14 @@ import PopuploginPrivacyPolicy from "./loginPrivacyPolicy";
 
 export default function Login() {
   // super admin AC and password
-  // const [email, setEmail] = useState("super@stpeter.edu.hk");
-  // const [password, setPassword] = useState("stpeter");
+  const [email, setEmail] = useState("super@stpeter.edu.hk");
+  const [password, setPassword] = useState("stpeter");
   // teacher AC and password
   // const [email, setEmail] = useState("choiping@stpeter.edu.hk");
   // const [password, setPassword] = useState("0000");
   // // parent AC and password
-  const [email, setEmail] = useState("chantaiming@gmail.com");
-  const [password, setPassword] = useState("1234");
+  // const [email, setEmail] = useState("chantaiming@gmail.com");
+  // const [password, setPassword] = useState("1234");
 
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -83,34 +83,34 @@ export default function Login() {
   };
 
   return (
-    <Box id={styles.loginContainer}>
-      <div id={styles.bannerContainer}>
-        <div id={styles.loginBanner}></div>
-      </div>
+    <Box>
+      <div id={styles.loginContainer}>
+        <div id={styles.loginTop}>
+          <div id={styles.loginBanner}></div>
+        </div>
+        <div id={styles.loginCoreBackground}>
+          <div id={styles.privacyPolicyAndOption}>
+            <label id={styles.privacyPolicy}>
+              <PopuploginPrivacyPolicy
+                // id="popup-without-portal-fixed"
+                id={styles.popupButton}
+                buttonLabel="privacyPolicy"
+                strategy="fixed"
+              />
+            </label>
 
-      <div id={styles.privacyPolicyAndOption}>
-        <div>
-          <label id={styles.privacyPolicy}>
-            <PopuploginPrivacyPolicy
-              // id="popup-without-portal-fixed"
-              id={styles.popupButton}
-              buttonLabel="Privacy PolicyXXXX"
-              strategy="fixed"
-            />
-          </label>
-
-          <div id={styles.agreeOptionBox}>
-            <FormControlLabel
-              id={styles.agreeOption}
-              control={<Switch checked={checked} onChange={handleChange} />}
-              label="Agree"
-            />
+            <div id={styles.agreeOptionBox}>
+              <FormControlLabel
+                id={styles.agreeOption}
+                control={<Switch checked={checked} onChange={handleChange} />}
+                label="Agree"
+              />
+              <Slide direction="up" in={checked} mountOnEnter unmountOnExit>
+                {loginForm}
+              </Slide>
+            </div>
           </div>
         </div>
-
-        <Slide direction="up" in={checked} mountOnEnter unmountOnExit>
-          {loginForm}
-        </Slide>
       </div>
     </Box>
   );

@@ -16,7 +16,7 @@ export default function RegisteStudentFrom() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      await fetch(
+      const res = await fetch(
         `${process.env.REACT_APP_API_ENDPOINT}/superadmin/createStudent`,
         {
           method: "POST",
@@ -36,6 +36,20 @@ export default function RegisteStudentFrom() {
           }),
         }
       );
+
+      const reponse = await res.json();
+
+      console.log("reponse", reponse);
+
+      if (res.ok) {
+        console.log("dataFromServer", reponse.newStudentDetail);
+        localStorage.setItem(
+          "newStudentId",
+          JSON.stringify(reponse.newStudentDetail)
+        );
+      } else {
+        alert("Login failed");
+      }
     } catch (error) {
       console.error("Error registering Student:", error);
     }
@@ -53,7 +67,6 @@ export default function RegisteStudentFrom() {
         {showStudentInput && (
           <div>
             student
-
             <div>
               <input
                 type="email"
@@ -63,7 +76,6 @@ export default function RegisteStudentFrom() {
                 required
               />
             </div>
-
             <div>
               <input
                 type="first_name"
@@ -73,7 +85,6 @@ export default function RegisteStudentFrom() {
                 required
               />
             </div>
-
             <div>
               <input
                 type="last_name"
@@ -83,7 +94,6 @@ export default function RegisteStudentFrom() {
                 required
               />
             </div>
-
             <div>
               <input
                 type="gender"
@@ -93,7 +103,6 @@ export default function RegisteStudentFrom() {
                 required
               />
             </div>
-            
             <div>
               <input
                 type="HKID_number"
@@ -103,7 +112,6 @@ export default function RegisteStudentFrom() {
                 required
               />
             </div>
-            
             <div>
               <input
                 type="birthday"
@@ -113,7 +121,6 @@ export default function RegisteStudentFrom() {
                 required
               />
             </div>
-
             {/* <div>
               <input
                 type="parentId"
@@ -133,7 +140,6 @@ export default function RegisteStudentFrom() {
                 required
               />
             </div> */}
-
             <button type="submit">Register</button>
           </div>
         )}
