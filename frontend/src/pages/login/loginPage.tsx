@@ -19,8 +19,8 @@ export default function Login() {
   const [email, setEmail] = useState("choiping@stpeter.edu.hk");
   const [password, setPassword] = useState("0000");
   // // parent AC and password
-  const [email, setEmail] = useState("chantaiming@gmail.com");
-  const [password, setPassword] = useState("1234");
+  // const [email, setEmail] = useState("chantaiming@gmail.com");
+  // const [password, setPassword] = useState("1234");
 
   const [error, setError] = useState("");
   const navigate = useNavigate();
