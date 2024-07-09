@@ -1,76 +1,95 @@
 import styles from "./Navbar.module.css";
-import HomeSharpIcon from '@mui/icons-material/HomeSharp';
-import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
-import AnnouncementRoundedIcon from '@mui/icons-material/AnnouncementRounded';
-import StickyNote2RoundedIcon from '@mui/icons-material/StickyNote2Rounded';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-
-import { Outlet, useLocation, useNavigate } from 'react-router-dom' 
-import React from "react";
-
-
+import HomeSharpIcon from "@mui/icons-material/HomeSharp";
+import EditIcon from "@mui/icons-material/Edit";
+import FaceRetouchingNaturalIcon from "@mui/icons-material/FaceRetouchingNatural";
+import StickyNote2RoundedIcon from "@mui/icons-material/StickyNote2Rounded";
+import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
+import EmailIcon from "@mui/icons-material/Email";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
+import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
+import DoneAllIcon from "@mui/icons-material/DoneAll";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import TeacherStudentAttendancePage from "../../pages/teacherStudentAttendance/TeacherStudentAttendancePage";
 
 export default function Navbar() {
   const navigate = useNavigate();
-  
 
- 
-
- 
   return (
-// ------------ Navbar Logo Container ------------
+    // ------------ Navbar Logo Container ------------
     <div className={styles.navbar_container}>
       <div className={styles.navbar_logo_container}></div>
 
-{/* ------------ Navbar Function Container ------------ */}
-      <div className={styles.navbar_function_container}>
-
-        <div onClick={()=>navigate("HomePage")} className={styles.navbar_function}>
-          <div className={styles.navbar_function_logo}><HomeSharpIcon color="action"/></div>
-          <div className={styles.navbar_function_text}>Home</div>
-        </div>
-        <div onClick={()=>navigate("Message")}  className={styles.navbar_function}>
-          <div className={styles.navbar_function_logo}><AnnouncementRoundedIcon color="action"/></div>
-          <div className={styles.navbar_function_text}>Instant Messaging 即時通訊</div>
-        </div>
-        <div onClick={()=>navigate("EditNotice")} className={styles.navbar_function}>
-          <div className={styles.navbar_function_logo}><EmailRoundedIcon color="action"/></div>
-          <div className={styles.navbar_function_text}>Editorial Notice</div>
-        </div>
-        <div onClick={()=>navigate("AI")} className={styles.navbar_function}>
-          <div className={styles.navbar_function_logo}><StickyNote2RoundedIcon color="action"/></div>
-          <div className={styles.navbar_function_text}>AI Attendances</div>
-        </div>
-        <div className={styles.navbar_function}>
-          <div className={styles.navbar_function_logo}><StickyNote2RoundedIcon color="action"/></div>
-          <div className={styles.navbar_function_text}>School Payment</div>
-        </div>
-        <div onClick={()=>navigate("Register")} className={styles.navbar_function}>
-          <div className={styles.navbar_function_logo}><StickyNote2RoundedIcon color="action"/></div>
-          <div className={styles.navbar_function_text}>Register</div>
-        </div>
-        <div onClick={()=>navigate("TeacherNotice")} className={styles.navbar_function}>
-          <div className={styles.navbar_function_logo}><StickyNote2RoundedIcon color="action"/></div>
-          <div className={styles.navbar_function_text}>TeacherNotice</div>
-        </div>
-        
-      </div>
-      
-{/* ------------ Navbar Info Container ------------ */}
-      <div onClick={()=>navigate("/")} className={styles.navbar_info_container}>
-        <div>
-          <ArrowBackIcon className={styles.navbar_info_GobackButton } 
-          fontSize="large"
-          color="action"
-          type="button"
-          
-          /> 
+      {/* ------------ Navbar Function Container ------------ */}
+      <div id={styles.navbarMenu}>
+        <div
+          onClick={() => navigate("HomePage")}
+          className={styles.navbarButton}
+        >
+          <div className={styles.navbar_function_logo}>
+            <HomeSharpIcon />
           </div>
+          <h6 className={styles.navbar_function_text}>Home</h6>
+        </div>
+        <div
+          onClick={() => navigate("Message")}
+          className={styles.navbarButton}
+        >
+          <div className={styles.navbar_function_logo}>
+            <EmailIcon />
+          </div>
+          <h6 className={styles.navbar_function_text}>Instant Messaging</h6>
+        </div>
+        <div
+          onClick={() => navigate("EditNotice")}
+          className={styles.navbarButton}
+        >
+          <div className={styles.navbar_function_logo}>
+            <EditIcon />
+          </div>
+          <h6 className={styles.navbar_function_text}>Edit Notice</h6>
+        </div>
 
+        <div
+          onClick={() => navigate("Register")}
+          className={styles.navbarButton}
+        >
+          <div className={styles.navbar_function_logo}>
+            <HowToRegIcon />
+          </div>
+          <h6 className={styles.navbar_function_text}>Register</h6>
+        </div>
+        <div onClick={() => navigate("AI")} className={styles.navbarButton}>
+          <div className={styles.navbar_function_logo}>
+            <FaceRetouchingNaturalIcon />
+          </div>
+          <h6 className={styles.navbar_function_text}>AI Attendances</h6>
+        </div>
+        <div
+          onClick={() => navigate("TeacherNotice")}
+          className={styles.navbarButton}
+        >
+          <div className={styles.navbar_function_logo}>
+            <MarkEmailReadIcon />
+          </div>
+          <h6 className={styles.navbar_function_text}>TeacherNotice</h6>
+        </div>
+        <div
+          onClick={() => navigate("TeacherStudentAttendance")}
+          className={styles.navbarButton}
+        >
+          <div className={styles.navbar_function_logo}>
+            <DoneAllIcon />
+          </div>
+          <h6 className={styles.navbar_function_text}>Attendance</h6>
+        </div>
+
+        <div className={styles.navbarButton}>
+          <div className={styles.navbar_function_logo}>
+            <MonetizationOnIcon />
+          </div>
+          <h6 className={styles.navbar_function_text}>Payment</h6>
+        </div>
       </div>
-  
     </div>
-    
   );
-  
 }

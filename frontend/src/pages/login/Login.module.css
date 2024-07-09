@@ -1,46 +1,45 @@
-#loginContainer {
-  display: flex;
-  height: 100vw;
-  flex-direction: column;
-}
-
-#loginBanner {
-  writing-mode: vertical-lr;
+#loginBody {
+  height: 100vh;
+  width: 100vw;
+  background-size: 105% 100%;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  margin: auto;
-  height: 40%;
-  width: 100%;
-  background-image: url(./img/loginBanner.png);
+  background-image: url("./img/campusStyleLoginPageBackgroundKid.jpg");
+  overflow: hidden;
+}
+#ecParentLogo {
+  position: absolute;
+  top: 6vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100vw;
+  height: 12vh;
+  background-image: url(./img/E-C-Parnet-7-8-2024.png);
 }
 
-#loginTop{
-  background-color: black;
+#loginCoreBackground {
+  display: flex;
+  height: 60vh;
+  width: 100vh;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+#loginContainer {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  justify-content: space-around;
 }
 
 #privacyPolicyAndOption {
-  /* writing-mode: vertical-lr; */
-  object-fit: cover;
+  margin: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 110vh;
-  width: 100vw;
-  margin: 0;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-image: url("./img/campusStyleLoginPageBackground.jpg");
 }
-
-/* #privacyPolicy {
-  display: flex;
-  height: 22vh;
-  width: 100%;
-  flex-direction: column-reverse;
-  background-color: blue;
-} */
 
 #agreeOptionBox {
   display: flex;
@@ -51,16 +50,26 @@
 
 #loginCore {
   display: flex;
-  height: 193px;
-  width: 36vh;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
   flex-direction: column;
-  align-items: center;
-  position: relative;
-  left: 7px;
-  top: 70px;
+  position: fixed;
+  top: 50%;
+  padding: 30px;
+  background-color: #6dae68;
+  z-index: 999;
+  transform: translateY(-20px);
+  animation: emerge 0.5s ease forwards, float 3s ease-in-out infinite;
+  border-radius: 5vh;
+  outline: 0.5rem solid #997239;
+}
+
+.loginCore-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 998;
 }
 
 #loginInputBar {
@@ -76,23 +85,22 @@
   margin: 15px;
 }
 
-.input {
+#email input,
+#password input {
   height: 2vh;
   width: 300px;
+  background-color: azure;
 }
 
 #popupBox {
-  color: rgb(244, 238, 240);
-  font-size: small;
   position: relative;
-  left: 9px;
-  width: 40ch;
+  color: azure;
+  width: 40vh;
   height: 50vh;
-  padding: 10px;
-  margin: 10px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  margin: 1px;
-  background-image: url(./img//PopuploginPrivacyPolicyBackground.jpg);
+  padding: 5px;
+  background-color: #3f653c;
+  transform: translateY(1vh);
+  animation: emerge 0.5s ease forwards, float 3s ease-in-out infinite;
+  border-radius: 5vh;
+  outline: 0.5rem solid #997239;
 }

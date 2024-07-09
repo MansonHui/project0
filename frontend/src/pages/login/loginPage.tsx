@@ -7,17 +7,20 @@ import styles from "./Login.module.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import PopuploginPrivacyPolicy from "./loginPrivacyPolicy";
+import LoginIcon from "@mui/icons-material/Login";
+import Button from "@mui/material/Button/Button";
+import TextField from "@mui/material/TextField";
 
 export default function Login() {
   // super admin AC and password
   const [email, setEmail] = useState("super@stpeter.edu.hk");
   const [password, setPassword] = useState("stpeter");
   // teacher AC and password
-  // const [email, setEmail] = useState("choiping@stpeter.edu.hk");
-  // const [password, setPassword] = useState("0000");
+  const [email, setEmail] = useState("choiping@stpeter.edu.hk");
+  const [password, setPassword] = useState("0000");
   // // parent AC and password
-  // const [email, setEmail] = useState("chantaiming@gmail.com");
-  // const [password, setPassword] = useState("1234");
+  const [email, setEmail] = useState("chantaiming@gmail.com");
+  const [password, setPassword] = useState("1234");
 
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -25,27 +28,37 @@ export default function Login() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const res = await fetch(
-      `${process.env.REACT_APP_API_ENDPOINT}/auth/login`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      }
-    );
-    const reponse = await res.json();
+    try {
+      console.log(loginForm);
+      const response = await fetch(
+        `${process.env.REACT_APP_API_ENDPOINT}/auth/login`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+          }),
+        }
+      );
 
-    if (res.ok) {
-      console.log("reponse", reponse);
-      login(reponse.token);
-    } else {
-      alert("Login failed");
+      if (response.ok) {
+        const data = await response.json();
+        login(data.token);
+      } else {
+        const error = await response.json();
+        setError(error.message || "Login failed");
+      }
+    } catch (err) {
+      console.error(err);
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unknown error occurred. Please try again later.");
+      }
     }
   };
 
@@ -53,26 +66,35 @@ export default function Login() {
     <form onSubmit={handleSubmit} id={styles.loginCore}>
       <div id={styles.loginInputBar}>
         <div id={styles.welcome}>Welcome</div>
-        <div id={styles.email}>
-          <input
+        <Box id={styles.email}>
+          <TextField
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="email"
             required
           />
-        </div>
-        <div id={styles.password}>
-          <input
+        </Box>
+        <Box id={styles.password}>
+          <TextField
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="password"
             required
           />
-        </div>
+        </Box>
       </div>
-      <input type="submit" value="Login" />
+
+      <Button
+        id={styles.sendButton}
+        variant="contained"
+        color="success"
+        startIcon={<LoginIcon />}
+        type="submit"
+      >
+        SEND
+      </Button>
       {error && <div>{error}</div>}
     </form>
   );
@@ -83,35 +105,34 @@ export default function Login() {
   };
 
   return (
-    <Box>
-      <div id={styles.loginContainer}>
-        <div id={styles.loginTop}>
-          <div id={styles.loginBanner}></div>
-        </div>
-        <div id={styles.loginCoreBackground}>
-          <div id={styles.privacyPolicyAndOption}>
-            <label id={styles.privacyPolicy}>
-              <PopuploginPrivacyPolicy
-                // id="popup-without-portal-fixed"
-                id={styles.popupButton}
-                buttonLabel="privacyPolicy"
-                strategy="fixed"
-              />
-            </label>
+    <div id={styles.loginBody}>
+      <div id={styles.ecParentLogo}></div>
+      <Box>
+        <div id={styles.loginContainer}>
+          <div id={styles.loginCoreBackground}>
+            <div id={styles.privacyPolicyAndOption}>
+              <label id={styles.privacyPolicy}>
+                <PopuploginPrivacyPolicy
+                  id={styles.popupButton}
+                  buttonLabel="privacyPolicy"
+                  strategy="fixed"
+                />
+              </label>
 
-            <div id={styles.agreeOptionBox}>
-              <FormControlLabel
-                id={styles.agreeOption}
-                control={<Switch checked={checked} onChange={handleChange} />}
-                label="Agree"
-              />
-              <Slide direction="up" in={checked} mountOnEnter unmountOnExit>
-                {loginForm}
-              </Slide>
+              <div id={styles.agreeOptionBox}>
+                <FormControlLabel
+                  id={styles.agreeOption}
+                  control={<Switch checked={checked} onChange={handleChange} />}
+                  label="Agree"
+                />
+                <Slide direction="up" in={checked} mountOnEnter unmountOnExit>
+                  {loginForm}
+                </Slide>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </Box>
+      </Box>
+    </div>
   );
 }

@@ -41,5 +41,28 @@ export default class NoticeController {
     }
   };
 
-  choiceNotice = async (req: Request, res: Response) => {}
+  insertChoice = async (req: Request, res: Response) => {
+    try {
+      // 是req.query ,不是Pararms
+      const { studentId, noticeId } = req.query;
+      console.log("1",studentId, noticeId);
+      
+      //錯名
+      const { noticeChoiceId } = req.body;
+      console.log("2",req.body.noticeChoiceId);
+      
+      const studentIdNumber = Number(studentId);
+      const noticeIdNumber = Number(noticeId);
+      
+        await this.noticeService.insertChoice(
+          studentIdNumber,
+          noticeIdNumber,
+          noticeChoiceId
+        
+      );
+      res.status(200).json({ message: 'Record updated' });
+    } catch (error) {
+      res.status(500).json({ message: 'Error updating record', error });
+    }
+  }
 }

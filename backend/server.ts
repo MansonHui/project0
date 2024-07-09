@@ -10,6 +10,8 @@ import { studentRouter } from "./router/studentRouter";
 import { attendanceRouter } from "./router/attendanceRouter";
 import { attendanceAndNoticeRouter } from "./router/attendanceAndNoticeRouter";
 import { teacherNoticeRouter } from "./router/teacherNoticeRouter";
+import { forTeacherGetAttendanceRouter } from "./router/forTeacherGetAttendanceRouter";
+import { parentTopUpRouter } from "./router/parentTopUpRouter";
 
 const PORT = 8080;
 const app = express();
@@ -27,6 +29,8 @@ app.use("/attendance", attendanceRouter);
 app.use("/Message", attendanceAndNoticeRouter);
 app.use("/images", express.static("uploads"));
 app.use("/teacherNotice", teacherNoticeRouter);
+app.use("/forTeacherGetAttendance", forTeacherGetAttendanceRouter);
+app.use("/parentTopup", parentTopUpRouter)
 
 //***************************************** */ testing
 app.post("/", function (req: Request, res: Response) {});

@@ -1,15 +1,21 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { getNoticeType, useGetallNotice } from "../../api/noticePageAPI";
 import styles from "./NoticePage.module.css";
+import SchoolIcon from '@mui/icons-material/School';
+import ClassIcon from '@mui/icons-material/Class';
+import BoyIcon from '@mui/icons-material/Boy';
+import EmailIcon from '@mui/icons-material/Email';
+import EventIcon from '@mui/icons-material/Event';
 
 export default function NoticePage() {
   const allNotice = useGetallNotice();
   const navigate = useNavigate();
 
   return (
-    <div>
+    <div className={styles.Container}>
       {allNotice.map((entry) => (
         <div
+          // key={entry.notice_id}
           onClick={() => {
             navigate("../NoticeDetail", {
               state: {
@@ -20,23 +26,30 @@ export default function NoticePage() {
             });
           }}
           className={styles.Message}
+          
         >
           <div className={styles.Message_type}>
-            <div>School: {entry.full_name}</div>
+            <div><SchoolIcon/> School: </div>
+            <div>{entry.full_name}</div>
           </div>
           <div className={styles.Message_type}>
             <div>
-              Class: {entry.grade}
+              <ClassIcon/>Class: {entry.grade}
               {entry.class_name}
             </div>
             <div>
-              Student: {entry.last_name} {entry.first_name}
+              <BoyIcon/>Student: {entry.last_name} {entry.first_name}
             </div>
           </div>
           <div className={styles.Message_Detail}>
             <div>
-              {entry.topic}
-              {entry.created_at}
+              <div><EmailIcon/>Notice:</div>
+              <div>{entry.topic}</div>
+              <p></p>
+              <div><EventIcon/>Created Date:</div>
+              <div><div>{new Date(entry.created_at).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' })}</div></div>
+              
+              
             </div>
           </div>
         </div>

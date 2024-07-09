@@ -1,0 +1,9 @@
+body {
+    height: 95vh;
+    width: 100vw;
+    background-size: 105% 105%;
+    background-repeat: no-repeat;
+    background-position: center bottom -6vh;
+    background-image: url("../src/img/homePageBackground.jpg");
+    overflow: hidden;
+  }

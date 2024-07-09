@@ -1,13 +1,1 @@
-.ScanContainer{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-52%, -48%);
 
-    margin: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-
-    height: 90%;
-    width: 93%;
-}

@@ -1,18 +1,10 @@
-import {
-  FormGroup,
-  FormControlLabel,
-  Switch,
-  TextField,
-  Button,
-} from "@mui/material";
-import { useState } from "react";
+import { FormGroup, TextField, Button, Box } from "@mui/material";
 import styles from "./EditNoticePage.module.css";
-import { createGlobalStyle } from "styled-components";
 import { useForm, useFieldArray } from "react-hook-form";
-
-const GlobalStyles = createGlobalStyle`
-  /* Add your global styles here */
-`;
+import SendIcon from "@mui/icons-material/Send";
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 
 interface NoticeChoice {
   option: string;
@@ -34,29 +26,26 @@ export default function EditNoticePage() {
     control,
     register,
     handleSubmit,
-    setValue,
-    getValues,
-    reset,
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
-      class_name: "A",
-      content: "i go to school by bus 123",
-      grade: "1",
+      class_name: "",
+      content: "",
+      grade: "",
       notice_choice: [
         {
           option: "A",
-          content: "content",
+          content: "",
           price: 0,
           defaultChecked: true,
         },
       ],
-      topic: "topic123",
+      topic: "",
     },
     reValidateMode: "onChange",
   });
 
-  const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: "notice_choice",
   });
@@ -74,6 +63,12 @@ export default function EditNoticePage() {
   }
 
   const handleAddFormControl = () => {
+    // Check if the maximum number of choices (5) has been reached
+    if (fields.length >= 5) {
+      alert("The maximum number of choices is 5.");
+      return;
+    }
+
     let value = "A";
     if (fields.length > 0) {
       value = generateAtoZ(fields[fields.length - 1].option);
@@ -89,14 +84,16 @@ export default function EditNoticePage() {
   };
 
   const handleRemoveFormControl = () => {
-    if (fields.length > 0) {
-      remove(fields.length - 1);
+    if (fields.length > 1) {
+      try {
+        remove(fields.length - 1);
+      } catch (error) {
+        console.error("Error removing form control:", error);
+        alert("Unable to remove the last form control. Please try again.");
+      }
+    } else {
+      alert("You must have at least one form control.");
     }
-  };
-
-  const handleSwitchChange = (index: number, checked: boolean) => {
-    const data = getValues();
-    setValue(`notice_choice.${index}.defaultChecked`, checked);
   };
 
   async function handleSubmita(data: FormData) {
@@ -121,72 +118,116 @@ export default function EditNoticePage() {
   return (
     <form onSubmit={handleSubmit((d: FormData) => handleSubmita(d))}>
       <div id={styles.titleAndTextArea}>
-        <label id={styles.title}>
-          <input
-            type="text"
-            placeholder="topic"
-            {...register("topic")}
-          />
-        </label>
+        <div id={styles.titleArea}>
+          <Box sx={{ display: "flex", alignItems: "flex-end" }}>
+            <TextField id={styles.titleInput} label="Title" required />
+          </Box>
+        </div>
         <label id={styles.textArea}>
           <textarea
-            placeholder="content"
+            placeholder="type someing..."
             {...register("content")}
+            required
           />
         </label>
       </div>
 
       <div>
-        {fields.map((control, index) => (
-          <FormGroup key={control.id}>
-            <FormControlLabel
-              control={
-                <Switch
-                  {...register(`notice_choice.${index}.defaultChecked`)}
-                  defaultChecked={control.defaultChecked}
-                  onChange={(_, checked) => handleSwitchChange(index, checked)}
+        <div id={styles.choiceArea}>
+          {fields.map((control, index) => (
+            <FormGroup key={control.id}>
+              {control.defaultChecked && (
+                <TextField
+                  label={`choice ${control.option}`}
+                  variant="outlined"
+                  size="small"
+                  style={{ width: "80vw", height: "6vh" }}
+                  id={styles.choiceInput}
+                  {...register(`notice_choice.${index}.content`)}
+                  type="text"
+                  placeholder="notice_choice"
+                  required
                 />
-              }
-              label={control.content}
+              )}
+            </FormGroup>
+          ))}
+        </div>
+        <div id={styles.addAndReduceAndGradeAndClassNameAndSendAndReset}>
+          <div id={styles.addAndReduceArea}>
+            <Button
+              variant="contained"
+              startIcon={<AddIcon />}
+              onClick={handleAddFormControl}
+            >
+              Add
+            </Button>
+            <Button
+              color="error"
+              variant="contained"
+              startIcon={<RemoveIcon />}
+              onClick={handleRemoveFormControl}
+            >
+              Reduce
+            </Button>
+          </div>
+          <div id={styles.gradeAndClassNameAndSendAndResetArea}>
+            <input
+              id={styles.gradeInput}
+              type="number"
+              {...register("grade")}
+              placeholder="grade"
+              required
+              onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
+                if (
+                  event.currentTarget.value.length > 0 &&
+                  event.key !== "Backspace" &&
+                  event.key !== "Delete"
+                ) {
+                  event.preventDefault();
+                  alert("Please enter only one number.");
+                }
+              }}
+            />
+            <p />
+            <input
+              id={styles.classNameInput}
+              type="text"
+              {...register("class_name")}
+              placeholder="class"
+              required
+              onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
+                if (
+                  event.currentTarget.value.length > 0 &&
+                  event.key !== "Backspace" &&
+                  event.key !== "Delete"
+                ) {
+                  event.preventDefault();
+                  alert("Please enter only one English.");
+                }
+              }}
             />
 
-            {control.defaultChecked && (
-              <TextField
-                label={`choice ${control.option}`}
-                variant="outlined"
-                size="small"
-                style={{ marginTop: "8px" }}
-                {...register(`notice_choice.${index}.content`)}
-                type="text"
-                placeholder="notice_choice"
-                required
-              />
-            )}
-          </FormGroup>
-        ))}
-        <div>
-          <Button onClick={handleAddFormControl}>Add</Button>
-          <Button onClick={handleRemoveFormControl}>Reduce</Button>
-        </div>
-        <div>
-          <input
-            type="text"
-            {...register("grade")}
-            placeholder="grade"
-            required
-          />
-          <p />
-          <input
-            type="text"
-            {...register("class_name")}
-            placeholder="class_name"
-            required
-          />
-          <p />
+            <Button
+              id={styles.sendButton}
+              variant="outlined"
+              color="success"
+              endIcon={<SendIcon />}
+              type="submit"
+            >
+              SEND
+            </Button>
+            <Button
+              id={styles.resetButton}
+              color="error"
+              variant="outlined"
+              endIcon={<RestartAltIcon />}
+              type="reset"
+            >
+              Reset
+            </Button>
+          </div>
         </div>
       </div>
-      <button type="reset">Reset edits</button>
-      <button type="submit">Save post</button>
     </form>
   );
 }

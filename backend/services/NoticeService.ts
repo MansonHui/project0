@@ -93,6 +93,34 @@ GROUP BY
   admins.admin_name,
   notice_student_relation.notice_choice_id;`);
   }
+
+  async insertChoice(studentId: number, noticeId: number, noticeChoiceId: number) {
+    console.log("3",studentId,noticeId,noticeChoiceId);
+    
+    let result = await this.knex('notice_student_relation')
+    .update({ notice_choice_id: noticeChoiceId })
+    .where({ student_id: studentId, notice_id: noticeId });
+      // .where('student_id', studentId)
+      // .andWhere('notice_id', noticeId)
+      // .update('notice_choice_id', noticeChoiceId );
+    
+      console.log("check ",result);
+    return result; 
+    
+  }
+
+    // return await this.knex('notice_student_relation')
+    // .where({ student_id, notice_id })
+    // .update({ notice_choice_id })
+    // .then(() => {
+    //   console.log('Record updated');
+    // });
+
+      
+  
+
+
+
 }
 
 // adams code
