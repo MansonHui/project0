@@ -60,6 +60,7 @@
   animation: emerge 0.5s ease forwards, float 3s ease-in-out infinite;
   border-radius: 5vh;
   outline: 0.5rem solid #997239;
+  width: 75vw;
 }
 
 .loginCore-overlay {

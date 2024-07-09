@@ -9,9 +9,8 @@ export default class AttendanceAndNoticeService {
   // async getAll(userRole: string, userRoleId: number, page = 1, pageSize = 10) {
   //   const offset = (page - 1) * pageSize;
     async getAll(userRole: string,
-      userRoleId: number,
-      noticeId: number,
-      studentId: number) {
+      userRoleId: number
+    ) {
     return this.knex
 
     .select(

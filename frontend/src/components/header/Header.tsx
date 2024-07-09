@@ -63,14 +63,14 @@ export default function MenuHeaderBar() {
                 }}
               >
                 <List>
-                <Navbar />
+                  <Navbar />
                 </List>
               </Drawer>
               <MenuIcon />
             </IconButton>
 
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              UserName
+            Home Page
             </Typography>
             {auth && (
               <div id={styles.userACButton}>

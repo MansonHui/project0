@@ -7,9 +7,9 @@ export default function HomePage() {
   const navigate = useNavigate();
   const allClass = useGetAllClass();
 
-  console.log("render HOme",allClass);
+  console.log("render HOme", allClass);
   return (
-    <>
+    <div id={styles.homePage}>
       {allClass.map((entry) => (
         <div
           onClick={() => navigate("../Message")}
@@ -17,16 +17,18 @@ export default function HomePage() {
           key={entry.student_id}
         >
           <div className={styles.UserSchool_Container}>
-            <div className={styles.UserSchool_Logo}></div>
-            <div className={styles.UserSchool_Name}>
-              <p>School: {entry.full_name}</p>
+            <div className={styles.UserSchool_Logo}>
+              <div className={styles.UserSchool_Name}>
+                <p id={styles.schoolTitle}>School:</p>
+                <p id={styles.schoolName}> {entry.full_name}</p>
+              </div>
             </div>
-            <div className={styles.UserSchool_Info}>
-              <MoreVertIcon fontSize="large" />
-            </div>
+            <div className={styles.UserSchool_Info}></div>
           </div>
           <div className={styles.UserChild_Container}>
-            <div className={styles.UserChild_photo}>{entry.image}</div>
+            <div className={styles.UserChild_photo}>
+              {/* {entry.image} */}
+              </div>
             <div className={styles.UserChild_Info}>
               <div className={styles.UserChild_Information}>
                 Teacher: {entry.admin_name}
@@ -49,6 +51,6 @@ export default function HomePage() {
           </div>
         </div>
       ))}
-    </>
+    </div>
   );
 }
