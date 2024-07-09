@@ -43,10 +43,14 @@ export default class NoticeController {
 
   insertChoice = async (req: Request, res: Response) => {
     try {
-      req.body.userRole,
-      req.body.userRoleId
-      const { studentId, noticeId } = req.params;
+      // 是req.query ,不是Pararms
+      const { studentId, noticeId } = req.query;
+      console.log("1",studentId, noticeId);
+      
+      //錯名
       const { noticeChoiceId } = req.body;
+      console.log("2",req.body.noticeChoiceId);
+      
       const studentIdNumber = Number(studentId);
       const noticeIdNumber = Number(noticeId);
       

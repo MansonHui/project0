@@ -94,13 +94,19 @@ GROUP BY
   notice_student_relation.notice_choice_id;`);
   }
 
-  async insertChoice(student_id: number, notice_id: number, notice_choice_id: number) {
+  async insertChoice(studentId: number, noticeId: number, noticeChoiceId: number) {
+    console.log("3",studentId,noticeId,noticeChoiceId);
+    
     let result = await this.knex('notice_student_relation')
-      .update({ notice_choice_id: notice_choice_id })
-      .where('student_id', student_id)
-      .andWhere('notice_id', notice_id);
-  
-    return result;
+    .update({ notice_choice_id: noticeChoiceId })
+    .where({ student_id: studentId, notice_id: noticeId });
+      // .where('student_id', studentId)
+      // .andWhere('notice_id', noticeId)
+      // .update('notice_choice_id', noticeChoiceId );
+    
+      console.log("check ",result);
+    return result; 
+    
   }
 
     // return await this.knex('notice_student_relation')
