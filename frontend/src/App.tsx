@@ -26,7 +26,7 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (authToken) navigate("/AI");
+    if (authToken) navigate("/Message");
     else navigate("/");
   }, [authToken]);
 

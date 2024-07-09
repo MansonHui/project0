@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import WebcamCapture from "../../components/capture/WebCamCapture";
-
 import ManualCapture from "../../components/capture/ManualCapture";
 import "./CamCapture.css";
 
