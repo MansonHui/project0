@@ -1,16 +1,11 @@
-body{
-    background-color: black;
+#messagePageBody{
+  display: flex;
+  justify-content: center;
 }
 
 .Container{
     position: absolute;
-    /* top: 50%;
-    left: 50%;
-    transform: translate(-50%, -47%); */
-
-    /* border: 1px solid #ccc; */
     margin-top: 2vh;
-    /* border-radius: 8px; */
     height: 85vh;
     width: 93vw;
 
@@ -23,12 +18,10 @@ body{
 .Filter_Container{
     height: 7vh;
     width: 93vw;
-    /* border: 1px solid #ccc;
-    border-radius: 8px; */
-    margin: 10px;
+    /* border: 0.5vh inset rgb(70, 156, 195); */
+    border-radius: 8px;
     display:flex;
     justify-content: space-evenly;
-    background-color: #a0be4e;
 }
 
 .Message_Container{
