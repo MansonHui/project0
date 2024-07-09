@@ -9,7 +9,7 @@ import { uploadImage } from "../../api/uploadPhoteAPI";
 const BLUR_THRESHOLD_LAPLACIAN = 100; // Adjusted threshold for Laplacian variance method
 const BLUR_THRESHOLD_TENENGRAD = 2000; // Threshold for Tenengrad method
 const MIN_BOX_SIZE = 200; // Minimum size for the bounding box to consider the face clear
-const IMG_SIZE = 640;
+const IMG_SIZE = 480;
 const videoConstraints = {
   width: IMG_SIZE,
   height: IMG_SIZE,
@@ -30,6 +30,7 @@ const WebcamCapture: React.FC = () => {
   );
   const [cvLoaded, setCvLoaded] = useState<boolean>(false);
   const [isImageClear, setIsImageClear] = useState<boolean>(false);
+  const [displayMsg, setDisplayMsg] = useState("displayMsg");
 
   // Load model only once
   useEffect(() => {
@@ -164,13 +165,15 @@ const WebcamCapture: React.FC = () => {
   }, [detectFace]);
 
   // Capture frame on button click
-  const captureFrame = useCallback(() => {
+  const captureFrame = useCallback(async () => {
     if (webcamRef.current && isImageClear) {
       const imageSrc = webcamRef.current.getScreenshot();
 
       console.log("imageSrc", imageSrc);
       setCapturedImage(imageSrc);
-      let result = uploadImage(imageSrc as string);
+      let reponse = await uploadImage(imageSrc as string);
+
+      setDisplayMsg(reponse.msg);
     } else {
       alert("No clear face detected.");
     }
@@ -188,10 +191,12 @@ const WebcamCapture: React.FC = () => {
         videoConstraints={videoConstraints}
         className={`webcam-frame ${isImageClear ? "clear" : "unclear"}`}
       />
+
       <button onClick={captureFrame}>Capture</button>
       {capturedImage && (
         <div>
           <h2>Face Detected!</h2>
+          <h3>{displayMsg}</h3>
           <img src={capturedImage} alt="Captured Frame with Face" />
         </div>
       )}

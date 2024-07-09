@@ -140,9 +140,7 @@ export default class SuperAdminController {
     let schoolId = await this.superAdminService.getSchoolId(
       (await getSchoolAbbr(userRoleEmail)) as string
     );
-
-    console.log("schoolId", schoolId);
-
+    console.log("schoolId from controller", schoolId);
     let newStudentDetail = await this.superAdminService.createNewStudent(
       first_name,
       last_name,
@@ -200,6 +198,13 @@ export default class SuperAdminController {
   };
 
   uploadStudentImage = async (req: Request, res: Response) => {
+    const school_id = JSON.parse(req.body.school_id);
+
+    const getSchoolFullName = await this.superAdminService.getSchoolFullName(
+      school_id
+    );
+
+    console.log("getSchoolFullName.full_name", getSchoolFullName.full_name);
     const studentDate = JSON.parse(req.body.studentData);
 
     let { id, first_name, last_name, created_at } = studentDate;
@@ -261,7 +266,9 @@ export default class SuperAdminController {
 
     console.log("result", result);
 
-    res.status(200).json({ msg: "photocaptured" });
+    res.status(200).json({
+      msg: `${first_name} ${last_name} welcome to join ${getSchoolFullName.full_name}`,
+    });
   };
 
   createAttendance = async (req: Request, res: Response) => {
@@ -336,22 +343,25 @@ export default class SuperAdminController {
             const formattedrtoday = today.toDateString();
 
             if (formattedlatestAttendanceDate === formattedrtoday) {
+              console.log(
+                "attendanceRecord[0].in_out",
+                attendanceRecord[0].in_out
+              );
               if (attendanceRecord[0].in_out === "out") {
                 await this.superAdminService.createInAttendance(
                   student_id_number
                 );
 
-                res.json({
-                  msg: "welcome to school",
+                return res.json({
+                  msg: `Today is ${formattedrtoday} Enjoy the school day`,
                 });
-              }
-              if (attendanceRecord[0].in_out === "in") {
+              } else if (attendanceRecord[0].in_out === "in") {
                 await this.superAdminService.createOutAttendance(
                   student_id_number
                 );
 
-                res.json({
-                  msg: "Goodbye",
+                return res.json({
+                  msg: "Goodbye, becareful of the traffic",
                 });
               }
             }
@@ -361,8 +371,8 @@ export default class SuperAdminController {
                 student_id_number
               );
 
-              return res.json({
-                msg: "welcome to school",
+              res.json({
+                msg: `Today is ${formattedrtoday} Enjoy the school day`,
               });
             }
 

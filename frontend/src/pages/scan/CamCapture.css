@@ -1,8 +1,11 @@
 /* src/WebcamCapture.css */
+.Face_Detection {}
+
+
 .webcam-frame {
   display: inline-block;
-  padding: 0px;
-  border: 5px solid red;
+  padding: 0vh;
+  border: 1vh solid red;
   transition: border-color 0.3s;
 }
 
@@ -12,4 +15,14 @@
 
 .webcam-frame.unclear {
   border-color: red;
+}
+
+.App-header {
+
+  font-size: 1vh;
+}
+
+.Take_Profile_Pricture {
+  size: 2vh;
+
 }

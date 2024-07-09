@@ -6,13 +6,34 @@ import "./CamCapture.css";
 
 const AIAttendances: React.FC = () => {
   const [show, setShow] = useState("manual");
+
+  const value = localStorage.getItem("newStudentId");
+
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Face Detection App</h1>
-        <button onClick={() => setShow("manual")}>Manual</button>
-        <button onClick={() => setShow("auto")}>Auto</button>
-        {show === "manual" ? <ManualCapture /> : <WebcamCapture />}
+        <div className="header_container">
+          <h1 className="Face_Detection">Face Detection</h1>
+        </div>
+
+        <div className="scan_container">
+          {show === "manual" ? <ManualCapture /> : <WebcamCapture />}
+        </div>
+
+        <div className="control_msg_container">control_msg_container</div>
+
+        <div className="button_container">
+          <button
+            disabled={value ? false : true}
+            className="Take_Profile_Picture"
+            onClick={() => setShow("manual")}
+          >
+            Manual Profile Picture capture
+          </button>
+          <button className="Take_Attendance" onClick={() => setShow("auto")}>
+            Auto Scan for Attendance
+          </button>
+        </div>
       </header>
     </div>
   );

@@ -123,6 +123,15 @@ export default class SuperAdminService {
     return schoolId[0];
   }
 
+  async getSchoolFullName(schools_id: string) {
+    let [schoolFullName] = await this.knex
+      .select("schools.full_name")
+      .from("schools")
+      .where("id", schools_id);
+
+    return schoolFullName;
+  }
+
   async createNewStudent(
     first_name: string,
     last_name: string,
@@ -132,6 +141,16 @@ export default class SuperAdminService {
     parentId: number,
     schoolId: number
   ) {
+    console.log(
+      "studnet info from service",
+      first_name,
+      last_name,
+      HKID_number,
+      birthday,
+      gender,
+      parentId,
+      schoolId
+    );
     return (
       await this.knex("students")
         .insert({
@@ -263,8 +282,18 @@ export default class SuperAdminService {
         .update({ image: image })
         .returning("id");
 
+      let schoolNameAndStudentId = await this.knex
+        .select("students.id", "schools.full_name")
+        .from("students")
+        .join("schools", "schools.id", "students.school_id")
+        .where("students.id", student_id);
+
+      console.log("schoolNameAndStudentId", schoolNameAndStudentId);
+
       if (updatedRows.length > 0) {
-        console.log(`Image updated for student with ID ${student_id}`);
+        console.log(
+          `Image updated for student with ID ${student_id} ${schoolNameAndStudentId[0].full_name}`
+        );
         return updatedRows[0]!.id as string;
       } else {
         console.log(`Student with ID ${student_id} not found.`);

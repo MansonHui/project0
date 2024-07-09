@@ -31,6 +31,8 @@ const WebcamCapture: React.FC = () => {
   const [isCapturing, setIsCapturing] = useState<boolean>(true);
   const [cvLoaded, setCvLoaded] = useState<boolean>(false);
   const [isImageClear, setIsImageClear] = useState<boolean>(false);
+  const [displayMsg, setDisplayMsg] = useState("displayMsg");
+  const [isProcessing, setIsProcessing] = useState(false);
 
   // Load model only once
   useEffect(() => {
@@ -83,7 +85,7 @@ const WebcamCapture: React.FC = () => {
     mean.delete();
     stddev.delete();
 
-    console.log(`Laplacian Variance: ${variance}`); // Log variance for tuning
+    // console.log(`Laplacian Variance: ${variance}`); // Log variance for tuning
     return variance < BLUR_THRESHOLD_LAPLACIAN;
   }, []);
 
@@ -112,15 +114,19 @@ const WebcamCapture: React.FC = () => {
     mean.delete();
     stddev.delete();
 
-    console.log(`Tenengrad Variance: ${variance}`); // Log variance for tuning
+    // console.log(`Tenengrad Variance: ${variance}`); // Log variance for tuning
     return variance < BLUR_THRESHOLD_TENENGRAD;
   }, []);
 
   // Combined function to detect blurriness using both methods
   const isBlurry = useCallback(
     (image: HTMLImageElement): boolean => {
-      if (isBlurryLaplacian(image)) console.log("fail Laplacian");
-      else if (isBlurryTenengrad(image)) console.log("fail Tenengrad");
+      // if (isBlurryLaplacian(image))
+      // console.log("fail Laplacian");
+
+      // else if (isBlurryTenengrad(image))
+
+      // console.log("fail Tenengrad");
 
       return isBlurryLaplacian(image) || isBlurryTenengrad(image);
     },
@@ -139,7 +145,7 @@ const WebcamCapture: React.FC = () => {
 
       // Check for blur using both methods
       if (isBlurry(img)) {
-        console.log("Image is blurry");
+        // console.log("Image is blurry");
         setIsImageClear(false);
         return false;
       }
@@ -161,15 +167,23 @@ const WebcamCapture: React.FC = () => {
 
   // Capture frame and detect face
   const captureFrame = useCallback(async () => {
-    if (webcamRef.current && isCapturing && detector && cvLoaded) {
+    if (
+      webcamRef.current &&
+      isCapturing &&
+      detector &&
+      cvLoaded &&
+      !isProcessing
+    ) {
       const imageSrc = webcamRef.current.getScreenshot();
       if (imageSrc) {
         const detection = await detectFace(imageSrc);
         if (detection) {
-          captureAttendanceImage(imageSrc);
+          const response = await captureAttendanceImage(imageSrc);
+          setIsProcessing((isProcessing) => !isProcessing);
+          setDisplayMsg(response.msg);
           setCapturedImage(imageSrc);
           setIsCapturing(false);
-
+          console.log("Check flag ", isProcessing);
           // // Convert the base64 image to a Blob
           // const response = await fetch(imageSrc);
           // const blob = await response.blob();
@@ -191,15 +205,16 @@ const WebcamCapture: React.FC = () => {
           setTimeout(() => {
             setCapturedImage(null);
             setIsCapturing(true);
+            setIsProcessing(false);
           }, 5000); // Wait for 5 seconds before capturing again
 
-          console.log("stopping");
+          // console.log("stopping");
           return; // Stop further capture until timeout is done
         }
       }
     }
     requestAnimationFrame(captureFrame);
-  }, [webcamRef, detectFace, isCapturing, detector, cvLoaded]);
+  }, [webcamRef, detectFace, isCapturing, detector, cvLoaded, isProcessing]);
 
   // Start capturing frames
   useEffect(() => {
@@ -224,6 +239,7 @@ const WebcamCapture: React.FC = () => {
       {capturedImage && (
         <div>
           <h2>Face Detected!</h2>
+          <h3>{displayMsg}</h3>
           <img src={capturedImage} alt="Captured Frame with Face" />
         </div>
       )}
