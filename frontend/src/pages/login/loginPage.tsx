@@ -13,8 +13,8 @@ import TextField from "@mui/material/TextField";
 
 export default function Login() {
   // super admin AC and password
-  // const [email, setEmail] = useState("super@stpeter.edu.hk");
-  // const [password, setPassword] = useState("stpeter");
+  const [email, setEmail] = useState("super@stpeter.edu.hk");
+  const [password, setPassword] = useState("stpeter");
   // teacher AC and password
   // const [email, setEmail] = useState("choiping@stpeter.edu.hk");
   // const [password, setPassword] = useState("0000");
@@ -47,6 +47,15 @@ export default function Login() {
 
       if (response.ok) {
         const data = await response.json();
+
+        let { userRole, userName } = data;
+
+        let loginedRole = { userRole, userName };
+
+        console.log("loginedRole", loginedRole);
+
+        localStorage.setItem("loginRoleDetail", JSON.stringify(loginedRole));
+
         login(data.token);
       } else {
         const error = await response.json();

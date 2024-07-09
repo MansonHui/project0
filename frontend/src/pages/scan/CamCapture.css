@@ -1,18 +1,18 @@
 /* src/WebcamCapture.css */
-.scan_container {
+/* .scan_container {
   display: flex;
   align-items: center;
   flex-direction: column;
-}
+} */
 
-.App {
+/* .App {
   height: 100vh;
   width: 100vw;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
+} */
+/* 
 .webcam-frame {
   display: inline-block;
   padding: 0vh;
@@ -29,9 +29,9 @@
   width: 90vw;
   border-color: red;
   display: flex;
-}
+} */
 
-.App-header {
+/* .App-header {
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -39,6 +39,7 @@
   flex-direction: column;
 }
 
-.Take_Profile_Pricture {
+*/
+/* .Take_Profile_Pricture {
   size: 2vh;
-}
+} */
