@@ -13,15 +13,12 @@ import { teacherNoticeRouter } from "./router/teacherNoticeRouter";
 import { forTeacherGetAttendanceRouter } from "./router/forTeacherGetAttendanceRouter";
 import { parentTopUpRouter } from "./router/parentTopUpRouter";
 
-
-
 const PORT = 8080;
 const app = express();
 
 app.use(cors());
-
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.use("/auth", authRouter);
 app.use("/superAdmin", superAdminRouter);
@@ -34,11 +31,6 @@ app.use("/images", express.static("uploads"));
 app.use("/teacherNotice", teacherNoticeRouter);
 app.use("/forTeacherGetAttendance", forTeacherGetAttendanceRouter);
 app.use("/parentTopup", parentTopUpRouter)
-
-
-
-
-
 
 //***************************************** */ testing
 app.post("/", function (req: Request, res: Response) {});

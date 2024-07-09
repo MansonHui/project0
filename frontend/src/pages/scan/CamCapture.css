@@ -1,0 +1,44 @@
+/* src/WebcamCapture.css */
+.scan_container{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.App {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.webcam-frame {
+  display: inline-block;
+  padding: 0vh;
+  border: 1vh solid red;
+  transition: border-color 0.3s;
+}
+
+.webcam-frame.clear {
+  border-color: green;
+}
+
+.webcam-frame.unclear {
+  height: 45vh;
+  width: 90vw;
+  border-color: red;
+  display: flex;
+}
+
+.App-header {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.Take_Profile_Pricture {
+  size: 2vh;
+}

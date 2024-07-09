@@ -1,10 +1,25 @@
-type TabButtonProps = { children: string };
+import styles from "./TabButton.module.css";
 
-export default function TabButton(props: TabButtonProps) {
+type TabButtonProps = {
+  children: string;
+  OnManualCapture: () => void;
+  isSelected: boolean;
+};
+
+export default function TabButton({
+  children,
+  OnManualCapture,
+  isSelected,
+}: TabButtonProps) {
   return (
     <>
       <li>
-        <button>{props.children}</button>
+        <button
+          className={isSelected ? styles.active : undefined}
+          onClick={OnManualCapture}
+        >
+          {children}
+        </button>
       </li>
     </>
   );
