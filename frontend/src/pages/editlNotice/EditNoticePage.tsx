@@ -120,12 +120,12 @@ export default function EditNoticePage() {
       <div id={styles.titleAndTextArea}>
         <div id={styles.titleArea}>
           <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-            <TextField id={styles.titleInput} label="Title" required />
+            <TextField id={styles.titleInput} label="Notice Topic" required />
           </Box>
         </div>
         <label id={styles.textArea}>
           <textarea
-            placeholder="type someing..."
+            placeholder="Notice content"
             {...register("content")}
             required
           />
