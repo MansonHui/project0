@@ -28,6 +28,7 @@ body{
     margin: 10px;
     display:flex;
     justify-content: space-evenly;
+    background-color: #a0be4e;
 }
 
 .Message_Container{
