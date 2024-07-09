@@ -72,6 +72,55 @@ export default class TeacherNoticeService {
 
     //   .where(`${userRole}_id`, userRoleId)
   }
+
+  async getTeacherNoticeDetail(userRole: string, userRoleId: number) {
+    return await this.knex('notice_student_relation')
+    .join('notices', 'notice_student_relation.notice_id', '=', 'notices.id')
+    .join('student_class_relation', 'notice_student_relation.student_id', '=', 'student_class_relation.student_id')
+    .join('classes', 'student_class_relation.class_id', '=', 'classes.id')
+    .join('admin_class_relation', 'classes.id', '=', 'admin_class_relation.class_id')
+    .join('students', 'student_class_relation.student_id', '=', 'students.id')
+    .join('admins', 'admin_class_relation.admin_id', '=', 'admins.id')
+    .where("admins.id", userRoleId)
+    .select(
+      'notice_student_relation.id as notice_student_relation_id',
+      'notices.id as notice_id',
+      'notices.topic',
+      'notices.content',
+      'notice_student_relation.student_id',
+      'notice_student_relation.notice_choice_id',
+      'classes.id as class_id',
+      'classes.grade',
+      'classes.class_name',
+      'students.id as student_id',
+      'students.first_name',
+      'students.last_name',
+      'students.parent_id',
+      'student_class_relation.student_number',
+      'admins.admin_name',
+      this.knex.raw('COUNT(CASE WHEN notice_student_relation.notice_choice_id IS NULL THEN 1 END) AS null_count'),
+      this.knex.raw('COUNT(CASE WHEN notice_student_relation.notice_choice_id IS NOT NULL THEN 1 END) + 1 AS not_null_count')
+    )
+    .groupBy(
+      'notice_student_relation.id',
+      'notices.id',
+      'notices.topic',
+      'notices.content',
+      'notice_student_relation.student_id',
+      'notice_student_relation.notice_choice_id',
+      'classes.id',
+      'classes.grade',
+      'classes.class_name',
+      'students.id',
+      'students.first_name',
+      'students.last_name',
+      'students.parent_id',
+      'student_class_relation.student_number',
+      'admins.admin_name'
+    );
+
+  
+}
 }
 
 // SELECT
@@ -98,3 +147,48 @@ export default class TeacherNoticeService {
 //   school_years.school_year,
 //   notice_student_relation.notice_id,
 //   notices.created_at
+
+
+
+// SELECT 
+//     notice_student_relation.id AS notice_student_relation_id,
+//     notices.id AS notice_id,
+//     notices.topic,
+//     notices.content,
+//     notice_student_relation.student_id,
+//     notice_student_relation.notice_choice_id,
+//     classes.id AS class_id,
+//     classes.grade, 
+//     classes.class_name,
+//     students.id AS student_id,
+//     students.first_name, 
+//     students.last_name,
+//     students.parent_id,
+//     student_class_relation.student_number,
+//     admins.admin_name,
+//     COUNT(CASE WHEN notice_student_relation.notice_choice_id IS NULL THEN 1 END) AS null_count,
+//     COUNT(CASE WHEN notice_student_relation.notice_choice_id IS NOT NULL THEN 1 END) AS not_null_count
+// FROM notice_student_relation
+// JOIN notices ON notice_student_relation.notice_id = notices.id
+// JOIN student_class_relation ON notice_student_relation.student_id = student_class_relation.student_id
+// JOIN classes ON student_class_relation.class_id = classes.id
+// JOIN admin_class_relation ON classes.id = admin_class_relation.class_id
+// JOIN students ON student_class_relation.student_id = students.id
+// JOIN admins ON admin_class_relation.admin_id = admins.id
+// WHERE admin_class_relation.admin_id = 1
+// GROUP BY 
+//     notice_student_relation.id,
+//     notices.id,
+//     notices.topic,
+//     notices.content,
+//     notice_student_relation.student_id,
+//     notice_student_relation.notice_choice_id,
+//     classes.id,
+//     classes.grade,
+//     classes.class_name,
+//     students.id,
+//     students.first_name,
+//     students.last_name,
+//     students.parent_id,
+//     student_class_relation.student_number,
+//     admins.admin_name;

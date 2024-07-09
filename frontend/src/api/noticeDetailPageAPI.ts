@@ -1,10 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 
-type NoticeChoiceId = string
-type NoticeChoice = string
-type NoticeContent = string
-type NoticePrice = string
-
+type NoticeChoiceId = string;
+type NoticeChoice = string;
+type NoticeContent = string;
+type NoticePrice = string;
 
 export interface getNoticeDetailType {
   first_name: string;
@@ -53,4 +52,25 @@ export function useGetNoticeDetail(noticeId: number, studentId: number) {
     return [];
   }
   return data;
+}
+
+export async function selectChoice(
+  noticeIdNumber: number,
+  studentIdNumber: number,
+  noticeChoiceId: string
+) {
+  let res = await fetch(
+    `${process.env.REACT_APP_API_ENDPOINT}/notice/insertchoice?noticeId=${noticeIdNumber}&studentId=${studentIdNumber}`,
+    {
+      method: "POST",
+      body: JSON.stringify({ noticeChoiceId: noticeChoiceId }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+      },
+    }
+  );
+  let result = await res.json();
+
+  return result.message;
 }
