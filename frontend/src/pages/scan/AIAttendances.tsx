@@ -5,7 +5,7 @@ import ManualCapture from "../../components/capture/ManualCapture";
 import "./CamCapture.css";
 
 const AIAttendances: React.FC = () => {
-  const [show, setShow] = useState("manual");
+  const [show, setShow] = useState("auto");
 
   const value = localStorage.getItem("newStudentId");
 
@@ -24,9 +24,16 @@ const AIAttendances: React.FC = () => {
 
         <div className="button_container">
           <button
-            disabled={value ? false : true}
-            className="Take_Profile_Picture"
-            onClick={() => setShow("manual")}
+            className={value ? "enabled-button" : "disabled-button"}
+            onClick={() => {
+              if (value) {
+                setShow("manual");
+              } else {
+                alert(
+                  "Please register a new student profile in registration page first"
+                );
+              }
+            }}
           >
             Manual Profile Picture capture
           </button>

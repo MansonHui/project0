@@ -15,7 +15,7 @@ import ParentPage from "./pages/parent/ParentPage";
 import Textarea from "./components/textarea/Textarea";
 import TeacherNoticePage from "./pages/teacherNotice/TeacherNoticePage";
 
-import RegisterPage from "./pages/register/RegisterPage";
+import RegisterPage from "./pages/register/RegisteAdminFrom";
 import SuperAdminPage from "./pages/superAdmin/superAdminPage";
 import NoticeDetailPage from "./pages/noticeDetail/NoticeDetailPage";
 import EditNoticePage from "./pages/editlNotice/EditNoticePage";
@@ -26,7 +26,7 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (authToken) navigate("/AI");
+    if (authToken) navigate("/HomePage");
     else navigate("/");
   }, [authToken]);
 

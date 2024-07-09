@@ -1,6 +1,14 @@
-/* src/WebcamCapture.css */
-.Face_Detection {}
+.enabled-button {
+  /* Styles for enabled button */
+  background-color: green;
+  /* Add other styles as needed */
+}
 
+.disabled-button {
+  /* Styles for disabled button */
+  background-color: red;
+  /* Add other styles as needed */
+}
 
 .webcam-frame {
   display: inline-block;
