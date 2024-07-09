@@ -77,11 +77,11 @@ input[type="text"],
 [type="text"] {
   background-color: white;
   border: 0.5vh inset;
-  border-radius: 8px;
+  border-radius: 1vh;
 }
 #sendButton,
 #resetButton
 {
   border: 0.5vh inset;
-  border-radius: 8px;
+  border-radius: 1vh;
 }

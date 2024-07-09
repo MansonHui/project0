@@ -70,7 +70,7 @@ export default function MenuHeaderBar() {
             </IconButton>
 
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Teacher Notice
+            Home Page
             </Typography>
             {auth && (
               <div id={styles.userACButton}>
