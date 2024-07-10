@@ -2,14 +2,12 @@ import styles from "./Navbar.module.css";
 import HomeSharpIcon from "@mui/icons-material/HomeSharp";
 import EditIcon from "@mui/icons-material/Edit";
 import FaceRetouchingNaturalIcon from "@mui/icons-material/FaceRetouchingNatural";
-import StickyNote2RoundedIcon from "@mui/icons-material/StickyNote2Rounded";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import EmailIcon from "@mui/icons-material/Email";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import TeacherStudentAttendancePage from "../../pages/teacherStudentAttendance/TeacherStudentAttendancePage";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const navigate = useNavigate();
