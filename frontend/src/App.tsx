@@ -22,6 +22,7 @@ import EditNoticePage from "./pages/editlNotice/EditNoticePage";
 import TeacherNoticeDetailPage from "./pages/teacherNoticeDetail/TeacherNoticeDetailPage";
 import TeacherStudentAttendancePage from "./pages/teacherStudentAttendance/TeacherStudentAttendancePage";
 import TopUpBalancePage from "./pages/topUpBalance/TopUpBalancePage";
+import WebcamCapture from "./components/capture/ManualCapture";
 
 function App() {
   const { authToken } = useAuth();
@@ -56,6 +57,7 @@ function App() {
 
         <Route path="/EditNotice" element={<EditNoticePage />} />
         <Route path="/AI" element={<AIAttendances />} />
+        <Route path="/ManualCapture" element={<WebcamCapture />} />
         <Route path="/Register" element={<RegisterPage />} />
 
         <Route path="/TeacherNotice" element={<TeacherNoticePage />} />

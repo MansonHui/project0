@@ -41,7 +41,7 @@ const Navbar: React.FC = () => {
           color={activeComponent === "RegisteStudentFrom" ? "error" : "primary"}
           onClick={() => handleButtonClick("RegisteStudentFrom")}
         >
-          {activeComponent === "RegisteStudentFrom" ? "Cloce" : "Student"}
+          {activeComponent === "RegisteStudentFrom" ? "Close" : "Student"}
         </Button>
 
         <Button
@@ -76,7 +76,7 @@ const Navbar: React.FC = () => {
           color={activeComponent === "RegisteAdminFrom" ? "error" : "primary"}
           onClick={() => handleButtonClick("RegisteAdminFrom")}
         >
-          {activeComponent === "RegisteAdminFrom" ? "Cloce" : "Teacher"}
+          {activeComponent === "RegisteAdminFrom" ? "Close" : "Teacher"}
         </Button>
       </nav>
       <div id={styles.registeFromCore}>

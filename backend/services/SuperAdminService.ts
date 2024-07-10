@@ -314,10 +314,12 @@ export default class SuperAdminService {
 
   async checkAttendance(student_id_number: number) {
     let existingRecordCurrentDate = await this.knex("student_attendance as sa")
-      .select("created_at")
+      .select("sa.created_at")
       .select("in_out")
+      .select("students.first_name")
+      .join("students", "students.id", "sa.student_id")
       .where("sa.student_id", student_id_number)
-      .orderBy("created_at", "desc");
+      .orderBy("sa.created_at", "desc");
 
     // console.log("existingRecordCurrentDate", existingRecordCurrentDate);
 

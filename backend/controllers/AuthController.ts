@@ -61,6 +61,10 @@ export default class AuthController {
       res.status(200).json({
         msg: ` ${Object.keys(loginUserData)[0]},${email} :login success`,
         token: jwtToken,
+        userRole: Object.keys(loginUserData)[0],
+        userName: loginUserData.username
+          ? loginUserData.username
+          : loginUserData.admin_name,
       });
     }
   };
