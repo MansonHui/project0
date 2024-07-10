@@ -123,6 +123,15 @@ export default class SuperAdminService {
     return schoolId[0];
   }
 
+  async getSchoolFullName(schools_id: string) {
+    let [schoolFullName] = await this.knex
+      .select("schools.full_name")
+      .from("schools")
+      .where("id", schools_id);
+
+    return schoolFullName;
+  }
+
   async createNewStudent(
     first_name: string,
     last_name: string,
@@ -132,6 +141,16 @@ export default class SuperAdminService {
     parentId: number,
     schoolId: number
   ) {
+    console.log(
+      "studnet info from service",
+      first_name,
+      last_name,
+      HKID_number,
+      birthday,
+      gender,
+      parentId,
+      schoolId
+    );
     return (
       await this.knex("students")
         .insert({
@@ -146,7 +165,12 @@ export default class SuperAdminService {
           created_at: this.knex.fn.now(),
           updated_at: this.knex.fn.now(),
         })
-        .returning("students.id")
+        .returning([
+          "students.id",
+          "students.first_name",
+          "students.last_name",
+          "students.created_at",
+        ])
     )[0];
   }
 
@@ -168,7 +192,9 @@ export default class SuperAdminService {
       })
       .returning("id");
 
-    console.log("noticeId", noticeId.id);
+    console.log("noticeId.id", noticeId.id);
+
+    console.log("optionStr", optionStr);
 
     for (const option of optionStr) {
       // console.log({
@@ -178,12 +204,12 @@ export default class SuperAdminService {
       //   notice_id: noticeId.id,
       //   created_at: this.knex.fn.now(),
       //   updated_at: this.knex.fn.now(),
-      // })
+      // });
       await this.knex("notice_choice").insert({
         option: option.option,
         content: option.content,
         price: option.price,
-        notice_id: noticeId.id,
+        notice_id: noticeId.id as number,
         created_at: this.knex.fn.now(),
         updated_at: this.knex.fn.now(),
       });
@@ -214,25 +240,27 @@ export default class SuperAdminService {
       .where("scr.class_id", classId.id)
       .where("students.school_id", school_id);
 
-    console.log("studentsId  ", studentsId);
-
     for (const eachStudentId of studentsId) {
       console.log("eachStudentId.id", eachStudentId.id);
 
-      await this.knex("notice_student_relation").insert({
-        notice_id: noticeId.id as number,
-        student_id: eachStudentId.id as number,
-        created_at: this.knex.fn.now(),
-        updated_at: this.knex.fn.now(),
-      });
+      let notice_student_relation_id = await this.knex(
+        "notice_student_relation"
+      )
+        .insert({
+          notice_id: noticeId.id as number,
+          student_id: eachStudentId.id as number,
+          created_at: this.knex.fn.now(),
+          updated_at: this.knex.fn.now(),
+        })
+        .returning("id");
 
-      console.log("studentsIdinside ", studentsId);
+      console.log("notice_student_relation_id ", notice_student_relation_id);
     }
 
     // Perform joins with other tables
     let result = await this.knex("notices")
       .join("notice_choice", "notices.id", "notice_choice.notice_id")
-      .join("notice_student_relation as nsr", "notices.id", "nsr.notice_id")
+      // .join("notice_student_relation as nsr", "notices.id", "nsr.notice_id")
       // .join("students", "students.id", "nsr.student_id")
       // .join("student_class_relation as scr", "students.id", "scr.student_id")
       // .join("classes", "classes.id", "scr.class_id")
@@ -241,6 +269,8 @@ export default class SuperAdminService {
       // .where("classes.id", classId.id)
       .where("notices.id", noticeId.id)
       .returning("*");
+
+    console.log("result", result);
 
     return result;
   }
@@ -252,8 +282,18 @@ export default class SuperAdminService {
         .update({ image: image })
         .returning("id");
 
+      let schoolNameAndStudentId = await this.knex
+        .select("students.id", "schools.full_name")
+        .from("students")
+        .join("schools", "schools.id", "students.school_id")
+        .where("students.id", student_id);
+
+      console.log("schoolNameAndStudentId", schoolNameAndStudentId);
+
       if (updatedRows.length > 0) {
-        console.log(`Image updated for student with ID ${student_id}`);
+        console.log(
+          `Image updated for student with ID ${student_id} ${schoolNameAndStudentId[0].full_name}`
+        );
         return updatedRows[0]!.id as string;
       } else {
         console.log(`Student with ID ${student_id} not found.`);
@@ -270,5 +310,43 @@ export default class SuperAdminService {
     //   .returning("students.id");
 
     // return studentid.id;
+  }
+
+  async checkAttendance(student_id_number: number) {
+    let existingRecordCurrentDate = await this.knex("student_attendance as sa")
+      .select("created_at")
+      .select("in_out")
+      .where("sa.student_id", student_id_number)
+      .orderBy("created_at", "desc");
+
+    // console.log("existingRecordCurrentDate", existingRecordCurrentDate);
+
+    return existingRecordCurrentDate;
+  }
+
+  async createInAttendance(student_id_number: number) {
+    let [createdInRecord] = await this.knex("student_attendance as sa")
+      .insert({
+        student_id: student_id_number,
+        in_out: "in",
+      })
+      .where("sa.student_id", student_id_number)
+      .returning("sa.student_id");
+    console.log("createdInRecord", createdInRecord);
+    return createdInRecord;
+  }
+
+  async createOutAttendance(student_id_number: number) {
+    let [createdOutRecord] = await this.knex("student_attendance as sa")
+      .join("students as s", "s.id", "sa.student_id")
+      .insert({
+        student_id: student_id_number,
+        in_out: "out",
+      })
+      .where("sa.student_id", student_id_number)
+      .returning("sa.student_id");
+
+    console.log("createdOutRecord", createdOutRecord);
+    return createdOutRecord;
   }
 }

@@ -10,7 +10,7 @@ export async function seed(knex: Knex): Promise<void> {
     // Inserts seed entries
     await knex("notice_student_relation").insert([
       {
-        notice_choice_id: 1,
+        notice_choice_id: null,
         student_id: 1,
         notice_id: 1,
       },
@@ -49,6 +49,7 @@ export async function seed(knex: Knex): Promise<void> {
         student_id: 8,
         notice_id: 1,
       },
+      
     ]);
   } catch (err) {
     console.log(err);

@@ -14,5 +14,16 @@ export default class TeacherNoticeController{
         )
         
         res.status(200).json({ msg:"from teacher Notices", getTeacherNotice})
+    };
+
+    getTeacherNoticeDetails = async (req:Request, res:Response) => {
+        console.log("check req body", req.body)
+
+        let getTeacherNoticeDetail = await this.teacherNoticeService.getTeacherNoticeDetail(
+            req.body.userRole,
+            req.body.userRoleId
+        )
+        
+        res.status(200).json({ msg:"from teacher Notices", getTeacherNoticeDetail})
     }
 }

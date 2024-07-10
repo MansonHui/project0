@@ -1,9 +1,14 @@
 import React from "react";
-import { useGetNoticeDetail } from "../../api/noticeDetailPageAPI";
+import {
+  selectChoice,
+  useGetNoticeDetail,
+} from "../../api/noticeDetailPageAPI";
 import styles from "./NoticeDetailPage.module.css";
 import { useState } from "react";
 
 import { useLocation, useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function NoticeDetailPage() {
   const navigate = useNavigate();
@@ -15,6 +20,25 @@ export default function NoticeDetailPage() {
     location.state.student_id
   );
 
+  const queryClient = useQueryClient()
+
+  const [choice, setChoice] = useState("");
+
+  const onSelectChoice = useMutation({
+    mutationFn: async (data: {
+      noticeIdNumber: number;
+      studentIdNumber: number;
+      noticeChoiceId: string;
+    }) =>
+      selectChoice(
+        data.noticeIdNumber,
+        data.studentIdNumber,
+        data.noticeChoiceId
+      ),
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: ["allNoticeDetail"] }),
+  });
+
   // let [isHide, setIsHide] = React.useState(false);
   // let [isSelect, setIsSelect] = React.useState(false);
   const [selectedChoiceId, setSelectedChoiceId] = useState<number | null>(null);
@@ -22,14 +46,30 @@ export default function NoticeDetailPage() {
   // const handleClick = () => {
   //   setIsHide(true);
   // };
-  const handleRadioChange = (choiceId: number) => {
-    setSelectedChoiceId(choiceId);
-    // setIsHide(false);
+  // const handleRadioChange = (choiceId: number) => {
+  // setSelectedChoiceId(choiceId);
+  // setIsHide(false);
+  // };
+
+  const handleSubmit = (e: any) => {
+    // console.log("selected what", selectedChoiceId);
+    // e.preventDefault()
+    console.log(
+      "check handle!! notice_id:",
+      location.state.notice_id,
+      " student_id:",
+      location.state.student_id,
+      " choice:",
+      choice
+    );
+
+    onSelectChoice.mutate({
+      noticeIdNumber: location.state.notice_id,
+      studentIdNumber: location.state.student_id,
+      noticeChoiceId: choice,
+    });
   };
 
-  const handleSubmit = () => {
-    console.log("selected what", selectedChoiceId);
-  };
   return (
     <div>
       {NoticeDetail.map((entry) => (
@@ -60,10 +100,14 @@ export default function NoticeDetailPage() {
                       return (
                         <div key={index} className={styles.Choice}>
                           <input
+                            // value={choice}
                             type="radio"
                             name={`notice_choice_${entry.notice_id}`}
                             value={choiceId}
-                            onChange={() => handleRadioChange(Number(choiceId))}
+                            onChange={(e) => {
+                              console.log("clicked", e.target.value);
+                              setChoice(e.target.value);
+                            }}
                           />
                           <label>{entry.notice_choices[index]}</label>
                         </div>
@@ -80,7 +124,6 @@ export default function NoticeDetailPage() {
                                 ? true
                                 : false
                             }
-                            // onChange={() => handleRadioChange(Number(choiceId))}
                             disabled={false}
                           />
                           <label>{entry.notice_choices[index]}</label>
@@ -118,9 +161,9 @@ export default function NoticeDetailPage() {
                   ))}
                 </div>
               </div>
-              {entry.notice_choice_id == null && (
+              {entry.notice_choice_id == null ? (
                 <button onClick={handleSubmit}>Submit</button>
-              )}
+              ):<></>}
             </div>
             <div className={styles.createdAt}>{entry.created_at}</div>
           </div>

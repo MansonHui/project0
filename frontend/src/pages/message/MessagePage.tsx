@@ -8,7 +8,7 @@ export default function MessagePage() {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <div id={styles.messagePageBody}>
       <div className={styles.Container}>
         <div className={styles.Filter_Container}>
           <Button

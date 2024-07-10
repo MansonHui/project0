@@ -15,7 +15,7 @@ const RegisteStudentFrom = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      await fetch(
+      const res = await fetch(
         `${process.env.REACT_APP_API_ENDPOINT}/superadmin/createStudent`,
         {
           method: "POST",
@@ -33,6 +33,20 @@ const RegisteStudentFrom = () => {
           }),
         }
       );
+
+      const reponse = await res.json();
+
+      console.log("reponse", reponse);
+
+      if (res.ok) {
+        console.log("dataFromServer", reponse.newStudentDetail);
+        localStorage.setItem(
+          "newStudentId",
+          JSON.stringify(reponse.newStudentDetail)
+        );
+      } else {
+        alert("Login failed");
+      }
     } catch (error) {
       console.error("Error registering Student:", error);
     }
@@ -43,7 +57,6 @@ const RegisteStudentFrom = () => {
       <form onSubmit={handleSubmit} id={styles.RegisteStudentFrom}>
         <div id={styles.registeStudentIcon}></div>
         <div id={styles.registeStudentInfo}>
-
           <Box>
             <TextField
               className={styles.registeStudentInput}

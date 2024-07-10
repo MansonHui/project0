@@ -58,19 +58,20 @@ export default function MenuHeaderBar() {
                 anchor="left"
                 open={!isHide}
                 onClose={toggleNavbar}
-                classes={{
-                  paper: styles.drawerPaper,
-                }}
+                id={styles.drawerPaper}
+                // classes={{
+                //   paper: styles.drawerPaper,
+                // }}
               >
-                <List>
-                <Navbar />
+                <List id={styles.list}>
+                  <Navbar />
                 </List>
               </Drawer>
               <MenuIcon />
             </IconButton>
 
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              UserName
+              page name
             </Typography>
             {auth && (
               <div id={styles.userACButton}>
