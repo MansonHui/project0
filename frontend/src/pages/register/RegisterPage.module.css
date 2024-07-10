@@ -4,7 +4,7 @@
   flex-direction: column;
   margin: 2vh;
   height: 85vh;
-  width: 90vw;
+  width: 87vw;
   opacity: 0;
   transform: translateY(-20px);
   animation: emerge 0.5s ease forwards, float 3s ease-in-out infinite;
@@ -23,60 +23,63 @@
 
 #navbarButton {
   display: flex;
-  justify-content: space-around;
-  width: 80vw;
-  height: 5vh;
+  width: 90vw;
+  height: 10vh;
   padding: 1vh;
   margin: 1vh;
 }
 #teacherButton,
 #parentButton,
-#studentButton {
-  max-width: 25vw;
+#studentButton,
+#alreadyHaveACButton {
+  width: 45vw;
+  height: 5vh;
+  border: #ccc;
+  border-radius: 1vh;
+  margin: 0.5vh;
+}
+
+#leftButtonArea,
+#rightButtonArea {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 /* RegisteAdminFrom.tsx Css */
 
-#RegisteAdminFrom {
+#registeAdminFrom {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 50vh;
-  width: 85vw;
+  height: 45vh;
+  width: 93vw;
   background: #e0ffff;
   opacity: 0;
   transform: translateY(-20px);
   animation: emerge 0.5s ease forwards, float 3s ease-in-out infinite;
-  border: 2px dashed solid #56a9da;
   position: absolute;
-  top: 12vh;
-  left: 2vw;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
+  top: 15vh;
+  left: -2vw;
+  border: 0.5vh solid #ccc;
+  border-radius: 1vh;
 }
 
-#registeAdminIcon {
-  height: 70%;
-  width: 100%;
-  background-image: url(./img/teacherIcon.png);
-  background-size: cover;
-  background-position: center;
-}
-
-#registeAdminInfo {
+#registeAdminIconAndButton {
+  height: 30vh;
+  width: 49vw;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-#registeAdminInput {
-  border: 10px;
-  width: 45vw;
-  height: 0vh;
+#registeAdminIcon {
+  margin: 1vh;
+  height: 20vh;
+  width: 40vw;
+  background-color: aliceblue;
+  background-image: url(./img//studentIcon.png);
+  background-size: cover;
+  background-position: center;
+  border: 0.5vh solid #ccc;
+  border-radius: 1vh;
 }
 
 #registeAdminButton {
@@ -85,18 +88,86 @@
   margin: 1vh;
 }
 
+#registeAdminInfo {
+  display: flex;
+  height: 20vh;
+  width: 39vh;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+#registeAdimnInput {
+  width: 40vw;
+  height: 4vh;
+  border: 0.5vh solid #ccc;
+  border-radius: 1vh;
+  padding: 1px;
+  border: 0.5vh solid #ccc;
+  border-radius: 1vh;
+  font-size: 1.5vh;
+}
+
 /* RegisteParentFrom.tsx Css */
 #RegisteParentFrom {
-  height: 60vh;
-  width: 85vw;
-  background: rgba(0, 128, 0, 0.3);
+  display: flex;
+  height: 45vh;
+  width: 93vw;
+  background: #e0ffff;
   opacity: 0;
   transform: translateY(-20px);
   animation: emerge 0.5s ease forwards, float 3s ease-in-out infinite;
-  border: 2px dashed #56a9da;
   position: absolute;
-  top: 12vh;
-  left: 2vw;
+  top: 15vh;
+  left: -2vw;
+  border: 0.5vh solid #ccc;
+  border-radius: 1vh;
+}
+
+#registeParentIconAndButton {
+  height: 30vh;
+  width: 49vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#registeParentIcon {
+  margin: 1vh;
+  height: 20vh;
+  width: 40vw;
+  background-color: aliceblue;
+  background-image: url(./img//studentIcon.png);
+  background-size: cover;
+  background-position: center;
+  border: 0.5vh solid #ccc;
+  border-radius: 1vh;
+}
+
+#registeParentButton {
+  width: 30vw;
+  height: 5vh;
+  margin: 1vh;
+}
+
+#registeParnetInfo {
+  display: flex;
+  height: 21vh;
+  width: 39vh;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: baseline;
+}
+
+.registeParnetInput {
+  width: 40vw;
+  height: 4vh;
+  border: 0.5vh solid #ccc;
+  border-radius: 1vh;
+  padding: 1px;
+  border: 0.5vh solid #ccc;
+  border-radius: 1vh;
+  font-size: 1.5vh;
 }
 
 /* RegisteStudentFrom.tsx Css */
@@ -108,9 +179,8 @@
   opacity: 0;
   transform: translateY(-20px);
   animation: emerge 0.5s ease forwards, float 3s ease-in-out infinite;
-  border: 2px dashed solid #56a9da;
   position: absolute;
-  top: 9vh;
+  top: 15vh;
   left: -2vw;
   border: 0.5vh solid #ccc;
   border-radius: 1vh;
@@ -128,6 +198,7 @@
   margin: 1vh;
   height: 20vh;
   width: 40vw;
+  background-color: aliceblue;
   background-image: url(./img//studentIcon.png);
   background-size: cover;
   background-position: center;
@@ -145,21 +216,53 @@
   display: flex;
   height: 40vh;
   width: 39vh;
-  /* background-color: yellow; */
   align-items: center;
   flex-direction: column;
   justify-content: space-around;
 }
 
 .registeStudentInput {
-  border: 10px;
-  width: 45vw;
+  width: 40vw;
+  height: 4vh;
+  border: 0.5vh solid #ccc;
+  border-radius: 1vh;
+  padding: 1px;
+  border: 0.5vh solid #ccc;
+  border-radius: 1vh;
+  font-size: 1.5vh;
+}
+
+#confirmParentACFrom{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 20vh;
+  width: 93vw;
+  background: #e0ffff;
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: emerge 0.5s ease forwards, float 3s ease-in-out infinite;
+  position: absolute;
+  top: 15vh;
+  left: -2vw;
   border: 0.5vh solid #ccc;
   border-radius: 1vh;
 }
 
-.registeStudentInput input {
+#confirmParentACInput {
+  width: 40vw;
+  height: 4vh;
+  border: 0.5vh solid #ccc;
+  border-radius: 1vh;
   padding: 1px;
   border: 0.5vh solid #ccc;
   border-radius: 1vh;
+  font-size: 1.5vh;
+}
+
+#confirmParentACButton {
+  width: 30vw;
+  height: 5vh;
+  margin: 1vh;
 }

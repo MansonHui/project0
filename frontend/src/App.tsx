@@ -9,12 +9,7 @@ import AIAttendances from "./pages/scan/AIAttendances";
 import MessagePage from "./pages/message/MessagePage";
 import NoticePage from "./pages/notice/NoticePage";
 import AttendancePage from "./pages/attendance/AttendancePage";
-
-import MessageAllPage from "./pages/messageAll/MessageAllPage";
-import ParentPage from "./pages/parent/ParentPage";
-import Textarea from "./components/textarea/Textarea";
 import TeacherNoticePage from "./pages/teacherNotice/TeacherNoticePage";
-
 import RegisterPage from "./pages/register/RegisterPage";
 import SuperAdminPage from "./pages/superAdmin/superAdminPage";
 import NoticeDetailPage from "./pages/noticeDetail/NoticeDetailPage";

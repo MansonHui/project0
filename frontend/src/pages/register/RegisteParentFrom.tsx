@@ -2,11 +2,14 @@ import { useState } from "react";
 import styles from "./RegisterPage.module.css";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
+import ConfirmParentAC from "./ConfirmParentAC";
 
 const RegisteParentFrom = () => {
   const [email, setEmail] = useState("tsangmeimei@gmail.com");
   const [password, setPassword] = useState("12345");
+  const [activeComponent, setActiveComponent] = useState<
+    "ConfirmParentAC" | null
+  >(null);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -25,6 +28,7 @@ const RegisteParentFrom = () => {
           }),
         }
       );
+      setActiveComponent("ConfirmParentAC");
     } catch (error) {
       console.error("Error registering Parent:", error);
     }
@@ -33,8 +37,8 @@ const RegisteParentFrom = () => {
   const registeParent = (
     <div>
       <form onSubmit={handleSubmit} id={styles.RegisteParentFrom}>
-        <div id={styles.registeStudentIconAndButton}>
-          <div id={styles.registeStudentIcon}></div>
+        <div id={styles.registeParentIconAndButton}>
+          <div id={styles.registeParentIcon}></div>
           <Button
             id={styles.registeParentButton}
             type="submit"
@@ -45,8 +49,8 @@ const RegisteParentFrom = () => {
           </Button>
         </div>
         <div id={styles.registeParnetInfo}>
-        <Box>
-            <TextField
+          <Box>
+            <input
               className={styles.registeParnetInput}
               type="email"
               value={email}
@@ -55,17 +59,19 @@ const RegisteParentFrom = () => {
               required
             />
           </Box>
-          <div>
+          <Box>
             <input
+              className={styles.registeParnetInput}
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="password"
               required
             />
-          </div>
+          </Box>
         </div>
       </form>
+      {activeComponent === "ConfirmParentAC" && <ConfirmParentAC />}
     </div>
   );
 

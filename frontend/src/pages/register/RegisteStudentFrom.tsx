@@ -82,7 +82,7 @@ const RegisteStudentFrom = () => {
         </div>
         <div id={styles.registeStudentInfo}>
           <Box>
-            <TextField
+            <input
               className={styles.registeStudentInput}
               type="email"
               value={email}
@@ -92,7 +92,7 @@ const RegisteStudentFrom = () => {
             />
           </Box>
           <Box>
-            <TextField
+            <input
               className={styles.registeStudentInput}
               type="first_name"
               value={first_name}
@@ -102,7 +102,7 @@ const RegisteStudentFrom = () => {
             />
           </Box>
           <Box>
-            <TextField
+            <input
               className={styles.registeStudentInput}
               type="last_name"
               value={last_name}
@@ -112,7 +112,7 @@ const RegisteStudentFrom = () => {
             />
           </Box>
           <Box>
-            <TextField
+            <input
               className={styles.registeStudentInput}
               type="gender"
               value={gender}
@@ -122,7 +122,7 @@ const RegisteStudentFrom = () => {
             />
           </Box>
           <Box>
-            <TextField
+            <input
               className={styles.registeStudentInput}
               type="HKID_number"
               value={HKID_number}
@@ -132,7 +132,7 @@ const RegisteStudentFrom = () => {
             />
           </Box>
           <Box>
-            <TextField
+            <input
               className={styles.registeStudentInput}
               type="birthday"
               value={birthday}
