@@ -8,7 +8,6 @@
   opacity: 0;
   transform: translateY(-20px);
   animation: emerge 0.5s ease forwards, float 3s ease-in-out infinite;
-  border: 2px dashed #56a9da;
 }
 
 @keyframes emerge {
@@ -103,11 +102,8 @@
 /* RegisteStudentFrom.tsx Css */
 #RegisteStudentFrom {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  height: 75vh;
-  width: 85vw;
+  height: 45vh;
+  width: 93vw;
   background: #e0ffff;
   opacity: 0;
   transform: translateY(-20px);
@@ -115,18 +111,34 @@
   border: 2px dashed solid #56a9da;
   position: absolute;
   top: 9vh;
-  left: 2vw;
-  border: 1px solid #ccc;
-  border-radius: 10px;
+  left: -2vw;
+  border: 0.5vh solid #ccc;
+  border-radius: 1vh;
+}
+
+#registeStudentIconAndButton {
+  height: 30vh;
+  width: 49vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #registeStudentIcon {
   margin: 1vh;
-  height: 54%;
-  width: 100%;
+  height: 20vh;
+  width: 40vw;
   background-image: url(./img//studentIcon.png);
   background-size: cover;
   background-position: center;
+  border: 0.5vh solid #ccc;
+  border-radius: 1vh;
+}
+
+#registeStudentButton {
+  width: 30vw;
+  height: 5vh;
+  margin: 1vh;
 }
 
 #registeStudentInfo {
@@ -142,14 +154,12 @@
 .registeStudentInput {
   border: 10px;
   width: 45vw;
+  border: 0.5vh solid #ccc;
+  border-radius: 1vh;
 }
 
-.registeStudentInput input{
- padding: 1px;
-}
-
-#registeStudentButton {
-  width: 30vw;
-  height: 5vh;
-  margin: 1vh;
+.registeStudentInput input {
+  padding: 1px;
+  border: 0.5vh solid #ccc;
+  border-radius: 1vh;
 }

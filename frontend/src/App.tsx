@@ -37,10 +37,10 @@ function App() {
         <Route path="/HomePage" element={<HomePage />} />
         {/* <Route path="/HomePage" element={<RegisterPage />} /> */}
         <Route path="/Message" element={<MessagePage />}>
-          <Route path="/Message" element={<MessageAllPage />} />
-          <Route path="MessageAll" element={<MessageAllPage />}>
+          <Route path="/Message" element={<NoticePage />} />
+          {/* <Route path="MessageAll" element={<MessageAllPage />}>
             {" "}
-          </Route>
+          </Route> */}
           <Route path="Notices" element={<NoticePage />}>
             {" "}
           </Route>

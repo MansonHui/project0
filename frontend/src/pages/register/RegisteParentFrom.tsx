@@ -1,5 +1,8 @@
 import { useState } from "react";
 import styles from "./RegisterPage.module.css";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 
 const RegisteParentFrom = () => {
   const [email, setEmail] = useState("tsangmeimei@gmail.com");
@@ -30,17 +33,28 @@ const RegisteParentFrom = () => {
   const registeParent = (
     <div>
       <form onSubmit={handleSubmit} id={styles.RegisteParentFrom}>
-        <div>
-          parent
-          <div>
-            <input
+        <div id={styles.registeStudentIconAndButton}>
+          <div id={styles.registeStudentIcon}></div>
+          <Button
+            id={styles.registeParentButton}
+            type="submit"
+            variant="contained"
+            color="success"
+          >
+            Register
+          </Button>
+        </div>
+        <div id={styles.registeParnetInfo}>
+        <Box>
+            <TextField
+              className={styles.registeParnetInput}
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="email"
               required
             />
-          </div>
+          </Box>
           <div>
             <input
               type="password"
@@ -50,7 +64,6 @@ const RegisteParentFrom = () => {
               required
             />
           </div>
-          <button type="submit">Register</button>
         </div>
       </form>
     </div>

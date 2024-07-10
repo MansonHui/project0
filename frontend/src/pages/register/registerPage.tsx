@@ -59,7 +59,7 @@ const Navbar: React.FC = () => {
           color={activeComponent === "RegisteParentFrom" ? "error" : "primary"}
           onClick={() => handleButtonClick("RegisteParentFrom")}
         >
-          {activeComponent === "RegisteParentFrom" ? "Cloce" : "Parent"}
+          {activeComponent === "RegisteParentFrom" ? "Close" : "Parent"}
         </Button>
         <Button
           id={styles.teacherButton}

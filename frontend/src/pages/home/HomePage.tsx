@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useGetAllClass } from "../../api/homePageAPI";
 import styles from "./HomePage.module.css";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 export default function HomePage() {
   const navigate = useNavigate();

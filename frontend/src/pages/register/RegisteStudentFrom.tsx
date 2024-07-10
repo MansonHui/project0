@@ -55,7 +55,17 @@ const RegisteStudentFrom = () => {
   const registeStudent = (
     <div>
       <form onSubmit={handleSubmit} id={styles.RegisteStudentFrom}>
-        <div id={styles.registeStudentIcon}></div>
+        <div id={styles.registeStudentIconAndButton}>
+          <div id={styles.registeStudentIcon}></div>
+          <Button
+            id={styles.registeStudentButton}
+            type="submit"
+            variant="contained"
+            color="success"
+          >
+            Register
+          </Button>
+        </div>
         <div id={styles.registeStudentInfo}>
           <Box>
             <TextField
@@ -118,9 +128,6 @@ const RegisteStudentFrom = () => {
             />
           </Box>
           <p />
-          <Button type="submit" variant="contained" color="success">
-            Register
-          </Button>
         </div>
       </form>
     </div>

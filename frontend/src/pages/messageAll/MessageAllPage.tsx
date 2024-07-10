@@ -42,6 +42,7 @@ export default function MessageAllPage() {
                 </div>
               </div>
             </div>
+            
           ) : (
             <div className={styles.Message}>
               <div className={styles.Message_type}>
