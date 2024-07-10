@@ -8,8 +8,8 @@ import { captureAttendanceImage } from "../../api/attendanceCaptureImageAPI";
 
 const BLUR_THRESHOLD_LAPLACIAN = 100; // Adjusted threshold for Laplacian variance method
 const BLUR_THRESHOLD_TENENGRAD = 2000; // Threshold for Tenengrad method
-const MIN_BOX_SIZE = 200; // Minimum size for the bounding box to consider the face clear
-const IMG_SIZE = 480;
+const MIN_BOX_SIZE = 180; // Minimum size for the bounding box to consider the face clear
+const IMG_SIZE = 410;
 const videoConstraints = {
   width: IMG_SIZE,
   height: IMG_SIZE,
@@ -31,7 +31,7 @@ const WebcamCapture: React.FC = () => {
   const [isCapturing, setIsCapturing] = useState<boolean>(true);
   const [cvLoaded, setCvLoaded] = useState<boolean>(false);
   const [isImageClear, setIsImageClear] = useState<boolean>(false);
-  const [displayMsg, setDisplayMsg] = useState("displayMsg");
+  const [displayMsg, setDisplayMsg] = useState("smile");
   const [isProcessing, setIsProcessing] = useState(false);
 
   // Load model only once
@@ -121,12 +121,8 @@ const WebcamCapture: React.FC = () => {
   // Combined function to detect blurriness using both methods
   const isBlurry = useCallback(
     (image: HTMLImageElement): boolean => {
-      // if (isBlurryLaplacian(image))
-      // console.log("fail Laplacian");
-
-      // else if (isBlurryTenengrad(image))
-
-      // console.log("fail Tenengrad");
+      // if (isBlurryLaplacian(image)) console.log("fail Laplacian");
+      // else if (isBlurryTenengrad(image)) console.log("fail Tenengrad");
 
       return isBlurryLaplacian(image) || isBlurryTenengrad(image);
     },
@@ -178,8 +174,8 @@ const WebcamCapture: React.FC = () => {
       if (imageSrc) {
         const detection = await detectFace(imageSrc);
         if (detection) {
-          const response = await captureAttendanceImage(imageSrc);
           setIsProcessing((isProcessing) => !isProcessing);
+          const response = await captureAttendanceImage(imageSrc);
           setDisplayMsg(response.msg);
           setCapturedImage(imageSrc);
           setIsCapturing(false);
@@ -224,7 +220,7 @@ const WebcamCapture: React.FC = () => {
   }, [isCapturing, captureFrame]);
 
   return (
-    <div>
+    <div className="camera_area">
       <h1>Auto Capture</h1>
       <div className={`webcam-frame ${isImageClear ? "clear" : "unclear"}`}>
         <Webcam
@@ -237,10 +233,10 @@ const WebcamCapture: React.FC = () => {
         />
       </div>
       {capturedImage && (
-        <div>
+        <div className="response_msg">
           <h2>Face Detected!</h2>
           <h3>{displayMsg}</h3>
-          <img src={capturedImage} alt="Captured Frame with Face" />
+          {/* <img src={capturedImage} alt="Captured Frame with Face" /> */}
         </div>
       )}
     </div>

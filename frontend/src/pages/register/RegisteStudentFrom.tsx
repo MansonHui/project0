@@ -4,10 +4,12 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
+import { useNavigate } from "react-router-dom";
+
 const RegisteStudentFrom = () => {
   const [email, setEmail] = useState("tsangmeimei@gmail.com");
-  const [first_name, setFirst_name] = useState("ip");
-  const [last_name, setLast_name] = useState("adams");
+  const [first_name, setFirst_name] = useState("adams");
+  const [last_name, setLast_name] = useState("ip");
   const [HKID_number, setHKID_number] = useState("A1234");
   const [birthday, setBirthday] = useState("2020-01-01");
   const [gender, setGender] = useState("M");
@@ -49,6 +51,18 @@ const RegisteStudentFrom = () => {
       }
     } catch (error) {
       console.error("Error registering Student:", error);
+    }
+  };
+
+  const navigate = useNavigate();
+  const handleNavigation = () => {
+    let value = localStorage.getItem("newStudentId");
+    if (value) {
+      // Call function A
+      navigate("/AI");
+    } else {
+      // Call function B
+      alert("please complete the student registration first  ");
     }
   };
 
@@ -120,6 +134,14 @@ const RegisteStudentFrom = () => {
           <p />
           <Button type="submit" variant="contained" color="success">
             Register
+          </Button>
+
+          <Button
+            onClick={handleNavigation}
+            variant="contained"
+            color="success"
+          >
+            Take profile picture
           </Button>
         </div>
       </form>

@@ -14,13 +14,14 @@ import MessageAllPage from "./pages/messageAll/MessageAllPage";
 import ParentPage from "./pages/parent/ParentPage";
 import Textarea from "./components/textarea/Textarea";
 import TeacherNoticePage from "./pages/teacherNotice/TeacherNoticePage";
-
-import RegisterPage from "./pages/register/RegisteAdminFrom";
+import RegisterPage from "./pages/register/registerPage";
 import SuperAdminPage from "./pages/superAdmin/superAdminPage";
 import NoticeDetailPage from "./pages/noticeDetail/NoticeDetailPage";
 import EditNoticePage from "./pages/editlNotice/EditNoticePage";
 import TeacherNoticeDetailPage from "./pages/teacherNoticeDetail/TeacherNoticeDetailPage";
 import TeacherStudentAttendancePage from "./pages/teacherStudentAttendance/TeacherStudentAttendancePage";
+import WebcamCapture from "./components/capture/ManualCapture";
+
 function App() {
   const { authToken } = useAuth();
   const navigate = useNavigate();
@@ -54,6 +55,7 @@ function App() {
 
         <Route path="/EditNotice" element={<EditNoticePage />}></Route>
         <Route path="/AI" element={<AIAttendances />} />
+        <Route path="/ManualCapture" element={<WebcamCapture />} />
         <Route path="/Register" element={<RegisterPage />} />
 
         <Route path="/TeacherNotice" element={<TeacherNoticePage />}></Route>

@@ -351,19 +351,14 @@ export default class SuperAdminController {
                 await this.superAdminService.createInAttendance(
                   student_id_number
                 );
-
-                return res.json({
-                  msg: `Today is ${formattedrtoday} Enjoy the school day`,
-                });
               } else if (attendanceRecord[0].in_out === "in") {
                 await this.superAdminService.createOutAttendance(
                   student_id_number
                 );
-
-                return res.json({
-                  msg: "Goodbye, becareful of the traffic",
-                });
               }
+              return res.json({
+                msg: `Hi ${attendanceRecord[0].first_name} your look great today`,
+              });
             }
 
             if (formattedlatestAttendanceDate !== formattedrtoday) {
@@ -372,7 +367,7 @@ export default class SuperAdminController {
               );
 
               res.json({
-                msg: `Today is ${formattedrtoday} Enjoy the school day`,
+                msg: `Hi ${attendanceRecord[0].first_name}, Today is ${formattedrtoday} `,
               });
             }
 
@@ -382,8 +377,11 @@ export default class SuperAdminController {
             // });
           }
         }
-      } else res.json({ msg: "no face match" });
-    } else res.json({ msg: "pleae take photo again" });
+      } else res.json({ msg: "Seems your are not our students" });
+    } else
+      res.json({
+        msg: "your photo is not clear enough,pleae take photo again",
+      });
 
     return;
   };
