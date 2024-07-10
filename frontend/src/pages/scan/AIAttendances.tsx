@@ -1,39 +1,55 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import WebcamCapture from "../../components/capture/WebCamCapture";
 import ManualCapture from "../../components/capture/ManualCapture";
 import "./CamCapture.css";
 
 const AIAttendances: React.FC = () => {
-  const [show, setShow] = useState("manual");
-
   const value = localStorage.getItem("newStudentId");
+  const [show, setShow] = useState(value ? "manual" : "auto");
+  const [isRegister, setIsRegister] = useState(
+    value ? "Profile Picture Capturing" : "Attendance Taking"
+  );
+
+  useEffect(() => {
+    const value = localStorage.getItem("newStudentId");
+    if (value) {
+      setShow("manual");
+      setIsRegister("Profile Picture Capturing");
+    }
+    if (!value) {
+      setShow("auto");
+      setIsRegister("Attendance Taking");
+    }
+  }, [value]);
 
   return (
     <div className="App">
       <header className="App-header">
-        <div className="header_container">
-          <h1 className="Face_Detection">Face Detection</h1>
-        </div>
+        <h1 className="detection_mode">{isRegister}</h1>
+        <h2 className="instruction">
+          move your head toward the camera until the frame colour change to
+          green
+        </h2>
 
-        <div className="scan_container">
-          {show === "manual" ? <ManualCapture /> : <WebcamCapture />}
-        </div>
-
-        <div className="control_msg_container">control_msg_container</div>
-
-        <div className="button_container">
-          <button
-            disabled={value ? false : true}
-            className="Take_Profile_Picture"
-            onClick={() => setShow("manual")}
-          >
-            Manual Profile Picture capture
-          </button>
-          <button className="Take_Attendance" onClick={() => setShow("auto")}>
-            Auto Scan for Attendance
-          </button>
-        </div>
+        {/* <button
+          className={value ? "show-button" : "hide-button"}
+          onClick={() => {
+            setShow("manual");
+          }}
+        >
+          Manual Profile Picture capture
+        </button>
+        <button
+          className={value ? "hide-button" : "show-button"}
+          onClick={() => setShow("auto")}
+        >
+          Auto Scan for Attendance
+        </button> */}
       </header>
+
+      <section>
+        {show === "manual" ? <ManualCapture /> : <WebcamCapture />}
+      </section>
     </div>
   );
 };

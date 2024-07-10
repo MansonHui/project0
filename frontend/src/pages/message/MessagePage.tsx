@@ -11,13 +11,13 @@ export default function MessagePage() {
     <div id={styles.messagePageBody}>
       <div className={styles.Container}>
         <div className={styles.Filter_Container}>
-          <Button
+          {/* <Button
             onClick={() => navigate("/Message/MessageAll")}
             variant="contained"
             className={styles.bootstrapButton}
           >
             All
-          </Button>
+          </Button> */}
           <Button
             onClick={() => navigate("/Message/Notices")}
             variant="contained"

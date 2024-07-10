@@ -2,14 +2,12 @@ import styles from "./Navbar.module.css";
 import HomeSharpIcon from "@mui/icons-material/HomeSharp";
 import EditIcon from "@mui/icons-material/Edit";
 import FaceRetouchingNaturalIcon from "@mui/icons-material/FaceRetouchingNatural";
-import StickyNote2RoundedIcon from "@mui/icons-material/StickyNote2Rounded";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import EmailIcon from "@mui/icons-material/Email";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
-import { Link, Outlet, useLocation, useMatches, useNavigate } from "react-router-dom";
-import TeacherStudentAttendancePage from "../../pages/teacherStudentAttendance/TeacherStudentAttendancePage";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -87,12 +85,16 @@ export default function Navbar() {
           <h6 className={styles.navbar_function_text}>Attendance</h6>
         </div>
 
-        <div className={styles.navbarButton}>
+        <div 
+          onClick={() => navigate("ParentTopUpBalance")} 
+          className={styles.navbarButton}
+        >
           <div className={styles.navbar_function_logo}>
             <MonetizationOnIcon />
           </div>
-          <h6 className={styles.navbar_function_text}>Payment</h6>
+          <h6 className={styles.navbar_function_text}>TopUp Balance</h6>
         </div>
+
       </div>
     </div>
   );

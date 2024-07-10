@@ -4,10 +4,12 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
+import { useNavigate } from "react-router-dom";
+
 const RegisteStudentFrom = () => {
   const [email, setEmail] = useState("tsangmeimei@gmail.com");
-  const [first_name, setFirst_name] = useState("ip");
-  const [last_name, setLast_name] = useState("adams");
+  const [first_name, setFirst_name] = useState("adams");
+  const [last_name, setLast_name] = useState("ip");
   const [HKID_number, setHKID_number] = useState("A1234");
   const [birthday, setBirthday] = useState("2020-01-01");
   const [gender, setGender] = useState("M");
@@ -52,13 +54,35 @@ const RegisteStudentFrom = () => {
     }
   };
 
+  const navigate = useNavigate();
+  const handleNavigation = () => {
+    let value = localStorage.getItem("newStudentId");
+    if (value) {
+      // Call function A
+      navigate("/AI");
+    } else {
+      // Call function B
+      alert("please complete the student registration first  ");
+    }
+  };
+
   const registeStudent = (
     <div>
       <form onSubmit={handleSubmit} id={styles.RegisteStudentFrom}>
-        <div id={styles.registeStudentIcon}></div>
+        <div id={styles.registeStudentIconAndButton}>
+          <div id={styles.registeStudentIcon}></div>
+          <Button
+            id={styles.registeStudentButton}
+            type="submit"
+            variant="contained"
+            color="success"
+          >
+            Register
+          </Button>
+        </div>
         <div id={styles.registeStudentInfo}>
           <Box>
-            <TextField
+            <input
               className={styles.registeStudentInput}
               type="email"
               value={email}
@@ -68,7 +92,7 @@ const RegisteStudentFrom = () => {
             />
           </Box>
           <Box>
-            <TextField
+            <input
               className={styles.registeStudentInput}
               type="first_name"
               value={first_name}
@@ -78,7 +102,7 @@ const RegisteStudentFrom = () => {
             />
           </Box>
           <Box>
-            <TextField
+            <input
               className={styles.registeStudentInput}
               type="last_name"
               value={last_name}
@@ -88,7 +112,7 @@ const RegisteStudentFrom = () => {
             />
           </Box>
           <Box>
-            <TextField
+            <input
               className={styles.registeStudentInput}
               type="gender"
               value={gender}
@@ -98,7 +122,7 @@ const RegisteStudentFrom = () => {
             />
           </Box>
           <Box>
-            <TextField
+            <input
               className={styles.registeStudentInput}
               type="HKID_number"
               value={HKID_number}
@@ -108,7 +132,7 @@ const RegisteStudentFrom = () => {
             />
           </Box>
           <Box>
-            <TextField
+            <input
               className={styles.registeStudentInput}
               type="birthday"
               value={birthday}
@@ -118,9 +142,6 @@ const RegisteStudentFrom = () => {
             />
           </Box>
           <p />
-          <Button type="submit" variant="contained" color="success">
-            Register
-          </Button>
         </div>
       </form>
     </div>

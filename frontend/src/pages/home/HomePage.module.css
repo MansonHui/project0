@@ -74,7 +74,7 @@
 .UserChild_Container {
   height: 40vh;
   width: 95vw;
-  background-color: rgb(229, 232, 197);
+  background-color: rgb(220, 228, 225);
   border: 0.5vh inset rgb(70, 156, 195);
   border-radius: 1vh;
   display: flex;
