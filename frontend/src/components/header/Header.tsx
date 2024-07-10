@@ -58,11 +58,12 @@ export default function MenuHeaderBar() {
                 anchor="left"
                 open={!isHide}
                 onClose={toggleNavbar}
-                classes={{
-                  paper: styles.drawerPaper,
-                }}
+                id={styles.drawerPaper}
+                // classes={{
+                //   paper: styles.drawerPaper,
+                // }}
               >
-                <List>
+                <List id={styles.list}>
                   <Navbar />
                 </List>
               </Drawer>
