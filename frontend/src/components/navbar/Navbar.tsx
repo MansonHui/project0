@@ -8,19 +8,23 @@ import EmailIcon from "@mui/icons-material/Email";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Link, Outlet, useLocation, useMatches, useNavigate } from "react-router-dom";
 import TeacherStudentAttendancePage from "../../pages/teacherStudentAttendance/TeacherStudentAttendancePage";
 
 export default function Navbar() {
   const navigate = useNavigate();
 
+
   return (
+    
+    
     // ------------ Navbar Logo Container ------------
     <div className={styles.navbar_container}>
       <div className={styles.navbar_logo_container}></div>
 
       {/* ------------ Navbar Function Container ------------ */}
       <div id={styles.navbarMenu}>
+      
         <div
           onClick={() => navigate("HomePage")}
           className={styles.navbarButton}

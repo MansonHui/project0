@@ -1,4 +1,4 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { LoginAuthGuard } from "./pages/login/loginAuthGuard";
 import { useAuth } from "./hooks/useAuth";
 import { useEffect } from "react";
@@ -15,20 +15,30 @@ import ParentPage from "./pages/parent/ParentPage";
 import Textarea from "./components/textarea/Textarea";
 import TeacherNoticePage from "./pages/teacherNotice/TeacherNoticePage";
 
-import RegisterPage from "./pages/register/RegisterPage";
+import RegisterPage from "./pages/register/registerPage";
 import SuperAdminPage from "./pages/superAdmin/superAdminPage";
 import NoticeDetailPage from "./pages/noticeDetail/NoticeDetailPage";
 import EditNoticePage from "./pages/editlNotice/EditNoticePage";
 import TeacherNoticeDetailPage from "./pages/teacherNoticeDetail/TeacherNoticeDetailPage";
 import TeacherStudentAttendancePage from "./pages/teacherStudentAttendance/TeacherStudentAttendancePage";
+
 function App() {
   const { authToken } = useAuth();
   const navigate = useNavigate();
+  // change pagename
+  
+  const location = useLocation();
+
+  
+
+
 
   useEffect(() => {
     if (authToken) navigate("/HomePage");
     else navigate("/");
   }, [authToken]);
+
+  
 
   return (
     <Routes>

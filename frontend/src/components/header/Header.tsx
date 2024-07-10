@@ -13,6 +13,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import Navbar from "../navbar/Navbar";
 import styles from "./Header.module.css";
 import { Drawer, List, ListItem, ListItemText } from "@mui/material";
+import { useLocation } from "react-router-dom";
 
 export default function MenuHeaderBar() {
   let [isHide, setIsHide] = React.useState(true);
@@ -40,6 +41,8 @@ export default function MenuHeaderBar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+ let currentLocation = useLocation()
+ console.log("currentLocation",currentLocation)
 
   return (
     <>
@@ -70,7 +73,9 @@ export default function MenuHeaderBar() {
             </IconButton>
 
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              page name
+
+          {currentLocation.pathname}
+
             </Typography>
             {auth && (
               <div id={styles.userACButton}>

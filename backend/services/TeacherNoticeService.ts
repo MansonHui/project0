@@ -84,7 +84,78 @@ export default class TeacherNoticeService {
     userRoleId: number,
     noticeId: number,
   ) {
+
+    //Version 4
     return await this.knex
+    
+    // ('notice_student_relation')
+    // .join('notices', 'notice_student_relation.notice_id', '=', 'notices.id')
+    // .join('student_class_relation', 'notice_student_relation.student_id', '=', 'student_class_relation.student_id')
+    // .join('classes', 'student_class_relation.class_id', '=', 'classes.id')
+    // .join('admin_class_relation', 'classes.id', '=', 'admin_class_relation.class_id')
+    // .join('students', 'student_class_relation.student_id', '=', 'students.id')
+    // .join('admins', 'admin_class_relation.admin_id', '=', 'admins.id')
+    // .join('schools', 'classes.school_id', '=', 'schools.id')
+    // .leftJoin('notice_choice', 'notice_student_relation.notice_choice_id', '=', 'notice_choice.id')
+    // .where('admins.id', userRoleId)
+    // .where('notices.id', noticeId)
+    // .where('schools.id', 1)
+    // .groupBy(
+    //   'notices.id',
+    //   'notices.topic',
+    //   'notices.content',
+    //   'classes.id',
+    //   'classes.grade',
+    //   'classes.class_name',
+    //   'admins.admin_name',
+    //   'schools.id'
+    // )
+    // .havingRaw(
+    //   'SUM(CASE WHEN notice_student_relation.notice_choice_id IS NULL THEN 1 ELSE 0 END) IS NOT NULL AND SUM(CASE WHEN notice_student_relation.notice_choice_id IS NOT NULL THEN 1 ELSE 0 END) IS NOT NULL'
+    // )
+    // .select(
+    //   'notices.id as notice_id',
+    //   'notices.topic',
+    //   'notices.content',
+    //   'classes.id as class_id',
+    //   'classes.grade',
+    //   'classes.class_name',
+    //   'admins.admin_name',
+    //   'schools.id as school_id',
+    //   this.knex.raw('ARRAY_AGG(students.id) as student_ids_2'),
+    //   this.knex.raw('ARRAY_AGG(notice_student_relation.notice_choice_id) as notice_choice_id_2'),
+    //   this.knex.raw('ARRAY_AGG(students.last_name || \' \' || students.first_name) as student_names'),
+    //   this.knex.raw('ARRAY_AGG(students.parent_id) as parent_ids'),
+    //   this.knex.raw('ARRAY_AGG(student_class_relation.student_number) as student_numbers'),
+    //   this.knex.raw('ARRAY_AGG(notice_choice.option) as notice_choice_options'),
+    //   this.knex.raw('ARRAY_AGG(notice_choice.content) as notice_choice_contents'),
+    //   this.knex.raw('SUM(CASE WHEN notice_student_relation.notice_choice_id IS NULL THEN 1 ELSE 0 END) AS null_count'),
+    //   this.knex.raw('SUM(CASE WHEN notice_student_relation.notice_choice_id IS NOT NULL THEN 1 ELSE 0 END) AS not_null_count')
+    // );
+    
+    //Version 3
+    ('notice_student_relation')
+    .join('notices', 'notice_student_relation.notice_id', '=', 'notices.id')
+    .join('student_class_relation', 'notice_student_relation.student_id', '=', 'student_class_relation.student_id')
+    .join('classes', 'student_class_relation.class_id', '=', 'classes.id')
+    .join('admin_class_relation', 'classes.id', '=', 'admin_class_relation.class_id')
+    .join('students', 'student_class_relation.student_id', '=', 'students.id')
+    .join('admins', 'admin_class_relation.admin_id', '=', 'admins.id')
+    .leftJoin('notice_choice', 'notice_student_relation.notice_choice_id', '=', 'notice_choice.id')
+    .where("admins.id", userRoleId)
+    .where('notices.id', noticeId)
+    .groupBy(
+      'notices.id',
+      'notices.topic',
+      'notices.content',
+      'classes.id',
+      'classes.grade',
+      'classes.class_name',
+      'admins.admin_name'
+    )
+    .havingRaw(
+      'SUM(CASE WHEN notice_student_relation.notice_choice_id IS NULL THEN 1 ELSE 0 END) IS NOT NULL AND SUM(CASE WHEN notice_student_relation.notice_choice_id IS NOT NULL THEN 1 ELSE 0 END) IS NOT NULL'
+    )
     .select(
       'notices.id as notice_id',
       'notices.topic',
@@ -95,38 +166,21 @@ export default class TeacherNoticeService {
       'admins.admin_name',
       this.knex.raw('ARRAY_AGG(students.id) as student_ids_2'),
       this.knex.raw('ARRAY_AGG(notice_student_relation.notice_choice_id) as notice_choice_id_2'),
-      this.knex.raw('(SELECT COUNT(*) FROM (SELECT notice_choice_id FROM notice_student_relation JOIN student_class_relation ON notice_student_relation.student_id = student_class_relation.student_id WHERE student_class_relation.class_id = classes.id AND notice_choice_id IS NULL) AS subquery) as null_count'),
-      this.knex.raw('(SELECT COUNT(*) FROM (SELECT notice_choice_id FROM notice_student_relation JOIN student_class_relation ON notice_student_relation.student_id = student_class_relation.student_id WHERE student_class_relation.class_id = classes.id AND notice_choice_id IS NOT NULL) AS subquery) as notNull_count'),
       this.knex.raw('ARRAY_AGG(students.last_name || \' \' || students.first_name) as student_names'),
       this.knex.raw('ARRAY_AGG(students.parent_id) as parent_ids'),
       this.knex.raw('ARRAY_AGG(student_class_relation.student_number) as student_numbers'),
       this.knex.raw('ARRAY_AGG(notice_choice.option) as notice_choice_options'),
-      this.knex.raw('ARRAY_AGG(notice_choice.content) as notice_choice_contents')
-    )
-    .from('notice_student_relation')
-    .join('notices', 'notice_student_relation.notice_id', 'notices.id')
-    .join('student_class_relation', 'notice_student_relation.student_id', 'student_class_relation.student_id')
-    .join('classes', 'student_class_relation.class_id', 'classes.id')
-    .join('admin_class_relation', 'classes.id', 'admin_class_relation.class_id')
-    .join('students', 'student_class_relation.student_id', 'students.id')
-    .join('admins', 'admin_class_relation.admin_id', 'admins.id')
-    .leftJoin('notice_choice', 'notice_student_relation.notice_choice_id', 'notice_choice.id')
-    .where("admins.id", userRoleId)
-    .andWhere("notices.id",noticeId)
-    .groupBy(
-      'notices.id',
-      'notices.topic',
-      'notices.content',
-      'classes.id',
-      'classes.grade',
-      'classes.class_name',
-      'admins.admin_name'
-    )
-    .distinct();
+      this.knex.raw('ARRAY_AGG(notice_choice.content) as notice_choice_contents'),
+      this.knex.raw('SUM(CASE WHEN notice_student_relation.notice_choice_id IS NULL THEN 1 ELSE 0 END) AS null_count'),
+      this.knex.raw('SUM(CASE WHEN notice_student_relation.notice_choice_id IS NOT NULL THEN 1 ELSE 0 END) AS not_null_count')
+    );
+    
 
   
 }
 }
+
+
 
 // SELECT
 //   admins.id,
@@ -153,6 +207,82 @@ export default class TeacherNoticeService {
 //   notice_student_relation.notice_id,
 //   notices.created_at
 
+
+//Version 5
+// SELECT
+//   "notices"."id" AS "notice_id",
+//   "notices"."topic",
+//   "notices"."content",
+//   "classes"."id" AS "class_id",
+//   "classes"."grade",
+//   "classes"."class_name",
+//   "admins"."admin_name",
+//   ARRAY_AGG(students.id) AS student_ids_2,
+//   ARRAY_AGG(notice_student_relation.notice_choice_id) AS notice_choice_id_2,
+//   ARRAY_AGG(students.last_name || ' ' || students.first_name) AS student_names,
+//   ARRAY_AGG(students.parent_id) AS parent_ids,
+//   ARRAY_AGG(student_class_relation.student_number) AS student_numbers,
+//   ARRAY_AGG(notice_choice.option) AS notice_choice_options,
+//   ARRAY_AGG(notice_choice.content) AS notice_choice_contents,
+//   SUM(CASE WHEN notice_student_relation.notice_choice_id IS NULL THEN 1 ELSE 0 END) AS null_count,
+//   SUM(CASE WHEN notice_student_relation.notice_choice_id IS NOT NULL THEN 1 ELSE 0 END) AS notnull_count,
+//   "schools"."id" AS "school_id"
+// FROM "notice_student_relation" 
+// INNER JOIN "notices" ON "notice_student_relation"."notice_id" = "notices"."id"
+// INNER JOIN "student_class_relation" ON "notice_student_relation"."student_id" = "student_class_relation"."student_id"
+// INNER JOIN "classes" ON "student_class_relation"."class_id" = "classes"."id"
+// INNER JOIN "admin_class_relation" ON "classes"."id" = "admin_class_relation"."class_id"
+// INNER JOIN "students" ON "student_class_relation"."student_id" = "students"."id"
+// INNER JOIN "admins" ON "admin_class_relation"."admin_id" = "admins"."id"
+// INNER JOIN "schools" ON "classes"."id" = (SELECT class_id FROM student_class_relation WHERE student_id = students.id LIMIT 1)
+// LEFT JOIN "notice_choice" ON "notice_student_relation"."notice_choice_id" = "notice_choice"."id"
+// WHERE "admins"."id" = 1 AND "notices"."id" = 1 AND "schools"."id" = 1
+// GROUP BY "notices"."id", "notices"."topic", "notices"."content", "classes"."id", "classes"."grade", "classes"."class_name", "admins"."admin_name", "schools"."id"
+// HAVING 
+//   SUM(CASE WHEN notice_student_relation.notice_choice_id IS NULL THEN 1 ELSE 0 END) IS NOT NULL
+//   AND SUM(CASE WHEN notice_student_relation.notice_choice_id IS NOT NULL THEN 1 ELSE 0 END) IS NOT NULL;
+
+
+
+// Version 3
+// SELECT
+//   notices.id as notice_id,
+//   notices.topic,
+//   notices.content,
+//   classes.id as class_id,
+//   classes.grade,
+//   classes.class_name,
+//   admins.admin_name,
+//   ARRAY_AGG(students.id) as student_ids_2,
+//   ARRAY_AGG(notice_student_relation.notice_choice_id) as notice_choice_id_2,
+//   ARRAY_AGG(students.last_name || ' ' || students.first_name) as student_names,
+//   ARRAY_AGG(students.parent_id) as parent_ids,
+//   ARRAY_AGG(student_class_relation.student_number) as student_numbers,
+//   ARRAY_AGG(notice_choice.option) as notice_choice_options,
+//   ARRAY_AGG(notice_choice.content) as notice_choice_contents,
+//   SUM(CASE WHEN notice_student_relation.notice_choice_id IS NULL THEN 1 ELSE 0 END) AS null_count,
+//   SUM(CASE WHEN notice_student_relation.notice_choice_id IS NOT NULL THEN 1 ELSE 0 END) AS not_null_count
+// FROM notice_student_relation
+// JOIN notices ON notice_student_relation.notice_id = notices.id
+// JOIN student_class_relation ON notice_student_relation.student_id = student_class_relation.student_id
+// JOIN classes ON student_class_relation.class_id = classes.id
+// JOIN admin_class_relation ON classes.id = admin_class_relation.class_id
+// JOIN students ON student_class_relation.student_id = students.id
+// JOIN admins ON admin_class_relation.admin_id = admins.id
+// LEFT JOIN notice_choice ON notice_student_relation.notice_choice_id = notice_choice.id
+// WHERE admins.id = 1
+//   AND notices.id = 10
+// GROUP BY
+//   notices.id,
+//   notices.topic,
+//   notices.content,
+//   classes.id,
+//   classes.grade,
+//   classes.class_name,
+//   admins.admin_name
+// HAVING 
+//   SUM(CASE WHEN notice_student_relation.notice_choice_id IS NULL THEN 1 ELSE 0 END) IS NOT NULL
+//   AND SUM(CASE WHEN notice_student_relation.notice_choice_id IS NOT NULL THEN 1 ELSE 0 END) IS NOT NULL;
 
 //Version 2
 // SELECT DISTINCT

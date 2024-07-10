@@ -25,7 +25,7 @@ export default function TeacherNoticeDetailPage(){
               </div>
 
             <div className={styles.TotalReplyContainer}>
-              <div className={styles.RepliedContainer}>Replied:    {entry.notnull_count}
+              <div className={styles.RepliedContainer}>Replied:    {entry.not_null_count}
                 
               </div>
               <div className={styles.UnReplyContainer}>until no Reply:     {entry.null_count}
