@@ -83,12 +83,16 @@ export default function Navbar() {
           <h6 className={styles.navbar_function_text}>Attendance</h6>
         </div>
 
-        <div className={styles.navbarButton}>
+        <div 
+          onClick={() => navigate("ParentTopUpBalance")} 
+          className={styles.navbarButton}
+        >
           <div className={styles.navbar_function_logo}>
             <MonetizationOnIcon />
           </div>
           <h6 className={styles.navbar_function_text}>Payment</h6>
         </div>
+
       </div>
     </div>
   );

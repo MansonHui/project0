@@ -21,6 +21,8 @@ import NoticeDetailPage from "./pages/noticeDetail/NoticeDetailPage";
 import EditNoticePage from "./pages/editlNotice/EditNoticePage";
 import TeacherNoticeDetailPage from "./pages/teacherNoticeDetail/TeacherNoticeDetailPage";
 import TeacherStudentAttendancePage from "./pages/teacherStudentAttendance/TeacherStudentAttendancePage";
+import TopUpBalancePage from "./pages/topUpBalance/TopUpBalancePage";
+
 function App() {
   const { authToken } = useAuth();
   const navigate = useNavigate();
@@ -38,30 +40,28 @@ function App() {
         {/* <Route path="/HomePage" element={<RegisterPage />} /> */}
         <Route path="/Message" element={<MessagePage />}>
           <Route path="/Message" element={<MessageAllPage />} />
-          <Route path="MessageAll" element={<MessageAllPage />}>
-            {" "}
-          </Route>
-          <Route path="Notices" element={<NoticePage />}>
-            {" "}
-          </Route>
-          <Route path="NoticeDetail" element={<NoticeDetailPage />}>
-            {" "}
-          </Route>
-          <Route path="Attendance" element={<AttendancePage />}>
-            {" "}
-          </Route>
+          <Route path="MessageAll" element={<MessageAllPage />} />
+          <Route path="Notices" element={<NoticePage />} />
+          <Route path="NoticeDetail" element={<NoticeDetailPage />} />
+          <Route path="Attendance" element={<AttendancePage />} />
         </Route>
 
-        <Route path="/EditNotice" element={<EditNoticePage />}></Route>
+        <Route path="/EditNotice" element={<EditNoticePage />} />
         <Route path="/AI" element={<AIAttendances />} />
         <Route path="/Register" element={<RegisterPage />} />
 
-        <Route path="/TeacherNotice" element={<TeacherNoticePage />}>
-        </Route>
-        <Route path="TeacherNoticeDetail" element={<TeacherNoticeDetailPage/>}/>
-        <Route path="/TeacherStudentAttendance" element={<TeacherStudentAttendancePage/>} ></Route>
-        
+        <Route path="/TeacherNotice" element={<TeacherNoticePage />} />
+        <Route
+          path="TeacherNoticeDetail"
+          element={<TeacherNoticeDetailPage />}
+        />
+        <Route
+          path="/TeacherStudentAttendance"
+          element={<TeacherStudentAttendancePage />}
+        />
+
         <Route path="/superAdmin" element={<SuperAdminPage />} />
+        <Route path="/ParentTopUpBalance" element={<TopUpBalancePage />} />
       </Route>
     </Routes>
   );

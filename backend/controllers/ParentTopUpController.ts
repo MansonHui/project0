@@ -19,6 +19,7 @@ export default class ParentTopUpController {
   };
 
   updateBalance = async (req: Request, res: Response) => {
+    console.log(req.body);
     const { userRole, userRoleId, add_on_value } = req.body;
 
     try {
