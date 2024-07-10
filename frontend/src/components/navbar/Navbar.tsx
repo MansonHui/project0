@@ -88,7 +88,7 @@ export default function Navbar() {
           <div className={styles.navbar_function_logo}>
             <MonetizationOnIcon />
           </div>
-          <h6 className={styles.navbar_function_text}>Payment</h6>
+          <h6 className={styles.navbar_function_text}>TopUp Balance</h6>
         </div>
 
       </div>
