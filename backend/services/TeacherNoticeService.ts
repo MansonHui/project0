@@ -73,7 +73,8 @@ export default class TeacherNoticeService {
     noticeId: number,
     school_id: number
   ) {
-
+    console.log(userRoleId,noticeId,school_id);
+    
     //Version 7
     return await this.knex
     .select(
@@ -104,9 +105,9 @@ export default class TeacherNoticeService {
     .innerJoin('admins', 'admin_class_relation.admin_id', 'admins.id')
     .innerJoin('schools', 'students.school_id', 'schools.id')
     .leftJoin('notice_choice', 'notice_student_relation.notice_choice_id', 'notice_choice.id')
-    .where('admins.id', userRoleId)
+    .where('schools.id', school_id)
     .andWhere('notices.id', noticeId)
-    .andWhere('schools.id', school_id)
+    .andWhere('admins.id', userRoleId) 
     .groupBy(
       'notices.id',
       'notices.topic',
@@ -285,7 +286,6 @@ export default class TeacherNoticeService {
 //   notice_student_relation.notice_id,
 //   notices.created_at
 
-<<<<<<< HEAD
 
 //Version 7
 // SELECT
@@ -333,8 +333,6 @@ export default class TeacherNoticeService {
 //     SUM(CASE WHEN notice_student_relation.notice_choice_id IS NULL THEN 1 ELSE 0 END) IS NOT NULL
 //     AND SUM(CASE WHEN notice_student_relation.notice_choice_id IS NOT NULL THEN 1 ELSE 0 END) IS NOT NULL;
 
-=======
->>>>>>> 85cc5a9a271c97dc65461e9fb3c8902b155c12ce
 //Version 6
 // SELECT
 //   "notices"."id" AS "notice_id",

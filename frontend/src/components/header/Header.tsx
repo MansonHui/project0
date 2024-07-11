@@ -62,7 +62,7 @@ export default function MenuHeaderBar() {
       pageName = (
         <>
           <HomeSharpIcon />
-          Home
+          Profile
         </>
       );
       break;
@@ -70,7 +70,7 @@ export default function MenuHeaderBar() {
       pageName = (
         <>
           <EmailIcon />
-          Instant Messaging
+          Check Notices & Attendances
         </>
       );
       break;
@@ -78,7 +78,7 @@ export default function MenuHeaderBar() {
       pageName = (
         <>
           <EditIcon />
-          Edit Notice
+          Create Notice
         </>
       );
       break;
@@ -94,7 +94,7 @@ export default function MenuHeaderBar() {
       pageName = (
         <>
           <HowToRegIcon />
-          Register
+          Register Users
         </>
       );
       break;
@@ -102,7 +102,7 @@ export default function MenuHeaderBar() {
       pageName = (
         <>
           <MarkEmailReadIcon />
-          TeacherNotice
+          Check Notices
         </>
       );
       break;
@@ -110,7 +110,7 @@ export default function MenuHeaderBar() {
       pageName = (
         <>
           <DoneAllIcon />
-          Attendance
+          Check Attendances
         </>
       );
       break;
@@ -128,7 +128,7 @@ export default function MenuHeaderBar() {
       pageName = (
         <>
           <EmailIcon />
-          Instant Messaging
+          Check Notices & Attendances
         </>
       );
       break;
@@ -136,7 +136,7 @@ export default function MenuHeaderBar() {
       pageName = (
         <>
           <EmailIcon />
-          Instant Messaging
+          Check Notices & Attendances
         </>
       );
       break;
@@ -144,7 +144,7 @@ export default function MenuHeaderBar() {
       pageName = (
         <>
           <EmailIcon />
-          Instant Messaging
+          Check Notices & Attendances
         </>
       );
       break;

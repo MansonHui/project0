@@ -46,7 +46,7 @@ export default function TeacherNoticePage() {
               <p id={styles.topicCreated}>
                 <p className={styles.PLayout}>Created:</p>
                 <p className={styles.PLayout}>
-                  {entry.created_at}
+                {new Date(entry.created_at).toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' })}
                   {/* 2024-06-10 */}
                   <br />
                   {/* 14:40 */}

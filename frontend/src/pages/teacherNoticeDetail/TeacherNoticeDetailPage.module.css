@@ -1,58 +1,72 @@
 .MainContainer{
-    margin: 10px;
-    border: 1px solid #f50000;
-    border-radius: 8px;
     display: flex;
-    justify-content: center;
-
+    border: 1vh inset #ccc;
+    border-radius: 1vh;
     height: 85vh;
     width: 94%;
-
-    display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-
     overflow-y: scroll;
+    font-size: 2vh;
+    color:#7a7676 ;
+    padding-top: 1vh;
 }
 
 .TopContainer{
-    margin: 10px;
-    border: 1px solid #f50000;
-    border-radius: 8px;
+    border: 0.5vh inset #ccc;
+    border-radius: 1vh;
+    
     height: 20%;
-    width: 94%
-
+    width: 94%;
+    align-items: center;
+    /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
 }
 
 .ClassContainer{
-    margin: 10px;
-    border: 1px solid #f50000;
-    border-radius: 8px;
+    border: 0.5vh inset #ccc;
+    border-radius: 1vh;
+    display: flex;
     height: 20%;
-    width: 94%
+    width: 94%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 1vh;
+    margin-left: 0.5vh;
+    
 }
 
 .TopicContainer{
-    margin: 10px;
-    border: 1px solid #f50000;
-    border-radius: 8px;
+    border: 0.5vh inset #ccc;
+    border-radius: 1vh;
+    display: flex;
     height: 20%;
-    width: 94%
+    width: 94%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-left: 0.5vh;
 }
 
 .ContentContainer{
-    margin: 10px;
-    border: 1px solid #f50000;
-    border-radius: 8px;
+    border: 0.5vh inset #ccc;
+    border-radius: 1vh;
+    display: flex;
     height: 20%;
-    width: 94%
+    width: 94%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-left: 0.5vh;
 }
 
 .TotalReplyContainer{
-    margin: 10px;
-    border: 1px solid #f50000;
-    border-radius: 8px;
+    border: 0.5vh inset #ccc;
+    border-radius: 1vh;
+    display: flex;
     height: 20%;
     width: 94%;
     display:block;
@@ -60,49 +74,61 @@
 }
 
 .RepliedContainer{
-    margin: 10px;
-    border: 1px solid #f50000;
-    border-radius: 8px;
+    border: 0.5vh inset #ccc;
+    border-radius: 1vh;
+    display: flex;
     height: 35%;
-    width: 94%
+    width: 94%;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 1vh;
+    margin-left: 0.5vh;
 }
 .UnReplyContainer{
-    margin: 10px;
-    border: 1px solid #f50000;
-    border-radius: 8px;
+    border: 0.5vh inset #ccc;
+    border-radius: 1vh;
+    display: flex;
     height: 35%;
-    width: 94%
+    width: 94%;
+    align-items: center;
+    justify-content: space-around;
+    margin-left: 0.5vh;
 }
 
 .TotalContainer{
-    margin: 10px;
-    border: 1px solid #f50000;
-    border-radius: 8px;
+    border: 0.5vh inset #ccc;
+    border-radius: 1vh;
+    display: flex;
     height: 30%;
-    width: 94%
+    width: 94%;
+    
 }
 
 .ReplyContainer{
-    margin: 10px;
-    border: 1px solid #f50000;
-    border-radius: 8px;
+    border: 0.5vh inset #ccc;
+    border-radius: 1vh;
+    /* display: flex; */
     height: 55%;
-    width: 94%
+    width: 94%;
+    
 
 }
 
 .Replied{
-    margin: 10px;
-    border: 1px solid #f50000;
-    border-radius: 8px;
+    border: 0.5vh inset #ccc;
+    border-radius: 1vh;
+    display: flex;
     height: 45%;
-    width: 94%
+    width: 94%;
+    margin-top: 1vh;
+    margin-left: 0.5vh;
 }
 
 .NotReplied{
-    margin: 10px;
-    border: 1px solid #f50000;
-    border-radius: 8px;
+    border: 0.5vh inset #ccc;
+    border-radius: 1vh;
+    display: flex;
     height: 45%;
-    width: 94%
+    width: 94%;
+    margin-left: 0.5vh;
 }
