@@ -8,7 +8,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import LogoutIcon from '@mui/icons-material/Logout';
+import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Navbar from "../navbar/Navbar";
 import styles from "./Header.module.css";
@@ -164,7 +164,8 @@ export default function MenuHeaderBar() {
   const removeToken = () => {
     // Implement your token removal logic here
     // For example, you could remove the token from local storage or a cookie
-    localStorage.removeItem("loginToken");
+    localStorage.clear();
+
     handleClose();
     window.location.reload();
   };
@@ -229,7 +230,6 @@ export default function MenuHeaderBar() {
                   onClose={handleClose}
                   disableScrollLock={true}
                 >
-                  
                   <MenuItem onClick={removeToken}>
                     <LogoutIcon />
                     Logout
