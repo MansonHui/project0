@@ -22,6 +22,7 @@ export default class TeacherNoticeController{
         let getTeacherNoticeDetail = await this.teacherNoticeService.getTeacherNoticeDetail(
             req.body.userRole,
             req.body.userRoleId,
+            req.body.school_id,
             parseInt(req.query.noticeId! as string),
             
         );
