@@ -230,6 +230,7 @@ const WebcamCapture: React.FC = () => {
           width={IMG_SIZE}
           height={IMG_SIZE}
           videoConstraints={videoConstraints}
+          id="webcam"
         />
       </div>
       {capturedImage && (
