@@ -54,7 +54,7 @@ export default function Login() {
 
         console.log("loginedRole", loginedRole);
 
-        // localStorage.setItem("loginRoleDetail", JSON.stringify(loginedRole));
+        localStorage.setItem("loginRoleDetail", JSON.stringify(loginedRole));
 
         login(data.token);
       } else {
@@ -121,7 +121,6 @@ export default function Login() {
   const handleChange = () => {
     setChecked((prev) => !prev);
   };
-  
 
   return (
     <div id={styles.loginBody}>
@@ -158,4 +157,3 @@ export default function Login() {
 function handleClose() {
   throw new Error("Function not implemented.");
 }
-

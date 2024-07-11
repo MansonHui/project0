@@ -185,10 +185,12 @@ export default function EditNoticePage() {
                 if (
                   event.currentTarget.value.length > 0 &&
                   event.key !== "Backspace" &&
-                  event.key !== "Delete"
+                  event.key !== "Delete" &&
+                  parseInt(event.currentTarget.value) < 1 &&
+                  parseInt(event.currentTarget.value) > 6
                 ) {
                   event.preventDefault();
-                  alert("Please enter only one number.");
+                  alert("Please enter number between 1-6.");
                 }
               }}
             />
