@@ -6,84 +6,72 @@ export default class TeacherNoticeService {
     return this.knex("get_teacherNotice");
   }
 
-  async getTeacherNotice(
-    userRole: string, 
-    userRoleId: number,
-    
-  ) 
-  {
+  async getTeacherNotice(userRole: string, userRoleId: number) {
     return await this.knex
 
-    .select(
-      "admins.id",
-      "admins.admin_name",
-      "classes.grade",
-      "classes.class_name",
-      "school_years.school_year",
-      "notice_student_relation.notice_id",
-      "notices.id as notices_id",
-      "notices.topic as notices_topic",
-      "notices.created_at"
-    )
-    .from("admins")
-    .innerJoin(
-      "admin_class_relation",
-      "admins.id",
-      "admin_class_relation.admin_id"
-    )
-    .innerJoin("classes", "admin_class_relation.class_id", "classes.id")
-    .innerJoin(
-      "class_school_year_relation",
-      "classes.id",
-      "class_school_year_relation.class_id"
-    )
-    .innerJoin(
-      "school_years",
-      "class_school_year_relation.school_year_id",
-      "school_years.id"
-    )
-    .innerJoin(
-      "student_class_relation",
-      "classes.id",
-      "student_class_relation.class_id"
-    )
-    .innerJoin("students", "student_class_relation.student_id", "students.id")
-    .innerJoin(
-      "notice_student_relation",
-      "students.id",
-      "notice_student_relation.student_id"
-    )
-    .leftJoin(
-      "notices",
-      "notice_student_relation.notice_id",
-      "notices.id"
-    )
-    .where("admins.id", userRoleId)
-    
-    .orderBy('notice_student_relation.notice_id', 'desc')
-    .groupBy(
-      "admins.id",
-      "admins.admin_name",
-      "classes.grade",
-      'classes.class_name',
-      "school_years.school_year",
-      "notice_student_relation.notice_id",
-      "notices.id",
-      "notices.topic",
-      "notices.created_at"
-        
+      .select(
+        "admins.id",
+        "admins.admin_name",
+        "classes.grade",
+        "classes.class_name",
+        "school_years.school_year",
+        "notice_student_relation.notice_id",
+        "notices.id as notices_id",
+        "notices.topic as notices_topic",
+        "notices.created_at"
+      )
+      .from("admins")
+      .innerJoin(
+        "admin_class_relation",
+        "admins.id",
+        "admin_class_relation.admin_id"
+      )
+      .innerJoin("classes", "admin_class_relation.class_id", "classes.id")
+      .innerJoin(
+        "class_school_year_relation",
+        "classes.id",
+        "class_school_year_relation.class_id"
+      )
+      .innerJoin(
+        "school_years",
+        "class_school_year_relation.school_year_id",
+        "school_years.id"
+      )
+      .innerJoin(
+        "student_class_relation",
+        "classes.id",
+        "student_class_relation.class_id"
+      )
+      .innerJoin("students", "student_class_relation.student_id", "students.id")
+      .innerJoin(
+        "notice_student_relation",
+        "students.id",
+        "notice_student_relation.student_id"
+      )
+      .leftJoin("notices", "notice_student_relation.notice_id", "notices.id")
+      .where("admins.id", userRoleId)
 
-        
+      .orderBy("notice_student_relation.notice_id", "desc")
+      .groupBy(
+        "admins.id",
+        "admins.admin_name",
+        "classes.grade",
+        "classes.class_name",
+        "school_years.school_year",
+        "notice_student_relation.notice_id",
+        "notices.id",
+        "notices.topic",
+        "notices.created_at"
       );
 
     //   .where(`${userRole}_id`, userRoleId)
   }
 
   async getTeacherNoticeDetail(
-    userRole: string, 
+    userRole: string,
     userRoleId: number,
     noticeId: number,
-    school_id: number,
+    school_id: number
   ) {
 
     //Version 7
@@ -227,7 +215,7 @@ export default class TeacherNoticeService {
     //   this.knex.raw('SUM(CASE WHEN notice_student_relation.notice_choice_id IS NULL THEN 1 ELSE 0 END) AS null_count'),
     //   this.knex.raw('SUM(CASE WHEN notice_student_relation.notice_choice_id IS NOT NULL THEN 1 ELSE 0 END) AS not_null_count')
     // );
-    
+
     //Version 3
     // ('notice_student_relation')
     // .join('notices', 'notice_student_relation.notice_id', '=', 'notices.id')
@@ -269,13 +257,8 @@ export default class TeacherNoticeService {
     //   this.knex.raw('SUM(CASE WHEN notice_student_relation.notice_choice_id IS NULL THEN 1 ELSE 0 END) AS null_count'),
     //   this.knex.raw('SUM(CASE WHEN notice_student_relation.notice_choice_id IS NOT NULL THEN 1 ELSE 0 END) AS not_null_count')
     // );
-    
-
-  
+  }
 }
-}
-
-
 
 // SELECT
 //   admins.id,
@@ -302,6 +285,7 @@ export default class TeacherNoticeService {
 //   notice_student_relation.notice_id,
 //   notices.created_at
 
+<<<<<<< HEAD
 
 //Version 7
 // SELECT
@@ -349,6 +333,8 @@ export default class TeacherNoticeService {
 //     SUM(CASE WHEN notice_student_relation.notice_choice_id IS NULL THEN 1 ELSE 0 END) IS NOT NULL
 //     AND SUM(CASE WHEN notice_student_relation.notice_choice_id IS NOT NULL THEN 1 ELSE 0 END) IS NOT NULL;
 
+=======
+>>>>>>> 85cc5a9a271c97dc65461e9fb3c8902b155c12ce
 //Version 6
 // SELECT
 //   "notices"."id" AS "notice_id",
@@ -403,7 +389,7 @@ export default class TeacherNoticeService {
 //   SUM(CASE WHEN notice_student_relation.notice_choice_id IS NULL THEN 1 ELSE 0 END) AS null_count,
 //   SUM(CASE WHEN notice_student_relation.notice_choice_id IS NOT NULL THEN 1 ELSE 0 END) AS notnull_count,
 //   "schools"."id" AS "school_id"
-// FROM "notice_student_relation" 
+// FROM "notice_student_relation"
 // INNER JOIN "notices" ON "notice_student_relation"."notice_id" = "notices"."id"
 // INNER JOIN "student_class_relation" ON "notice_student_relation"."student_id" = "student_class_relation"."student_id"
 // INNER JOIN "classes" ON "student_class_relation"."class_id" = "classes"."id"
@@ -414,11 +400,9 @@ export default class TeacherNoticeService {
 // LEFT JOIN "notice_choice" ON "notice_student_relation"."notice_choice_id" = "notice_choice"."id"
 // WHERE "admins"."id" = 1 AND "notices"."id" = 1 AND "schools"."id" = 1
 // GROUP BY "notices"."id", "notices"."topic", "notices"."content", "classes"."id", "classes"."grade", "classes"."class_name", "admins"."admin_name", "schools"."id"
-// HAVING 
+// HAVING
 //   SUM(CASE WHEN notice_student_relation.notice_choice_id IS NULL THEN 1 ELSE 0 END) IS NOT NULL
 //   AND SUM(CASE WHEN notice_student_relation.notice_choice_id IS NOT NULL THEN 1 ELSE 0 END) IS NOT NULL;
-
-
 
 // Version 3
 // SELECT
@@ -456,7 +440,7 @@ export default class TeacherNoticeService {
 //   classes.grade,
 //   classes.class_name,
 //   admins.admin_name
-// HAVING 
+// HAVING
 //   SUM(CASE WHEN notice_student_relation.notice_choice_id IS NULL THEN 1 ELSE 0 END) IS NOT NULL
 //   AND SUM(CASE WHEN notice_student_relation.notice_choice_id IS NOT NULL THEN 1 ELSE 0 END) IS NOT NULL;
 

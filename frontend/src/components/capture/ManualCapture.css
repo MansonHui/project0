@@ -1,37 +1,44 @@
 .camera_area {
-    margin: 1vh;
-    display: flex;
-    justify-content: space-around;
-    flex-direction: column;
-    align-items: center;
+  margin: 1vh;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
 }
 
 .capture_button {
-
-    display: flex;
-    margin: 3vh;
-    padding: auto;
-    justify-content: space-around;
-
+  display: flex;
+  margin: 3vh;
+  padding: auto;
+  justify-content: space-around;
 }
 
 .detection_mode {
-
-    font-size: x-large;
+  font-size: x-large;
 }
 
 .instruction {
-    font-size: large;
-    text-align: center;
+  font-size: large;
+  text-align: center;
 }
 
 .response_msg {
-    font-size: small;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-style: inset;
-    border-width: 3px;
-    border-radius: 8px;
-    padding: 1vh;
+  font-size: 1.5vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-style: inset;
+  border-color: rgb(82, 180, 212);
+  border-width: 0.5vh;
+  border-radius: 2vh;
+  padding: 1vh;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  /* border: 0.5vh inset rgb(82, 180, 212); */
+  border-radius: 1vh;
+  height: 4vh;
 }

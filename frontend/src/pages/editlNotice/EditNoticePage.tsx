@@ -29,18 +29,19 @@ export default function EditNoticePage() {
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
-      class_name: "",
-      content: "",
-      grade: "",
+      topic: "",
+      class_name: "A",
+      content: "good day",
+      grade: "1",
       notice_choice: [
         {
           option: "A",
-          content: "",
+          content: "123",
           price: 0,
           defaultChecked: true,
         },
       ],
-      topic: "",
+      // topic: "Hello",
     },
     reValidateMode: "onChange",
   });
@@ -118,11 +119,14 @@ export default function EditNoticePage() {
   return (
     <form onSubmit={handleSubmit((d: FormData) => handleSubmita(d))}>
       <div id={styles.titleAndTextArea}>
-        <div id={styles.titleArea}>
-          <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-            <TextField id={styles.titleInput} label="Notice Topic" required />
+        <label id={styles.titleArea}>
+          <Box
+            sx={{ display: "flex", alignItems: "flex-end" }}
+            {...register("topic")}
+          >
+            <textarea id={styles.titleInput} {...register("topic")} required />
           </Box>
-        </div>
+        </label>
         <label id={styles.textArea}>
           <textarea
             placeholder="Notice content"

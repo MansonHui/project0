@@ -45,11 +45,12 @@ const AIAttendances: React.FC = () => {
         >
           Auto Scan for Attendance
         </button> */}
-      </header>
-
-      <section>
+        <section>
         {show === "manual" ? <ManualCapture /> : <WebcamCapture />}
       </section>
+      </header>
+
+      
     </div>
   );
 };

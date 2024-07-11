@@ -79,7 +79,16 @@ const RegisteStudentFrom = () => {
           >
             Register
           </Button>
+
+          <Button
+            onClick={handleNavigation}
+            variant="contained"
+            color="success"
+          >
+            Take profile picture
+          </Button>
         </div>
+
         <div id={styles.registeStudentInfo}>
           <Box>
             <input
@@ -141,6 +150,7 @@ const RegisteStudentFrom = () => {
               required
             />
           </Box>
+
           <p />
         </div>
       </form>

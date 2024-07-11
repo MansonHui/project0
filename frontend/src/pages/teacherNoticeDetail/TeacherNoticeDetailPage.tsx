@@ -3,8 +3,6 @@ import { useGetTeacherNoticeDetail } from "../../api/teacherPageAPI";
 import styles from "./TeacherNoticeDetailPage.module.css"
 import { useQueryClient } from "@tanstack/react-query";
 
-
-
 export default function TeacherNoticeDetailPage(){
     let location = useLocation();
     const navigate = useNavigate();

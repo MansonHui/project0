@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { LoginAuthGuard } from "./pages/login/loginAuthGuard";
 import { useAuth } from "./hooks/useAuth";
 import { useEffect } from "react";
@@ -22,27 +22,17 @@ import WebcamCapture from "./components/capture/ManualCapture";
 function App() {
   const { authToken } = useAuth();
   const navigate = useNavigate();
-  // change pagename
-  
-  const location = useLocation();
-
-  
-
-
 
   useEffect(() => {
     if (authToken) navigate("/HomePage");
     else navigate("/");
   }, [authToken]);
 
-  
-
   return (
     <Routes>
       <Route path="/" element={<Login />} />
       <Route element={<LoginAuthGuard authToken={authToken} />}>
         <Route path="/HomePage" element={<HomePage />} />
-        {/* <Route path="/HomePage" element={<RegisterPage />} /> */}
         <Route path="/Message" element={<MessagePage />}>
           <Route path="/Message" element={<NoticePage />} />
           {/* <Route path="MessageAll" element={<MessageAllPage />}>

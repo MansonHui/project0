@@ -8,5 +8,19 @@ export const teacherNoticeRouter = Router();
 const teacherNoticeService = new TeacherNoticeService(knex);
 let teachernoticeController = new TeacherNoticeController(teacherNoticeService);
 
-teacherNoticeRouter.get("/getTeacherNotice",checkToken,teachernoticeController.getTeacherNotices)
-teacherNoticeRouter.get("/getTeacherNoticeDetail",checkToken,teachernoticeController.getTeacherNoticeDetails)
+teacherNoticeRouter.get(
+  "/getTeacherNotice",
+  checkToken,
+  teachernoticeController.getTeacherNotices
+);
+teacherNoticeRouter.get(
+  "/getTeacherNoticeDetail",
+  checkToken,
+  teachernoticeController.getTeacherNoticeDetails
+);
+
+// teacherNoticeRouter.post(
+//   "/getNoticeByNoticeID",
+//   checkToken,
+//   teachernoticeController.getNoticeByNoticeID
+// );
