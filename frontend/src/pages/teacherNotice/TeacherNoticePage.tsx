@@ -1,9 +1,14 @@
 import { useNavigate } from "react-router-dom";
-import { useGetTeacherNotice } from "../../api/teacherPageAPI";
+import {
+  // useGetNoticeByNoticeID,
+  useGetTeacherNotice,
+} from "../../api/teacherPageAPI";
 import styles from "./TeacherNoticePage.module.css";
 
 export default function TeacherNoticePage() {
   const allTeacherNotice = useGetTeacherNotice();
+  // const useNoticeByNoticeID = useGetNoticeByNoticeID();
+
   const navigate = useNavigate();
 
   return (
@@ -35,11 +40,11 @@ export default function TeacherNoticePage() {
               <p id={styles.topicCreated}>
                 <p className={styles.PLayout}>Created:</p>
                 <p className={styles.PLayout}>
-                    {/* {entry.created_at} */}
-                    2024-06-10
-                    <br/>
-                    14:40
-                    </p>
+                  {entry.created_at}
+                  {/* 2024-06-10 */}
+                  <br />
+                  {/* 14:40 */}
+                </p>
               </p>
               <button id={styles.topicShowContect}>Show Contect</button>
             </div>
