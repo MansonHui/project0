@@ -1,11 +1,11 @@
 export const studentData = [
   {
     studentName: "StudentA",
-    image: "http://localhost:8080/images/6555ef7c5a2aa623d7d4d2c00.jpeg",
+    image: "http://localhost:8080/images/fungzinner20240711145833.jpg",
   },
 
   {
     studentName: "StudentB",
-    image: "http://localhost:8080/images/ac42f2c69c5abf7fe91b46600.jpeg",
+    image: "http://localhost:8080/images/ipadams20240710104753.jpg",
   },
 ];

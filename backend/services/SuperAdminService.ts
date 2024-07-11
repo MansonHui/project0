@@ -63,7 +63,7 @@ export default class SuperAdminService {
     )[0];
   }
 
-  async getAllStudentData(abbrName: string) {
+  async getAllStudentData(school_id: number) {
     let result = await this.knex
       .select("first_name", "last_name", "image")
       .from("students")
@@ -95,12 +95,11 @@ export default class SuperAdminService {
       .select("admin_name")
 
       .join("schools", "students.school_id", "=", "schools.id")
-      .select("schools.abbr_name")
 
       .join("parents", "parents.id", "=", "students.parent_id")
       .select("username")
 
-      .where(`schools.abbr_name`, abbrName);
+      .where("students.school_id", school_id);
 
     return result;
   }

@@ -178,16 +178,18 @@ export default function EditNoticePage() {
             <input
               id={styles.gradeInput}
               type="number"
-              {...register("grade")}
+              {...register("grade", {
+                required: "Grade is required",
+                min: 1,
+                max: 6,
+              })}
               placeholder="grade"
               required
               onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
                 if (
                   event.currentTarget.value.length > 0 &&
                   event.key !== "Backspace" &&
-                  event.key !== "Delete" &&
-                  parseInt(event.currentTarget.value) < 1 &&
-                  parseInt(event.currentTarget.value) > 6
+                  event.key !== "Delete"
                 ) {
                   event.preventDefault();
                   alert("Please enter number between 1-6.");

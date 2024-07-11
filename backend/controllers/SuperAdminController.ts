@@ -157,13 +157,11 @@ export default class SuperAdminController {
   };
 
   getAllStudentData = async (req: Request, res: Response) => {
-    let SchoolAbbr = await getSchoolAbbr(req.body.userRoleEmail);
+    let school_id = req.body.school_id;
+    console.log("school_id", school_id);
 
-    console.log("SchoolAbbr", SchoolAbbr);
-    let studentData = await this.superAdminService.getAllStudentData(
-      SchoolAbbr!
-    );
-    console.log("req.body.userRoleEmail", req.body.userRoleEmail);
+    let studentData = await this.superAdminService.getAllStudentData(school_id);
+    console.log("studentData", studentData);
     res.json(studentData);
   };
 
