@@ -12,8 +12,17 @@ import CreateIcon from "@mui/icons-material/Create";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Navbar from "../navbar/Navbar";
 import styles from "./Header.module.css";
+import EmailIcon from "@mui/icons-material/Email";
+import HomeSharpIcon from "@mui/icons-material/HomeSharp";
+import EditIcon from "@mui/icons-material/Edit";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
+import FaceRetouchingNaturalIcon from "@mui/icons-material/FaceRetouchingNatural";
+import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
+import DoneAllIcon from "@mui/icons-material/DoneAll";
+import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import { Drawer, List, ListItem, ListItemText } from "@mui/material";
 import { useLocation } from "react-router-dom";
+
 
 export default function MenuHeaderBar() {
   let [isHide, setIsHide] = React.useState(true);
@@ -41,8 +50,58 @@ export default function MenuHeaderBar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
- let currentLocation = useLocation()
- console.log("currentLocation",currentLocation)
+
+ let location = useLocation()
+ console.log("currentLocation",location)
+
+ let pageName;
+ switch (location.pathname){
+//MainPage
+  case "/HomePage":
+    pageName = <><HomeSharpIcon />Home</>;
+    break;
+  case "/Message":
+    pageName = <><EmailIcon />Instant Messaging</>;
+    break;
+  case "/EditNotice":
+    pageName = <><EditIcon />Edit Notice</>;
+    break;
+  case "/AI":
+    pageName = <><FaceRetouchingNaturalIcon />AI Attendances</>;
+    break;
+  case "/Register":
+    pageName = <><HowToRegIcon />Register</>;
+    break;
+  case "/TeacherNotice":
+    pageName = <><MarkEmailReadIcon />TeacherNotice</>;
+    break;
+  case "/TeacherStudentAttendance":
+    pageName = <><DoneAllIcon />Attendance</>;
+    break;
+  case "/ParentTopUpBalance":
+    pageName = <><MonetizationOnIcon />TopUp Balance</>;
+    break;
+
+// Sub Page
+  case "/Message/Notices":
+    pageName = <><EmailIcon />Instant Messaging</>;
+    break;
+  case "/Message/NoticeDetail":
+    pageName = <><EmailIcon />Instant Messaging</>;
+    break;
+  case "/Message/Attendance":
+    pageName = <><EmailIcon />Instant Messaging</>;
+    break;
+  case "/TeacherNoticeDetail":
+    pageName = <><MarkEmailReadIcon />TeacherNotice</>;
+    break;
+
+
+
+
+    default:
+      pageName = location.pathname
+ }
 
   return (
     <>
@@ -75,7 +134,7 @@ export default function MenuHeaderBar() {
 
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 
-          {currentLocation.pathname}
+          {pageName}
 
             </Typography>
             {auth && (
