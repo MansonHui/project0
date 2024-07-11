@@ -13,14 +13,14 @@ import TextField from "@mui/material/TextField";
 
 export default function Login() {
   // super admin AC and password
-  // const [email, setEmail] = useState("super@stpeter.edu.hk");
-  // const [password, setPassword] = useState("stpeter");
+  const [email, setEmail] = useState("super@stpeter.edu.hk");
+  const [password, setPassword] = useState("stpeter");
   // teacher AC and password
   // const [email, setEmail] = useState("choiping@stpeter.edu.hk");
   // const [password, setPassword] = useState("0000");
   // parent AC and password
-  const [email, setEmail] = useState("chantaiming@gmail.com");
-  const [password, setPassword] = useState("1234");
+  // const [email, setEmail] = useState("chantaiming@gmail.com");
+  // const [password, setPassword] = useState("1234");
 
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -71,6 +71,14 @@ export default function Login() {
     }
   };
 
+  const removeToken = () => {
+    // Implement your token removal logic here
+    // For example, you could remove the token from local storage or a cookie
+    localStorage.removeItem("loginToken");
+    handleClose();
+    window.location.reload();
+  };
+
   const loginForm = (
     <form onSubmit={handleSubmit} id={styles.loginCore}>
       <div id={styles.loginInputBar}>
@@ -104,6 +112,7 @@ export default function Login() {
       >
         SEND
       </Button>
+      <Button onClick={removeToken}>Logout</Button>
       {error && <div>{error}</div>}
     </form>
   );
@@ -112,6 +121,7 @@ export default function Login() {
   const handleChange = () => {
     setChecked((prev) => !prev);
   };
+  
 
   return (
     <div id={styles.loginBody}>
@@ -145,3 +155,7 @@ export default function Login() {
     </div>
   );
 }
+function handleClose() {
+  throw new Error("Function not implemented.");
+}
+

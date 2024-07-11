@@ -8,7 +8,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import LogoutIcon from '@mui/icons-material/Logout';
+import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Navbar from "../navbar/Navbar";
 import styles from "./Header.module.css";
@@ -229,7 +229,6 @@ export default function MenuHeaderBar() {
                   onClose={handleClose}
                   disableScrollLock={true}
                 >
-                  
                   <MenuItem onClick={removeToken}>
                     <LogoutIcon />
                     Logout
