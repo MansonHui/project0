@@ -8,7 +8,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import CreateIcon from "@mui/icons-material/Create";
+import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from "@mui/icons-material/Settings";
 import Navbar from "../navbar/Navbar";
 import styles from "./Header.module.css";
@@ -22,7 +22,7 @@ import DoneAllIcon from "@mui/icons-material/DoneAll";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import { Drawer, List, ListItem, ListItemText } from "@mui/material";
 import { useLocation } from "react-router-dom";
-
+import { useState } from "react";
 
 export default function MenuHeaderBar() {
   let [isHide, setIsHide] = React.useState(true);
@@ -38,6 +38,7 @@ export default function MenuHeaderBar() {
 
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  // const [loginToken, setLoginToken] = useState<string | null>(null);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAuth(event.target.checked);
@@ -51,57 +52,122 @@ export default function MenuHeaderBar() {
     setAnchorEl(null);
   };
 
- let location = useLocation()
- console.log("currentLocation",location)
+  let location = useLocation();
+  console.log("currentLocation", location);
 
- let pageName;
- switch (location.pathname){
-//MainPage
-  case "/HomePage":
-    pageName = <><HomeSharpIcon />Home</>;
-    break;
-  case "/Message":
-    pageName = <><EmailIcon />Instant Messaging</>;
-    break;
-  case "/EditNotice":
-    pageName = <><EditIcon />Edit Notice</>;
-    break;
-  case "/AI":
-    pageName = <><FaceRetouchingNaturalIcon />AI Attendances</>;
-    break;
-  case "/Register":
-    pageName = <><HowToRegIcon />Register</>;
-    break;
-  case "/TeacherNotice":
-    pageName = <><MarkEmailReadIcon />TeacherNotice</>;
-    break;
-  case "/TeacherStudentAttendance":
-    pageName = <><DoneAllIcon />Attendance</>;
-    break;
-  case "/ParentTopUpBalance":
-    pageName = <><MonetizationOnIcon />TopUp Balance</>;
-    break;
+  let pageName;
+  switch (location.pathname) {
+    //MainPage
+    case "/HomePage":
+      pageName = (
+        <>
+          <HomeSharpIcon />
+          Home
+        </>
+      );
+      break;
+    case "/Message":
+      pageName = (
+        <>
+          <EmailIcon />
+          Instant Messaging
+        </>
+      );
+      break;
+    case "/EditNotice":
+      pageName = (
+        <>
+          <EditIcon />
+          Edit Notice
+        </>
+      );
+      break;
+    case "/AI":
+      pageName = (
+        <>
+          <FaceRetouchingNaturalIcon />
+          AI Attendances
+        </>
+      );
+      break;
+    case "/Register":
+      pageName = (
+        <>
+          <HowToRegIcon />
+          Register
+        </>
+      );
+      break;
+    case "/TeacherNotice":
+      pageName = (
+        <>
+          <MarkEmailReadIcon />
+          TeacherNotice
+        </>
+      );
+      break;
+    case "/TeacherStudentAttendance":
+      pageName = (
+        <>
+          <DoneAllIcon />
+          Attendance
+        </>
+      );
+      break;
+    case "/ParentTopUpBalance":
+      pageName = (
+        <>
+          <MonetizationOnIcon />
+          TopUp Balance
+        </>
+      );
+      break;
 
-// Sub Page
-  case "/Message/Notices":
-    pageName = <><EmailIcon />Instant Messaging</>;
-    break;
-  case "/Message/NoticeDetail":
-    pageName = <><EmailIcon />Instant Messaging</>;
-    break;
-  case "/Message/Attendance":
-    pageName = <><EmailIcon />Instant Messaging</>;
-    break;
-  case "/TeacherNoticeDetail":
-    pageName = <><MarkEmailReadIcon />TeacherNotice</>;
-    break;
-
-
-
+    // Sub Page
+    case "/Message/Notices":
+      pageName = (
+        <>
+          <EmailIcon />
+          Instant Messaging
+        </>
+      );
+      break;
+    case "/Message/NoticeDetail":
+      pageName = (
+        <>
+          <EmailIcon />
+          Instant Messaging
+        </>
+      );
+      break;
+    case "/Message/Attendance":
+      pageName = (
+        <>
+          <EmailIcon />
+          Instant Messaging
+        </>
+      );
+      break;
+    case "/TeacherNoticeDetail":
+      pageName = (
+        <>
+          <MarkEmailReadIcon />
+          TeacherNotice
+        </>
+      );
+      break;
 
     default:
-      pageName = location.pathname
- }
+      pageName = location.pathname;
+  }
+
+  const removeToken = () => {
+    // Implement your token removal logic here
+    // For example, you could remove the token from local storage or a cookie
+    localStorage.removeItem("loginToken");
+    handleClose();
+    window.location.reload();
+  };
 
   return (
     <>
@@ -133,9 +199,7 @@ export default function MenuHeaderBar() {
             </IconButton>
 
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-
-          {pageName}
-
+              {pageName}
             </Typography>
             {auth && (
               <div id={styles.userACButton}>
@@ -165,13 +229,10 @@ export default function MenuHeaderBar() {
                   onClose={handleClose}
                   disableScrollLock={true}
                 >
-                  <MenuItem onClick={handleClose}>
-                    <CreateIcon />
-                    My Account
-                  </MenuItem>
-                  <MenuItem onClick={handleClose}>
-                    <SettingsIcon />
-                    Setting
+                  
+                  <MenuItem onClick={removeToken}>
+                    <LogoutIcon />
+                    Logout
                   </MenuItem>
                 </Menu>
               </div>
