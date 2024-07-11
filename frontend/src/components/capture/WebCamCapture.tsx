@@ -222,7 +222,9 @@ const WebcamCapture: React.FC = () => {
   return (
     <div className="camera_area">
       <h1>Auto Capture</h1>
-      <div className={`webcam-frame ${isImageClear ? "clear" : "unclear"}`}>
+      <div
+        className={`webcam-frame ${isImageClear ? "clear" : "unclear"}`}
+      >
         <Webcam
           audio={false}
           ref={webcamRef}
@@ -230,6 +232,7 @@ const WebcamCapture: React.FC = () => {
           width={IMG_SIZE}
           height={IMG_SIZE}
           videoConstraints={videoConstraints}
+          id="webcam"
         />
       </div>
       {capturedImage && (

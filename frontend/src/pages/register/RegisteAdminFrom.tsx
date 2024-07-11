@@ -29,21 +29,9 @@ const RegisteAdminFrom: React.FC = () => {
   };
 
   const registeTeacher = (
-    <form onSubmit={handleSubmit} id={styles.RegisteAdminFrom}>
-      <div id={styles.registeAdminIcon}></div>
-      <div id={styles.registeAdminInfo}>
-        <Box>
-          <TextField
-            id={styles.registeAdimnInput}
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="email"
-            required
-          />
-        </Box>
-        <p />
-
+    <form onSubmit={handleSubmit} id={styles.registeAdminFrom}>
+      <div id={styles.registeAdminIconAndButton}>
+        <div id={styles.registeAdminIcon}></div>
         <Button
           id={styles.registeAdminButton}
           type="submit"
@@ -52,6 +40,18 @@ const RegisteAdminFrom: React.FC = () => {
         >
           Register
         </Button>
+      </div>
+      <div id={styles.registeAdminInfo}>
+        <Box>
+          <input
+            id={styles.registeAdimnInput}
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="email"
+            required
+          />
+        </Box>
       </div>
     </form>
   );

@@ -14,7 +14,7 @@ export default function TeacherStudentAttendance() {
             <div>
               <div className={styles.InOutClassContainer}>
                 <div className={styles.InOutClassGrandAndName}>
-                  <div>Name:CHAN TAI MAN</div>
+                  {/* <div>Name:CHAN TAI MAN</div> */}
                   <div>
                     Class: {entry.class_grade}
                     {entry.class_name}{" "}
@@ -30,9 +30,9 @@ export default function TeacherStudentAttendance() {
                   <div className={styles.charmtickdouble}></div>Check-In
                 </div>
                 <div className={styles.rightContainer}>
-                  {/* {entry.total_in} */}
-                  <div>2024-07-10 </div>
-                  <div>08:00 </div>
+                  {entry.total_in}
+                  {/* <div>2024-07-10 </div>
+                  <div>08:00 </div> */}
                 </div>
               </div>
               <div className={styles.OutContainer}>
@@ -41,9 +41,9 @@ export default function TeacherStudentAttendance() {
                   Check-Out
                 </div>
                 <div className={styles.rightContainer}>
-                  {/* {entry.total_out} */}
-                  <div>2024-07-10 </div>
-                  <div>15:30 </div>
+                  {entry.total_out}
+                  {/* <div>2024-07-10 </div>
+                  <div>15:30 </div> */}
                 </div>
               </div>
             </div>

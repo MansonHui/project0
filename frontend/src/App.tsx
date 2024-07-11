@@ -9,13 +9,8 @@ import AIAttendances from "./pages/scan/AIAttendances";
 import MessagePage from "./pages/message/MessagePage";
 import NoticePage from "./pages/notice/NoticePage";
 import AttendancePage from "./pages/attendance/AttendancePage";
-
-import MessageAllPage from "./pages/messageAll/MessageAllPage";
-import ParentPage from "./pages/parent/ParentPage";
-import Textarea from "./components/textarea/Textarea";
 import TeacherNoticePage from "./pages/teacherNotice/TeacherNoticePage";
-
-import RegisterPage from "./pages/register/registerPage";
+import RegisterPage from "./pages/register/RegisterPage";
 import SuperAdminPage from "./pages/superAdmin/superAdminPage";
 import NoticeDetailPage from "./pages/noticeDetail/NoticeDetailPage";
 import EditNoticePage from "./pages/editlNotice/EditNoticePage";
@@ -40,11 +35,19 @@ function App() {
         <Route path="/HomePage" element={<HomePage />} />
         {/* <Route path="/HomePage" element={<RegisterPage />} /> */}
         <Route path="/Message" element={<MessagePage />}>
-          <Route path="/Message" element={<MessageAllPage />} />
-          <Route path="MessageAll" element={<MessageAllPage />} />
-          <Route path="Notices" element={<NoticePage />} />
-          <Route path="NoticeDetail" element={<NoticeDetailPage />} />
-          <Route path="Attendance" element={<AttendancePage />} />
+          <Route path="/Message" element={<NoticePage />} />
+          {/* <Route path="MessageAll" element={<MessageAllPage />}>
+            {" "}
+          </Route> */}
+          <Route path="Notices" element={<NoticePage />}>
+            {" "}
+          </Route>
+          <Route path="NoticeDetail" element={<NoticeDetailPage />}>
+            {" "}
+          </Route>
+          <Route path="Attendance" element={<AttendancePage />}>
+            {" "}
+          </Route>
         </Route>
 
         <Route path="/EditNotice" element={<EditNoticePage />} />

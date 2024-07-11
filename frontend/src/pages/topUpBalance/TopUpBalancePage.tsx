@@ -3,7 +3,9 @@ import { useMutation } from "@tanstack/react-query";
 import { GetTopUpBalanceData } from "../../api/topUpBalancePageAPI";
 import { updateTopUpBalance } from "../../api/topUpBalancePageAPI";
 import { useQueryClient } from "@tanstack/react-query";
-
+import { FormGroup, TextField, Button, Box } from "@mui/material";
+import styles from "./TopUpBalancePage.module.css";
+import AddIcon from "@mui/icons-material/Add";
 
 
 export default function TopUpBalancePage() {
@@ -31,21 +33,53 @@ export default function TopUpBalancePage() {
 });
 
   return (
-    <div>
+    <div className={styles.Container}>
       {topUpBalance && topUpBalance.map((entry) => (
         <div key={entry.username}>
-          <div>User Name: {entry.username}</div>
-          <div>Email: {entry.email}</div>
-          <div>Balance: {entry.balance}</div>
+          <div className={styles.Message}>
+
+          <div className={styles.Message_type}>
+              <div id={styles.iconAndName}>User Name: {""} </div>
+              <div>{entry.username}</div>
+          </div>
+
+          <div className={styles.Message_type}>
+              <div id={styles.iconAndName}>Email: {""} </div>
+              <div>{entry.email}</div>
+          </div>
+
+          <div className={styles.Message_type}>
+                <div id={styles.iconAndName}>Balance HK$:{""} </div>
+                <div>{entry.balance}</div>
+          </div>
+          
+          
+          
+          <div className={styles.addamount}>
           <input
+             id={styles.amountArea}
+            placeholder="$"
             type="number"
             value={balanceIncrement}
             onChange={(e) => setBalanceIncrement(e.target.value)}
           />
-          <button onClick={()=> {handleBalanceUpdate.mutate({balanceIncrement: Number(balanceIncrement)});
-          setBalanceIncrement("");
-        }}
-          >TopUp Balance </button>
+          </div>
+
+          <div>
+            <nav id={styles.navbarButton}>
+            <Button 
+                id={styles.topUpButton}
+                variant="contained"
+                startIcon={<AddIcon />}
+                onClick={()=> {handleBalanceUpdate.mutate({balanceIncrement: Number(balanceIncrement)});
+                setBalanceIncrement("");
+              }}
+            >TopUp </Button>
+    
+            </nav>
+          </div>
+
+          </div>
 
 
           {/* <button onClick={handleBalanceUpdate}>Update Balance</button>

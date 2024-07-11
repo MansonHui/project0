@@ -69,70 +69,14 @@ const RegisteStudentFrom = () => {
   const registeStudent = (
     <div>
       <form onSubmit={handleSubmit} id={styles.RegisteStudentFrom}>
-        <div id={styles.registeStudentIcon}></div>
-        <div id={styles.registeStudentInfo}>
-          <Box>
-            <TextField
-              className={styles.registeStudentInput}
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="email"
-              required
-            />
-          </Box>
-          <Box>
-            <TextField
-              className={styles.registeStudentInput}
-              type="first_name"
-              value={first_name}
-              onChange={(e) => setFirst_name(e.target.value)}
-              placeholder="first_name"
-              required
-            />
-          </Box>
-          <Box>
-            <TextField
-              className={styles.registeStudentInput}
-              type="last_name"
-              value={last_name}
-              onChange={(e) => setLast_name(e.target.value)}
-              placeholder="last_name"
-              required
-            />
-          </Box>
-          <Box>
-            <TextField
-              className={styles.registeStudentInput}
-              type="gender"
-              value={gender}
-              onChange={(e) => setGender(e.target.value)}
-              placeholder="gender"
-              required
-            />
-          </Box>
-          <Box>
-            <TextField
-              className={styles.registeStudentInput}
-              type="HKID_number"
-              value={HKID_number}
-              onChange={(e) => setHKID_number(e.target.value)}
-              placeholder="HKID_number"
-              required
-            />
-          </Box>
-          <Box>
-            <TextField
-              className={styles.registeStudentInput}
-              type="birthday"
-              value={birthday}
-              onChange={(e) => setBirthday(e.target.value)}
-              placeholder="birthday"
-              required
-            />
-          </Box>
-          <p />
-          <Button type="submit" variant="contained" color="success">
+        <div id={styles.registeStudentIconAndButton}>
+          <div id={styles.registeStudentIcon}></div>
+          <Button
+            id={styles.registeStudentButton}
+            type="submit"
+            variant="contained"
+            color="success"
+          >
             Register
           </Button>
 
@@ -143,6 +87,71 @@ const RegisteStudentFrom = () => {
           >
             Take profile picture
           </Button>
+        </div>
+
+        <div id={styles.registeStudentInfo}>
+          <Box>
+            <input
+              className={styles.registeStudentInput}
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="email"
+              required
+            />
+          </Box>
+          <Box>
+            <input
+              className={styles.registeStudentInput}
+              type="first_name"
+              value={first_name}
+              onChange={(e) => setFirst_name(e.target.value)}
+              placeholder="first_name"
+              required
+            />
+          </Box>
+          <Box>
+            <input
+              className={styles.registeStudentInput}
+              type="last_name"
+              value={last_name}
+              onChange={(e) => setLast_name(e.target.value)}
+              placeholder="last_name"
+              required
+            />
+          </Box>
+          <Box>
+            <input
+              className={styles.registeStudentInput}
+              type="gender"
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
+              placeholder="gender"
+              required
+            />
+          </Box>
+          <Box>
+            <input
+              className={styles.registeStudentInput}
+              type="HKID_number"
+              value={HKID_number}
+              onChange={(e) => setHKID_number(e.target.value)}
+              placeholder="HKID_number"
+              required
+            />
+          </Box>
+          <Box>
+            <input
+              className={styles.registeStudentInput}
+              type="birthday"
+              value={birthday}
+              onChange={(e) => setBirthday(e.target.value)}
+              placeholder="birthday"
+              required
+            />
+          </Box>
+
+          <p />
         </div>
       </form>
     </div>

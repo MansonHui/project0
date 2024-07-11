@@ -22,12 +22,17 @@ export default class TeacherNoticeController {
     let getTeacherNoticeDetail =
       await this.teacherNoticeService.getTeacherNoticeDetail(
         req.body.userRole,
-        req.body.userRoleId
+        req.body.userRoleId,
+        req.body.school_id,
+        parseInt(req.query.noticeId! as string)
       );
 
-    res
-      .status(200)
-      .json({ msg: "from teacher Notices", getTeacherNoticeDetail });
+    console.log("check getTeacherDetail", getTeacherNoticeDetail);
+
+    res.status(200).json({
+      msg: "from teacher Notices",
+      getTeacherNoticeDetail: getTeacherNoticeDetail,
+    });
   };
 
   // getNoticeByNoticeID = async (req: Request, res: Response) => {

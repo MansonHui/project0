@@ -1,5 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 
+type StudentId = number;
+type NoticeChoiceId = number;
+type StudentId2 = number;
+type NoticeChoiceId2 = number;
+type StudentName = string;
+type ParentId = number;
+type StudentNum = number;
+type NoticeChoiceOption = string;
+type NoticeChoiceContent = string;
+
 export interface getTeacherNoticeType {
   id: number;
   admin_name: string;
@@ -13,22 +23,24 @@ export interface getTeacherNoticeType {
 }
 
 export interface getTeacherNoticeDetailType {
-  notice_student_relation_id: number;
   notice_id: number;
   topic: string;
   content: string;
-  student_id: number;
-  notice_choice_id: number;
   class_id: number;
   grade: string;
   class_name: string;
-  first_name: string;
-  last_name: string;
-  parent_id: number;
-  student_number: number;
   admin_name: string;
+  student_ids: StudentId[];
+  notice_choice_ids: NoticeChoiceId[];
+  student_ids_2: StudentId2[];
+  notice_choice_id_2: NoticeChoiceId2[];
   null_count: string;
   not_null_count: string;
+  student_names: StudentName[];
+  parent_ids: ParentId[];
+  student_numbers: StudentNum[];
+  notice_choice_options: NoticeChoiceOption[];
+  notice_choice_contents: NoticeChoiceContent[];
 }
 
 export function useGetTeacherNotice() {
@@ -56,12 +68,12 @@ export function useGetTeacherNotice() {
   return data;
 }
 
-export function useGetTeacherNoticeDetail() {
+export function useGetTeacherNoticeDetail(noticeId: number) {
   const { isLoading, error, data, isFetching } = useQuery({
     queryKey: ["allTeacherNoticeDetail"],
     queryFn: async () => {
       let res = await fetch(
-        `${process.env.REACT_APP_API_ENDPOINT}/teacherNotice/getTeacherNoticeDetail`,
+        `${process.env.REACT_APP_API_ENDPOINT}/teacherNotice/getTeacherNoticeDetail?noticeId=${noticeId}`,
         {
           method: "GET",
           headers: {
