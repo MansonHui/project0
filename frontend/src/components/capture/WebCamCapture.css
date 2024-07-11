@@ -4,6 +4,7 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
+
 }
 
 .response_msg {
@@ -15,4 +16,8 @@
     border-width: 3px;
     border-radius: 8px;
     padding: 1vh;
+}
+
+#webcam{
+size: 100px;
 }
