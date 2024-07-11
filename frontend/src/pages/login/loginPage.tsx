@@ -54,7 +54,7 @@ export default function Login() {
 
         console.log("loginedRole", loginedRole);
 
-        localStorage.setItem("loginRoleDetail", JSON.stringify(loginedRole));
+        // localStorage.setItem("loginRoleDetail", JSON.stringify(loginedRole));
 
         login(data.token);
       } else {
