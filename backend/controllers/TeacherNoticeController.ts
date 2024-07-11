@@ -23,8 +23,8 @@ export default class TeacherNoticeController {
       await this.teacherNoticeService.getTeacherNoticeDetail(
         req.body.userRole,
         req.body.userRoleId,
+        parseInt(req.query.noticeId! as string),
         req.body.school_id,
-        parseInt(req.query.noticeId! as string)
       );
 
     console.log("check getTeacherDetail", getTeacherNoticeDetail);

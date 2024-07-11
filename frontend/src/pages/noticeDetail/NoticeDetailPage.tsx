@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
+import { Button } from "@mui/material";
 
 export default function NoticeDetailPage() {
   const navigate = useNavigate();
@@ -75,23 +76,20 @@ export default function NoticeDetailPage() {
       {NoticeDetail.map((entry) => (
         <div className={styles.Message}>
           <div className={styles.Message_type}>
-            <div>School: {entry.school_name}</div>
+            <div>School: {" "}</div>
+            <div>{entry.school_name}</div>
           </div>
           <div className={styles.Message_type}>
-            <div>
-              <div>
-                Class: {entry.grade}
-                {entry.class_name} StudentNuber: {entry.student_number}
-              </div>
-              <div>
-                Student: {entry.last_name} {entry.first_name}
-              </div>
-            </div>
+            <div>Class: {entry.grade}{entry.class_name}</div>
+            <div>Student:{entry.last_name} {entry.first_name}</div>
+
+            
           </div>
           <div className={styles.Message_Detail}>
             <div>
-              To: {entry.parent_username}
-              <p>{entry.topic}</p>
+              To: {entry.parent_username.charAt(0).toUpperCase() + entry.parent_username.slice(1)}{" "}
+              <p>Title: {" "}{" "}{entry.topic}</p>
+              <p>Content:</p>
               <p>{entry.notice_content}</p>
               <div className={styles.OptionContainer}>
                 <div className={styles.ChoicesContainer}>
@@ -160,21 +158,16 @@ export default function NoticeDetailPage() {
                     <div key={index}>${price}</div>
                   ))}
                 </div>
+                <div className={styles.createdAt}>Date:{new Date(entry.created_at).toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' })}</div>
               </div>
               {entry.notice_choice_id == null ? (
-                <button onClick={handleSubmit}>Submit</button>
+                <Button variant="contained" onClick={handleSubmit}>Submit</Button>
               ):<></>}
             </div>
-            <div className={styles.createdAt}>{entry.created_at}</div>
+            
           </div>
 
-          <button
-            onClick={() => {
-              navigate(-1);
-            }}
-          >
-            Go Back
-          </button>
+          
         </div>
       ))}
     </div>

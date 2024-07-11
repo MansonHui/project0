@@ -35,7 +35,7 @@ export interface getTeacherNoticeDetailType {
   student_ids_2: StudentId2[];
   notice_choice_id_2: NoticeChoiceId2[];
   null_count: string;
-  not_null_count: string;
+  notnull_count: string;
   student_names: StudentName[];
   parent_ids: ParentId[];
   student_numbers: StudentNum[];

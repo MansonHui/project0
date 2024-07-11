@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./TeacherStudentAttendancePage.module.css";
 import { useGetTeacherStudentAttendance } from "../../api/teacherStudentAttendancePageAPI";
+import { Button } from "@mui/material";
 
 export default function TeacherStudentAttendance() {
   const navigate = useNavigate();
@@ -52,13 +53,14 @@ export default function TeacherStudentAttendance() {
       </div>
       
 
-      <button
+      <Button
+        variant="contained"
         onClick={() => {
           navigate(-1);
         }}
       >
         Go Back
-      </button>
+      </Button>
     </div>
   );
 }
