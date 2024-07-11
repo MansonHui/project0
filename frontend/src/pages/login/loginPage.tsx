@@ -121,7 +121,6 @@ export default function Login() {
   const handleChange = () => {
     setChecked((prev) => !prev);
   };
-  
 
   return (
     <div id={styles.loginBody}>
@@ -158,4 +157,3 @@ export default function Login() {
 function handleClose() {
   throw new Error("Function not implemented.");
 }
-

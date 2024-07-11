@@ -164,7 +164,8 @@ export default function MenuHeaderBar() {
   const removeToken = () => {
     // Implement your token removal logic here
     // For example, you could remove the token from local storage or a cookie
-    localStorage.removeItem("loginToken");
+    localStorage.clear();
+
     handleClose();
     window.location.reload();
   };
