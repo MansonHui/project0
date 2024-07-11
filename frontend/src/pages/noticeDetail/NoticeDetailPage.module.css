@@ -1,46 +1,56 @@
 .Message{
-    margin: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    margin: 1vh;
+    border: 0.5vh solid #ccc;
+    border-radius: 1vh;
 
-    height: 730px;
-    width: 93%;
-    
-    
+    height: 60vh;
+    width: 80vw;
+    background-color: rgb(220, 228, 225);
+    color:#7a7676 ;
 }
 
 .Message_type{
-    margin: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-
+    font-size: 2vh;
+    background-color: aliceblue;
+    margin: 1vh;
+    border: 0.5vh solid #ccc;
+    border-radius: 1vh;
     height: 7%;
     width: 93%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .Message_Detail{
-    margin: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    font-size: 2vh;
+    background-color: aliceblue;
+    margin: 1vh;
+    border: 0.5vh solid #ccc;
+    border-radius: 1vh;
 
-    height: 80%;
-    width: 93%;
+    height: 42vh;
+    width: 74vw;
+    padding: 1vh;
 }
 
 .OptionContainer{
+    font-size: 2vh;
+    background-color: aliceblue;
+    margin: 1vh;
+    border: 0.5vh solid #ccc;
+    border-radius: 1vh;
     height: 40%;
     width: 93%;
-    margin: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
     display:flex;
-
 }
 
 .ChoicesContainer{
-    margin: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    font-size: 2vh;
+    background-color: aliceblue;
+    margin: 1vh;
+    border: 0.5vh solid #ccc;
+    border-radius: 1vh;
 
     height: 80%;
     width: 25%;
@@ -50,9 +60,11 @@
 }
 
 .ChoicesContentsContainer{
-    margin: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    font-size: 2vh;
+    background-color: aliceblue;
+    margin: 1vh;
+    border: 0.5vh solid #ccc;
+    border-radius: 1vh;
 
     height: 80%;
     width: 50%;
@@ -62,9 +74,11 @@
 }
 
 .ChoicesPricesContainer{
-    margin: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    font-size: 2vh;
+    background-color: aliceblue;
+    margin: 1vh;
+    border: 0.5vh solid #ccc;
+    border-radius: 1vh;
 
     height: 80%;
     width: 25%;
@@ -76,12 +90,15 @@
 
 .createdAt{
     
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    font-size: 2vh;
+    background-color: aliceblue;
+    margin: 1vh;
+    border: 0.5vh solid #ccc;
+    border-radius: 1vh;
 
     height: 3%;
-    width: 80%;
+    width: 18vw;
     position: absolute;
-    bottom: 3%;
-    left: 10%;
+    bottom: 17vh;
+    right: 10vw;
 }

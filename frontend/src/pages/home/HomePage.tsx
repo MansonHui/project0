@@ -11,7 +11,7 @@ export default function HomePage() {
     <div id={styles.homePage}>
       {allClass.map((entry) => (
         <div
-          onClick={() => navigate("../Message")}
+          // onClick={() => navigate("../Message")}
           className={styles.School_Container}
           key={entry.student_id}
         >

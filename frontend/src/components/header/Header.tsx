@@ -11,7 +11,7 @@ import Menu from "@mui/material/Menu";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Navbar from "../navbar/Navbar";
-import styles from "./Header.module.css";
+// import styles from "./Header.module.css";
 import EmailIcon from "@mui/icons-material/Email";
 import HomeSharpIcon from "@mui/icons-material/HomeSharp";
 import EditIcon from "@mui/icons-material/Edit";
@@ -62,7 +62,7 @@ export default function MenuHeaderBar() {
       pageName = (
         <>
           <HomeSharpIcon />
-          Home
+          Profile
         </>
       );
       break;
@@ -70,7 +70,7 @@ export default function MenuHeaderBar() {
       pageName = (
         <>
           <EmailIcon />
-          Instant Messaging
+          Check Notices & Attendances
         </>
       );
       break;
@@ -78,7 +78,7 @@ export default function MenuHeaderBar() {
       pageName = (
         <>
           <EditIcon />
-          Edit Notice
+          Create Notice
         </>
       );
       break;
@@ -94,7 +94,7 @@ export default function MenuHeaderBar() {
       pageName = (
         <>
           <HowToRegIcon />
-          Register
+          Register Users
         </>
       );
       break;
@@ -102,7 +102,7 @@ export default function MenuHeaderBar() {
       pageName = (
         <>
           <MarkEmailReadIcon />
-          TeacherNotice
+          Check Notices
         </>
       );
       break;
@@ -110,7 +110,7 @@ export default function MenuHeaderBar() {
       pageName = (
         <>
           <DoneAllIcon />
-          Attendance
+          Check Attendances
         </>
       );
       break;
@@ -128,7 +128,7 @@ export default function MenuHeaderBar() {
       pageName = (
         <>
           <EmailIcon />
-          Instant Messaging
+          Check Notices & Attendances
         </>
       );
       break;
@@ -136,7 +136,7 @@ export default function MenuHeaderBar() {
       pageName = (
         <>
           <EmailIcon />
-          Instant Messaging
+          Check Notices & Attendances
         </>
       );
       break;
@@ -144,7 +144,7 @@ export default function MenuHeaderBar() {
       pageName = (
         <>
           <EmailIcon />
-          Instant Messaging
+          Check Notices & Attendances
         </>
       );
       break;
@@ -174,9 +174,9 @@ export default function MenuHeaderBar() {
     <>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
-          <Toolbar className={styles.header}>
+          <Toolbar className="header">
             <IconButton
-              id={styles.navbarButton}
+              // id={styles.navbarButton}
               size="large"
               edge="start"
               color="inherit"
@@ -187,12 +187,12 @@ export default function MenuHeaderBar() {
                 anchor="left"
                 open={!isHide}
                 onClose={toggleNavbar}
-                id={styles.drawerPaper}
+                id="drawPaper"
                 // classes={{
                 //   paper: styles.drawerPaper,
                 // }}
               >
-                <List id={styles.list}>
+                <List id="list">
                   <Navbar />
                 </List>
               </Drawer>
@@ -203,7 +203,7 @@ export default function MenuHeaderBar() {
               {pageName}
             </Typography>
             {auth && (
-              <div id={styles.userACButton}>
+              <div>
                 <IconButton
                   size="large"
                   aria-label="account of current user"
