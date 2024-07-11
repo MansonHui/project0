@@ -33,7 +33,6 @@ function App() {
       <Route path="/" element={<Login />} />
       <Route element={<LoginAuthGuard authToken={authToken} />}>
         <Route path="/HomePage" element={<HomePage />} />
-        {/* <Route path="/HomePage" element={<RegisterPage />} /> */}
         <Route path="/Message" element={<MessagePage />}>
           <Route path="/Message" element={<NoticePage />} />
           {/* <Route path="MessageAll" element={<MessageAllPage />}>
