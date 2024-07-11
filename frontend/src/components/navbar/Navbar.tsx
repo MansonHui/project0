@@ -12,13 +12,17 @@ import { useNavigate } from "react-router-dom";
 export default function Navbar() {
   const navigate = useNavigate();
 
+
   return (
+    
+    
     // ------------ Navbar Logo Container ------------
     <div className={styles.navbar_container}>
       <div className={styles.navbar_logo_container}></div>
 
       {/* ------------ Navbar Function Container ------------ */}
       <div id={styles.navbarMenu}>
+      
         <div
           onClick={() => navigate("HomePage")}
           className={styles.navbarButton}

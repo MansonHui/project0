@@ -9,11 +9,17 @@ export default function TeacherNoticePage() {
   return (
     <div>
       <div className={styles.MainContainer}>
-        {allTeacherNotice.map((entry) => (
-          <div
-            onClick={() => navigate("../TeacherNoticeDetail")}
-            className={styles.Noitce}
-          >
+
+      {allTeacherNotice.map((entry) => (
+                <div onClick={()=> {navigate("../TeacherNoticeDetail",{
+                    state:{
+                        notice_id: entry.notice_id,
+                        type: "notice",
+                    }
+                }
+            )}} 
+            className={styles.Noitce}>
+            
             <div className={styles.Grade}>
               {" "}
               Notice: {entry.school_year} Grade: {entry.grade}
