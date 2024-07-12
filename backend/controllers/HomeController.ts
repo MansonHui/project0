@@ -12,7 +12,8 @@ export default class HomeController {
     let getAllClassInfo = await this.homeService.getALLClassInfo(
       req.body.userRole,
       req.body.userRoleId,
-      req.body.school_id
+      req.body.school_id,
+      req.body.userRoleName
     );
 
     console.log("hihih", getAllClassInfo);

@@ -9,9 +9,10 @@ export default class HomeSerive {
   async getALLClassInfo(
     userRole: string,
     userRoleId: number,
-    school_id: number
+    school_id: number,
+    userRoleName: string
   ) {
-    if (userRole === "admin") {
+    if (userRole === "admin" && userRoleName !== "super") {
       console.log("userRole111", userRole);
       let result = await this.knex
 
@@ -93,6 +94,51 @@ export default class HomeSerive {
 
         .innerJoin("parents", "students.parent_id", "parents.id")
 
+        .select("parents.username")
+
+        .innerJoin(
+          "class_school_year_relation as csy",
+          "csy.class_id",
+          "classes.id"
+        )
+        .innerJoin("school_years", "csy.school_year_id", "school_years.id")
+
+        .select("school_years.school_year")
+
+        .where(`${userRole}s.id`, userRoleId);
+      console.log("getme 1");
+      return result;
+    } else if (userRole === "admin" && userRoleName === "super") {
+      console.log("userRole", userRole);
+
+      let result = await this.knex
+
+        .select(
+          "students.first_name",
+          "students.last_name",
+          "students.gender",
+          "students.birthday",
+          "students.image"
+        )
+        .from("students")
+
+        .innerJoin(
+          "student_class_relation as scr",
+          "scr.student_id",
+          "students.id"
+        )
+        .select("scr.student_number")
+
+        .innerJoin("classes", "scr.class_id", "classes.id")
+        .select("classes.grade", "classes.class_name")
+
+        .innerJoin("schools", "schools.id", "students.school_id")
+        .select("schools.full_name", "schools.abbr_name")
+
+        .innerJoin("admins", "schools.id", "admins.school_id")
+        .select("admins.admin_name")
+
+        .innerJoin("parents", "students.parent_id", "parents.id")
         .select("parents.username")
 
         .innerJoin(
