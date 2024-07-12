@@ -22,7 +22,11 @@
 
 }
 
+/* #navbarMenu{} */
+
 .navbarButton {
+  z-index: 9999;
+  /* background-color: #1f0eb1 !important; */
   background-color: #f8f8f8;
   background-repeat: no-repeat;
   background-size: cover;
