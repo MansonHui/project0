@@ -29,14 +29,14 @@ export default function EditNoticePage() {
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
-      topic: "",
+      topic: "Welcome to Show Case",
       class_name: "A",
-      content: "good day",
+      content: "Please try our E.C Parent",
       grade: "1",
       notice_choice: [
         {
           option: "A",
-          content: "123",
+          content: "",
           price: 0,
           defaultChecked: true,
         },

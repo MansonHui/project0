@@ -25,7 +25,7 @@ export default function NoticePage() {
             <div id={styles.iconAndName}>
               School:{" "}
             </div>
-            <div>{entry.full_name}</div>
+            <div>{entry.full_name.charAt(0).toUpperCase() + entry.full_name.slice(1)}</div>
           </div>
 
           <div className={styles.Message_type}>
@@ -36,7 +36,7 @@ export default function NoticePage() {
             </div>
             <div id={styles.iconAndName}>
              
-              Student: {entry.last_name} {entry.first_name}
+              Student: {entry.last_name.charAt(0).toUpperCase() + entry.last_name.slice(1)} {entry.first_name}
             </div>
           </div>
 

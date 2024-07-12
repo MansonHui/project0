@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
 const RegisteAdminFrom: React.FC = () => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("chantaiming@gmail.com");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

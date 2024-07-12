@@ -5,8 +5,8 @@ import Box from "@mui/material/Box";
 import ConfirmParentAC from "./ConfirmParentAC";
 
 const RegisteParentFrom = () => {
-  const [email, setEmail] = useState("tsangmeimei@gmail.com");
-  const [password, setPassword] = useState("12345");
+  const [email, setEmail] = useState("chantaiming@gmail.com");
+  const [password, setPassword] = useState("5678");
   const [activeComponent, setActiveComponent] = useState<
     "ConfirmParentAC" | null
   >(null);
