@@ -132,7 +132,7 @@ export default function Login() {
               <label id={styles.privacyPolicy}>
                 <PopuploginPrivacyPolicy
                   id={styles.popupButton}
-                  buttonLabel="privacyPolicy"
+                  buttonLabel="Privacy Policy"
                   strategy="fixed"
                 />
               </label>

@@ -31,7 +31,8 @@ export default function TeacherStudentAttendance() {
                   <div className={styles.charmtickdouble}></div>Check-In
                 </div>
                 <div className={styles.rightContainer}>
-                  {entry.total_in}
+                
+                {entry.total_in}
                   {/* <div>2024-07-10 </div>
                   <div>08:00 </div> */}
                 </div>
@@ -42,7 +43,7 @@ export default function TeacherStudentAttendance() {
                   Check-Out
                 </div>
                 <div className={styles.rightContainer}>
-                  {entry.total_out}
+                {entry.total_out}
                   {/* <div>2024-07-10 </div>
                   <div>15:30 </div> */}
                 </div>
@@ -53,14 +54,14 @@ export default function TeacherStudentAttendance() {
       </div>
       
 
-      <Button
+      {/* <Button
         variant="contained"
         onClick={() => {
           navigate(-1);
         }}
       >
         Go Back
-      </Button>
+      </Button> */}
     </div>
   );
 }

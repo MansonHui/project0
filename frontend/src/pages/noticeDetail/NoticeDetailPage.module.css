@@ -30,7 +30,7 @@
     border-radius: 1vh;
 
     height: 42vh;
-    width: 74vw;
+    width: 70vw;
     padding: 1vh;
 }
 
@@ -71,6 +71,7 @@
 
     display:flex;
     flex-direction: column;
+    padding-left: 0.5vh;
 }
 
 .ChoicesPricesContainer{
@@ -85,6 +86,7 @@
 
     display:flex;
     flex-direction: column;
+    /* padding: 1vh; */
 }
 
 
@@ -97,8 +99,8 @@
     border-radius: 1vh;
 
     height: 3%;
-    width: 18vw;
+    width: 33vw;
     position: absolute;
     bottom: 17vh;
-    right: 10vw;
+    right: 7vw;
 }
