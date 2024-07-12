@@ -50,7 +50,7 @@ export default function Navbar() {
 
       {/* ------------ Navbar Function Container ------------ */}
       <div id={styles.navbarMenu}>
-        {(showAdminButton || showParentButton) && (
+        {
           <div
             onClick={() => navigate("HomePage")}
             className={styles.navbarButton}
@@ -59,10 +59,12 @@ export default function Navbar() {
               <HomeSharpIcon />
             </div>
             <h6 className={styles.navbar_function_text}>
-              {userRole === "admin" ? "Students' Profile" : "Children Profile"}
+              {userRole === "parents"
+                ? "Children Profile"
+                : "Students' Profile"}
             </h6>
           </div>
-        )}
+        }
 
         {showParentButton && (
           <div

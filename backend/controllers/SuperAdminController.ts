@@ -131,6 +131,8 @@ export default class SuperAdminController {
       birthday,
       gender,
       userRoleEmail,
+      grade,
+      className,
     } = req.body;
 
     let parentId = await this.superAdminService.getParentId(email as string);
@@ -148,7 +150,9 @@ export default class SuperAdminController {
       birthday,
       gender,
       parentId.id,
-      schoolId.id
+      schoolId.id,
+      grade,
+      className
     );
 
     console.log("createStudent", newStudentDetail);
