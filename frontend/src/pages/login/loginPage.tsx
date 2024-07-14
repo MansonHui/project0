@@ -13,14 +13,14 @@ import TextField from "@mui/material/TextField";
 
 export default function Login() {
   // super admin AC and password
-  // const [email, setEmail] = useState("super@stpeter.edu.hk");
-  // const [password, setPassword] = useState("stpeter");
+  const [email, setEmail] = useState("super@stpeter.edu.hk");
+  const [password, setPassword] = useState("stpeter");
   // teacher AC and password
   // const [email, setEmail] = useState("choiping@stpeter.edu.hk");
   // const [password, setPassword] = useState("0000");
   // parent AC and password
-  const [email, setEmail] = useState("chantaiming@gmail.com");
-  const [password, setPassword] = useState("1234");
+  // const [email, setEmail] = useState("chantaiming@gmail.com");
+  // const [password, setPassword] = useState("1234");
 
   const [error, setError] = useState("");
   const navigate = useNavigate();
