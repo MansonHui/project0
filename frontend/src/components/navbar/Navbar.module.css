@@ -4,7 +4,6 @@
   align-items: center;
   height: 10vh;
   width: 10vh;
-  
 }
 
 .navbar_function_container {
@@ -13,24 +12,19 @@
 }
 
 .navbar_container {
-  z-index: 100;
   display: flex;
-  justify-content: center;
-  align-items: center;
   width: 95vw;
   height: 95vh;
-
+  justify-content: center;
 }
 
-/* #navbarMenu{} */
+#navbarMenu{
+  display: flex;
+  flex-direction: column;
+}
 
 .navbarButton {
-  z-index: 9999;
-  /* background-color: #1f0eb1 !important; */
   background-color: #f8f8f8;
-  background-repeat: no-repeat;
-  background-size: cover;
-  overflow: hidden;
   height: 10.5vh;
   width: 92vw;
   border-bottom: 2px solid #1f0eb1;

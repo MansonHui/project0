@@ -9,7 +9,7 @@
   width: 95vw;
   height: 95vh;
   animation: showDropdown 0.6s ease-in-out;
-  -webkit-animation: showDropdown 0.6s ease-in-out; /* Safari */
+  -webkit-animation: showDropdown 0.6s ease-in-out;
 }
 
 @keyframes showDropdown {
@@ -23,7 +23,7 @@
   }
 }
 
-@-webkit-keyframes showDropdown { /* Safari */
+@-webkit-keyframes showDropdown { 
   0% {
     -webkit-transform: translateY(-100%);
     opacity: 0;
