@@ -34,7 +34,7 @@ export async function seed(knex: Knex): Promise<void> {
         last_name: "wong",
         HKID_number: "C1234",
         birthday: "2018-09-09",
-        gender: "F",
+        gender: "M",
         image: "wongyung.jpg",
         parent_id: 2,
         school_id: 1,
