@@ -29,7 +29,6 @@ export default function Login() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      console.log(loginForm);
       const response = await fetch(
         `${process.env.REACT_APP_API_ENDPOINT}/auth/login`,
         {
@@ -72,8 +71,6 @@ export default function Login() {
   };
 
   const removeToken = () => {
-    // Implement your token removal logic here
-    // For example, you could remove the token from local storage or a cookie
     localStorage.removeItem("loginToken");
     handleClose();
     window.location.reload();
