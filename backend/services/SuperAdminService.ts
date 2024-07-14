@@ -138,7 +138,9 @@ export default class SuperAdminService {
     birthday: string,
     gender: string,
     parentId: number,
-    schoolId: number
+    schoolId: number,
+    grade: string,
+    className: string
   ) {
     console.log(
       "studnet info from service",
@@ -148,22 +150,92 @@ export default class SuperAdminService {
       birthday,
       gender,
       parentId,
-      schoolId
+      schoolId,
+      grade,
+      className
     );
-    return (
-      await this.knex("students")
-        .insert({
-          first_name: first_name,
-          last_name: last_name,
-          HKID_number: HKID_number,
-          birthday: birthday,
-          gender: gender,
-          parent_id: parentId,
-          school_id: schoolId,
 
-          created_at: this.knex.fn.now(),
-          updated_at: this.knex.fn.now(),
-        })
+    let [newRegStudentid] = await this.knex("students")
+      .insert({
+        first_name: first_name,
+        last_name: last_name,
+        HKID_number: HKID_number,
+        birthday: birthday,
+        gender: gender,
+        parent_id: parentId,
+        school_id: schoolId,
+
+        created_at: this.knex.fn.now(),
+        updated_at: this.knex.fn.now(),
+      })
+      .returning("id");
+
+    let [newStudentClassId] = await this.knex
+      .select("classes.id")
+      .from("classes")
+      .where("grade", grade)
+      .andWhere("class_name", className);
+
+    console.log("newStudentClassId", newStudentClassId);
+
+    let StudentNumberUsed = await this.knex
+      .select("student_number")
+      .from("student_class_relation as scr")
+      .where("scr.class_id", newStudentClassId.id);
+
+    console.log("StudentNumberUsed", StudentNumberUsed);
+
+    function findAvailableClassNumber(existingNumbers: (number | null)[]) {
+      const maxCapacity = 40;
+
+      const allNumbers = Array.from({ length: maxCapacity }, (_, i) => i + 1);
+
+      const availableNumbers = allNumbers.filter(
+        (number) => !existingNumbers.includes(number)
+      );
+
+      return availableNumbers.length > 0 ? availableNumbers[0] : null;
+    }
+
+    const existingStudentNumbers = [1, 7, 12, 20, 35, null, null];
+    const sampeletry = findAvailableClassNumber(existingStudentNumbers);
+
+    console.log("sampeletry", sampeletry);
+
+    function extractIds(arr: any[]) {
+      return arr.map((obj) => obj.student_number);
+    }
+
+    const transformedArray = extractIds(StudentNumberUsed);
+
+    console.log("transformedArray", transformedArray);
+
+    const availableNumber = findAvailableClassNumber(transformedArray);
+
+    console.log("availableNumber", availableNumber);
+
+    if (availableNumber !== null) {
+      console.log(`Assign student to class number ${availableNumber}.`);
+    } else {
+      console.log("No available class numbers. Class is full!");
+    }
+
+    let succcesinsert = await this.knex("student_class_relation as scr")
+      .insert({
+        class_id: newStudentClassId.id,
+        student_id: newRegStudentid.id,
+        student_number: availableNumber,
+      })
+      .returning("id");
+
+    console.log("succcesinsert", succcesinsert);
+
+    return (
+      await this.knex
+        .select("*")
+        .from("students")
+        .join("student_class_relation as scr", "scr.student_id", "students.id")
+        .where("students.id", newRegStudentid.id)
         .returning([
           "students.id",
           "students.first_name",

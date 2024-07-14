@@ -3,7 +3,7 @@ import styles from "./RegisterPage.module.css";
 import Button from "@mui/material/Button";
 
 export default function ConfirmParentAC() {
-  const [email, setEmail] = useState("tsangmeimei@gmail.com");
+  const [email, setEmail] = useState("chantaiming@gmail.com");
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();

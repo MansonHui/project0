@@ -12,19 +12,19 @@ export async function seed(knex: Knex): Promise<void> {
       {
         username: "chantaiming",
         email: "chantaiming@gmail.com",
-        password: "1234",
+        password: "0000",
         balance: 100,
       },
       {
         username: "tsangmeimei",
         email: "tsangmeimei@gmail.com",
-        password: "5678",
+        password: "0000",
         balance: 200,
       },
       {
         username: "fungkeung",
         email: "fungkeung@gmail.com",
-        password: "9012",
+        password: "0000",
         balance: 300,
       },
     ]);

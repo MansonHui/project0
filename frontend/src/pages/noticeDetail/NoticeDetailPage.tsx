@@ -153,11 +153,11 @@ export default function NoticeDetailPage() {
                   ))}
                 </div>
 
-                <div className={styles.ChoicesPricesContainer}>
+                {/* <div className={styles.ChoicesPricesContainer}>
                   {entry.notice_choice_prices.map((price, index) => (
                     <div key={index}>${price}</div>
                   ))}
-                </div>
+                </div> */}
                 <div className={styles.createdAt}>Date:{new Date(entry.created_at).toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' })}</div>
               </div>
               {entry.notice_choice_id == null ? (

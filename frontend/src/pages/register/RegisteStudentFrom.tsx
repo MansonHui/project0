@@ -7,12 +7,14 @@ import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 
 const RegisteStudentFrom = () => {
-  const [email, setEmail] = useState("tsangmeimei@gmail.com");
+  const [email, setEmail] = useState("chantaiming@gmail.com");
   const [first_name, setFirst_name] = useState("adams");
   const [last_name, setLast_name] = useState("ip");
   const [HKID_number, setHKID_number] = useState("A1234");
-  const [birthday, setBirthday] = useState("2020-01-01");
+  const [birthday, setBirthday] = useState("2024-07-12");
   const [gender, setGender] = useState("M");
+  const [grade, setGrade] = useState("1");
+  const [className, setClassName] = useState("A");
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -32,6 +34,8 @@ const RegisteStudentFrom = () => {
             HKID_number: HKID_number,
             birthday: birthday,
             gender: gender,
+            grade: grade,
+            className: className,
           }),
         }
       );
@@ -147,6 +151,27 @@ const RegisteStudentFrom = () => {
               value={birthday}
               onChange={(e) => setBirthday(e.target.value)}
               placeholder="birthday"
+              required
+            />
+          </Box>
+          <Box>
+            <input
+              className={styles.registeStudentInput}
+              type="grade"
+              value={grade}
+              onChange={(e) => setGrade(e.target.value)}
+              placeholder="grade"
+              required
+            />
+          </Box>
+
+          <Box>
+            <input
+              className={styles.registeStudentInput}
+              type="className"
+              value={className}
+              onChange={(e) => setClassName(e.target.value)}
+              placeholder="className"
               required
             />
           </Box>

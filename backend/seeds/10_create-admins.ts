@@ -18,46 +18,46 @@ export async function seed(knex: Knex): Promise<void> {
 
       {
         admin_name: "super",
-        password: "stpeter",
+        password: "0000",
         admin_email: "super@stpeter.edu.hk",
         school_id: 1,
       },
 
       {
         admin_name: "chiulap",
-        password: "1111",
+        password: "0000",
         admin_email: "chiulap@hallowint.edu.hk",
         school_id: 2,
       },
       {
         admin_name: "super",
-        password: "hallowint",
+        password: "0000",
         admin_email: "super@hallowint.edu.hk",
         school_id: 2,
       },
 
       {
         admin_name: "yeungwai",
-        password: "2222",
+        password: "0000",
         admin_email: "yeungwai@bonhamroadgovt.edu.hk",
         school_id: 3,
       },
       {
         admin_name: "super",
-        password: "bonhamroadgovt",
+        password: "0000",
         admin_email: "super@bonhamroadgovt.edu.hk",
         school_id: 3,
       },
 
       {
         admin_name: "chuili",
-        password: "3333",
+        password: "0000",
         admin_email: "chuili@pooito.edu.hk",
         school_id: 4,
       },
       {
         admin_name: "super",
-        password: "pooito",
+        password: "0000",
         admin_email: "super@pooito.edu.hk",
         school_id: 4,
       },

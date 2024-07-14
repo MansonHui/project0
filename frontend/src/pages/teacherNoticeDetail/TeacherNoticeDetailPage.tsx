@@ -33,7 +33,7 @@ export default function TeacherNoticeDetailPage(){
               <div className={styles.RepliedContainer}>Replied:    {entry.notnull_count}
               <div></div><div></div>
               </div>
-              <div className={styles.UnReplyContainer}>until no Reply:     {entry.null_count}
+              <div className={styles.UnReplyContainer}>No Reply:     {entry.null_count}
               <div></div><div></div>
               </div>
             </div>
@@ -45,7 +45,7 @@ export default function TeacherNoticeDetailPage(){
                   if (entry.notice_choice_id_2[index] != null) {
                     return(<div>
                       
-                      ClassNum: {entry.student_numbers[index]}
+                      ClassNo.: {entry.student_numbers[index]}
                       Name:{entry.student_names[index]}
                       Choice:{entry.notice_choice_contents[index]}
                       </div>)
@@ -59,11 +59,13 @@ export default function TeacherNoticeDetailPage(){
                 {entry.student_ids_2.map((choiceId, index) => {
                   if (entry.notice_choice_id_2[index] === null) {
                     return(<div>
-                      ClassNum: {entry.student_numbers[index]}
-                      {" "}{" "}
-                      Name:{entry.student_names[index]}
-                      {" "}{" "}
-                      Choice:{entry.notice_choice_contents[index]}Null
+                      <div className={styles.textContainer}> 
+                        <div>ClassNo.: {entry.student_numbers[index]}</div>
+                        <div>Name:{entry.student_names[index]}</div>
+                        <div>Choice:{entry.notice_choice_contents[index]}No Reply</div>
+                      </div>
+                      
+                      
                       </div>)
                   }else{
                     return(<></>)

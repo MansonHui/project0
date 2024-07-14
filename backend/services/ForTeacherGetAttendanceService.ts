@@ -1,59 +1,85 @@
 import { Knex } from "knex";
 
-export default class ForTeacherGetAttendanceService{
-    constructor(private knex: Knex) {}
+export default class ForTeacherGetAttendanceService {
+  constructor(private knex: Knex) {}
 
+  async getForTeacherGetAttendance(
+    userRole: string,
+    userRoleId: number,
+    userRoleName: string
+  ) {
+    if (userRole === "admin" && userRoleName !== "super") {
+      return await this.knex
 
-    async getForTeacherGetAttendance(userRole: string, userRoleId: number) {
-       return await this.knex
-
-       .select(
-        this.knex.raw('ROW_NUMBER() OVER() as id'),
-        'admins.id as admins_id',
-        'classes.id as class_id',
-        'classes.grade as class_grade',
-        'classes.class_name as class_name',
-        this.knex.raw('DATE(student_attendance.created_at) as attendance_date'),
-        this.knex.raw('SUM(CASE WHEN student_attendance.in_out = \'in\' THEN 1 ELSE 0 END) as total_in'),
-        this.knex.raw('SUM(CASE WHEN student_attendance.in_out = \'out\' THEN 1 ELSE 0 END) as total_out'),
-        
-      )
-      .from(
-        this.knex
-          .select(
-            'admins.id as admin_id',
-            'classes.id as class_id',
-            'classes.grade as class_grade',
-            'classes.class_name as class_name',
-            'student_class_relation.id as student_class_relation_id',
-            'student_class_relation.class_id as student_class_id',
-            'student_class_relation.student_id as subquery_student_id',
-            'student_class_relation.student_number as student_number',
-            'students.id as student_id',
-            'students.parent_id as student_parent_id'
+        .select(
+          this.knex.raw("ROW_NUMBER() OVER() as id"),
+          "admins.id as admins_id",
+          "classes.id as class_id",
+          "classes.grade as class_grade",
+          "classes.class_name as class_name",
+          this.knex.raw(
+            "DATE(student_attendance.created_at) as attendance_date"
+          ),
+          this.knex.raw(
+            "SUM(CASE WHEN student_attendance.in_out = 'in' THEN 1 ELSE 0 END) as total_in"
+          ),
+          this.knex.raw(
+            "SUM(CASE WHEN student_attendance.in_out = 'out' THEN 1 ELSE 0 END) as total_out"
           )
-          .from('admins')
-          .innerJoin('admin_class_relation', 'admins.id', 'admin_class_relation.admin_id')
-          .innerJoin('classes', 'admin_class_relation.class_id', 'classes.id')
-          .innerJoin('student_class_relation', 'classes.id', 'student_class_relation.class_id')
-          .innerJoin('students', 'student_class_relation.student_id', 'students.id')
-          .where("admins.id", userRoleId)
-          .as('subquery')
-      )
-      .leftJoin('student_attendance', 'subquery.subquery_student_id', 'student_attendance.student_id')
-      .innerJoin('admins', 'subquery.admin_id', 'admins.id')
-      .innerJoin('classes', 'subquery.class_id', 'classes.id')
-      .groupBy(
-        'admins.id',
-        'classes.id',
-        'classes.grade',
-        'classes.class_name',
-        this.knex.raw('DATE(student_attendance.created_at)')
-      )
-      .orderBy('attendance_date', 'desc');
-
+        )
+        .from(
+          this.knex
+            .select(
+              "admins.id as admin_id",
+              "classes.id as class_id",
+              "classes.grade as class_grade",
+              "classes.class_name as class_name",
+              "student_class_relation.id as student_class_relation_id",
+              "student_class_relation.class_id as student_class_id",
+              "student_class_relation.student_id as subquery_student_id",
+              "student_class_relation.student_number as student_number",
+              "students.id as student_id",
+              "students.parent_id as student_parent_id"
+            )
+            .from("admins")
+            .innerJoin(
+              "admin_class_relation",
+              "admins.id",
+              "admin_class_relation.admin_id"
+            )
+            .innerJoin("classes", "admin_class_relation.class_id", "classes.id")
+            .innerJoin(
+              "student_class_relation",
+              "classes.id",
+              "student_class_relation.class_id"
+            )
+            .innerJoin(
+              "students",
+              "student_class_relation.student_id",
+              "students.id"
+            )
+            .where("admins.id", userRoleId)
+            .as("subquery")
+        )
+        .leftJoin(
+          "student_attendance",
+          "subquery.subquery_student_id",
+          "student_attendance.student_id"
+        )
+        .innerJoin("admins", "subquery.admin_id", "admins.id")
+        .innerJoin("classes", "subquery.class_id", "classes.id")
+        .groupBy(
+          "admins.id",
+          "classes.id",
+          "classes.grade",
+          "classes.class_name",
+          this.knex.raw("DATE(student_attendance.created_at)")
+        )
+        .orderBy("attendance_date", "desc");
+    } else {
+      return console.log("data for super admin");
     }
-
+  }
 }
 
 // SELECT
@@ -94,7 +120,6 @@ export default class ForTeacherGetAttendanceService{
 //   DATE(student_attendance.created_at)
 // ORDER BY
 //   attendance_date DESC;
-
 
 // INSERT INTO student_attendance (student_id, in_out, created_at, updated_at)
 // VALUES (1, 'in', '2024-07-06 00:00:00', '2024-07-06 00:00:00');
