@@ -31,16 +31,17 @@ export default function PopuploginPrivacyPolicy(
       <Popup id={id} open={open} anchor={anchor} {...other}>
         {/* here can change popup box words */}
         <PopupBody id={styles.popupBox}>
-          <p>
-            We are committed to protecting the privacy of our users. <p></p>We
+          <p id={styles.loginPrivacyPolicyWords}>
+            We are committed to protecting the privacy of our users.<p></p>We
             collect personal information,<p></p>such as your name and email
             address,<p></p>when you interact with our website or use our
             services.<p></p>We use this information to provide and improve our
             services,<p></p>communicate with you,<p></p>and comply with legal
             requirements.<p></p>We take reasonable measures to secure your data
+            <p></p>
             and may share it with trusted third-party service providers.<p></p>
-            You have the right to access, update, or delete your personal
-            information. If you have any questions, please contact us.
+            You have the right to access, update, <p></p>or delete your personal
+            information. <p></p>If you have any questions, please contact us.
           </p>
         </PopupBody>
       </Popup>
@@ -106,9 +107,9 @@ const Button = styled("button")(
   border-radius: 8px;
   transition: all 150ms ease;
   cursor: pointer;
-  border: 3px solid ${blue[500]};
+  border: 3px solid #2e7d32;
     color: white;
-  background-color: ${blue[500]};
+  background-color: #2e7d32;
   background-color: rgba(${blue[500].slice(1)});
   opacity: 0.8;
 
