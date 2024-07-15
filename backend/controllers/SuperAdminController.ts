@@ -387,7 +387,7 @@ export default class SuperAdminController {
                 let timeDifference = Math.abs(
                   currentAttendanceTime - latestAttendanceTime
                 );
-                if (timeDifference > 60000) {
+                if (timeDifference > 10000) {
                   if (attendanceRecord[0].in_out === "out") {
                     await this.superAdminService.createInAttendance(
                       student_id_number

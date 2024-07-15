@@ -5,7 +5,7 @@ export async function seed(knex: Knex): Promise<void> {
   // Deletes ALL existing entries
 
   try {
-    await knex("notice_choice").del();
+    // await knex("notice_choice").del();
 
     // Inserts seed entries
     await knex("notice_choice").insert([
