@@ -1,22 +1,29 @@
 import { useState } from "react";
 import styles from "./RegisterPage.module.css";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-
 import { useNavigate } from "react-router-dom";
+import Alert from "@mui/material/Alert";
+import Snackbar from "@mui/material/Snackbar";
 
-const RegisteStudentFrom = () => {
-  const [email, setEmail] = useState("chantaiming@gmail.com");
-  const [first_name, setFirst_name] = useState("adams");
-  const [last_name, setLast_name] = useState("ip");
-  const [HKID_number, setHKID_number] = useState("A1234");
-  const [birthday, setBirthday] = useState("2024-07-12");
-  const [gender, setGender] = useState("M");
-  const [grade, setGrade] = useState("1");
-  const [className, setClassName] = useState("A");
+const RegisteStudentFrom: React.FC = () => {
+  const [email, setEmail] = useState<string>("chantaiming@gmail.com");
+  const [first_name, setFirst_name] = useState<string>("adams");
+  const [last_name, setLast_name] = useState<string>("ip");
+  const [HKID_number, setHKID_number] = useState<string>("A1234");
+  const [birthday, setBirthday] = useState<string>("2024-07-12");
+  const [gender, setGender] = useState<string>("M");
+  const [grade, setGrade] = useState<string>("1");
+  const [className, setClassName] = useState<string>("A");
+  const [success, setSuccess] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
+  const [snackbarSeverity, setSnackbarSeverity] = useState<"success" | "error">(
+    "success"
+  );
+  const [showTakeProfilePictureButton, setShowTakeProfilePictureButton] =
+    useState<boolean>(false);
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const res = await fetch(
@@ -40,22 +47,41 @@ const RegisteStudentFrom = () => {
         }
       );
 
-      const reponse = await res.json();
+      const response = await res.json();
 
-      console.log("reponse", reponse);
+      console.log("response", response);
 
       if (res.ok) {
-        console.log("dataFromServer", reponse.newStudentDetail);
+        console.log("dataFromServer", response.newStudentDetail);
         localStorage.setItem(
           "newStudentId",
-          JSON.stringify(reponse.newStudentDetail)
+          JSON.stringify(response.newStudentDetail)
         );
+        setSuccess(true);
+        setOpen(true);
+        setShowTakeProfilePictureButton(true);
       } else {
-        alert("Login failed");
+        setSuccess(false);
+        setOpen(true);
+        setShowTakeProfilePictureButton(false);
       }
     } catch (error) {
       console.error("Error registering Student:", error);
+      setSuccess(false);
+      setOpen(true);
+      setShowTakeProfilePictureButton(false);
     }
+  };
+
+  const handleClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
   };
 
   const navigate = useNavigate();
@@ -64,11 +90,11 @@ const RegisteStudentFrom = () => {
     if (value) {
       navigate("/AI");
     } else {
-      alert("please complete the student registration first  ");
+      alert("Please complete the student registration first.");
     }
   };
 
-  const registeStudent = (
+  return (
     <div>
       <form onSubmit={handleSubmit} id={styles.RegisteStudentFrom}>
         <div id={styles.registeStudentIconAndButton}>
@@ -82,13 +108,15 @@ const RegisteStudentFrom = () => {
             Register
           </Button>
 
-          <Button
-            onClick={handleNavigation}
-            variant="contained"
-            color="success"
-          >
-            Take profile picture
-          </Button>
+          {showTakeProfilePictureButton && (
+            <Button
+              onClick={handleNavigation}
+              variant="contained"
+              color="success"
+            >
+              Take profile picture
+            </Button>
+          )}
         </div>
 
         <div id={styles.registeStudentInfo}>
@@ -105,7 +133,7 @@ const RegisteStudentFrom = () => {
           <Box>
             <input
               className={styles.registeStudentInput}
-              type="first_name"
+              type="text"
               value={first_name}
               onChange={(e) => setFirst_name(e.target.value)}
               placeholder="first_name"
@@ -115,7 +143,7 @@ const RegisteStudentFrom = () => {
           <Box>
             <input
               className={styles.registeStudentInput}
-              type="last_name"
+              type="text"
               value={last_name}
               onChange={(e) => setLast_name(e.target.value)}
               placeholder="last_name"
@@ -125,7 +153,7 @@ const RegisteStudentFrom = () => {
           <Box>
             <input
               className={styles.registeStudentInput}
-              type="gender"
+              type="text"
               value={gender}
               onChange={(e) => setGender(e.target.value)}
               placeholder="gender"
@@ -135,7 +163,7 @@ const RegisteStudentFrom = () => {
           <Box>
             <input
               className={styles.registeStudentInput}
-              type="HKID_number"
+              type="text"
               value={HKID_number}
               onChange={(e) => setHKID_number(e.target.value)}
               placeholder="HKID_number"
@@ -145,7 +173,7 @@ const RegisteStudentFrom = () => {
           <Box>
             <input
               className={styles.registeStudentInput}
-              type="birthday"
+              type="date"
               value={birthday}
               onChange={(e) => setBirthday(e.target.value)}
               placeholder="birthday"
@@ -155,7 +183,7 @@ const RegisteStudentFrom = () => {
           <Box>
             <input
               className={styles.registeStudentInput}
-              type="grade"
+              type="text"
               value={grade}
               onChange={(e) => setGrade(e.target.value)}
               placeholder="grade"
@@ -166,7 +194,7 @@ const RegisteStudentFrom = () => {
           <Box>
             <input
               className={styles.registeStudentInput}
-              type="className"
+              type="text"
               value={className}
               onChange={(e) => setClassName(e.target.value)}
               placeholder="className"
@@ -177,9 +205,20 @@ const RegisteStudentFrom = () => {
           <p />
         </div>
       </form>
+
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert
+          onClose={handleClose}
+          severity={success ? "success" : "error"}
+          sx={{ width: "100%" }}
+        >
+          {success
+            ? "Student registration successful!"
+            : "Student registration failed. Please try again."}
+        </Alert>
+      </Snackbar>
     </div>
   );
-  return <div>{registeStudent}</div>;
 };
 
 export default RegisteStudentFrom;

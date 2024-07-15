@@ -56,7 +56,7 @@ export default function Navbar() {
             className={styles.navbarButton}
           >
             <div className={styles.navbar_function_logo}>
-              <HomeSharpIcon />
+              <HomeSharpIcon className={styles.muiIcon}/>
             </div>
             <h6 className={styles.navbar_function_text}>
               {userRole === "parents"
@@ -72,7 +72,7 @@ export default function Navbar() {
             className={styles.navbarButton}
           >
             <div className={styles.navbar_function_logo}>
-              <EmailIcon />
+              <EmailIcon className={styles.muiIcon}/>
             </div>
             <h6 className={styles.navbar_function_text}>
               Check Notices & Attendances
@@ -86,7 +86,7 @@ export default function Navbar() {
             className={styles.navbarButton}
           >
             <div className={styles.navbar_function_logo}>
-              <EditIcon />
+              <EditIcon className={styles.muiIcon}/>
             </div>
             <h6 className={styles.navbar_function_text}>Create Notice</h6>
           </div>
@@ -97,7 +97,7 @@ export default function Navbar() {
             className={styles.navbarButton}
           >
             <div className={styles.navbar_function_logo}>
-              <HowToRegIcon />
+              <HowToRegIcon className={styles.muiIcon}/>
             </div>
             <h6 className={styles.navbar_function_text}>Register Users</h6>
           </div>
@@ -105,7 +105,7 @@ export default function Navbar() {
         {showSuperAdminButton && (
           <div onClick={() => navigate("AI")} className={styles.navbarButton}>
             <div className={styles.navbar_function_logo}>
-              <FaceRetouchingNaturalIcon />
+              <FaceRetouchingNaturalIcon className={styles.muiIcon}/>
             </div>
             <h6 className={styles.navbar_function_text}>AI Attendances</h6>
           </div>
@@ -116,7 +116,7 @@ export default function Navbar() {
             className={styles.navbarButton}
           >
             <div className={styles.navbar_function_logo}>
-              <MarkEmailReadIcon />
+              <MarkEmailReadIcon className={styles.muiIcon}/>
             </div>
             <h6 className={styles.navbar_function_text}>Check Notices</h6>
           </div>
@@ -127,7 +127,7 @@ export default function Navbar() {
             className={styles.navbarButton}
           >
             <div className={styles.navbar_function_logo}>
-              <DoneAllIcon />
+              <DoneAllIcon className={styles.muiIcon}/>
             </div>
             <h6 className={styles.navbar_function_text}>Check Attendances</h6>
           </div>
@@ -139,7 +139,7 @@ export default function Navbar() {
             className={styles.navbarButton}
           >
             <div className={styles.navbar_function_logo}>
-              <MonetizationOnIcon />
+              <MonetizationOnIcon className={styles.muiIcon}/>
             </div>
             <h6 className={styles.navbar_function_text}>Payment</h6>
           </div>

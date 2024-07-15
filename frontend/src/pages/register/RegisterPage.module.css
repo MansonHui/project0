@@ -230,6 +230,7 @@
   border: 0.5vh solid #ccc;
   border-radius: 1vh;
   font-size: 1.5vh;
+  margin: 2px
 }
 
 #confirmParentACFrom{

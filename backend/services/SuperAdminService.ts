@@ -385,4 +385,15 @@ export default class SuperAdminService {
     console.log("createdOutRecord", createdOutRecord);
     return createdOutRecord;
   }
+
+  async getStudentClassAndStudentNumber(student_id_number: number) {
+    return await this.knex
+      .select("student_number")
+      .from("student_class_relation as scr")
+      .join("classes", "classes.id", "scr.class_id")
+      .select("grade", "class_name")
+      .join("students", "scr.student_id", "students.id")
+      .select("first_name")
+      .where("scr.student_id", student_id_number);
+  }
 }
