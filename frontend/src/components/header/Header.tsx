@@ -9,9 +9,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import LogoutIcon from "@mui/icons-material/Logout";
-import SettingsIcon from "@mui/icons-material/Settings";
 import Navbar from "../navbar/Navbar";
-// import styles from "./Header.module.css";
 import EmailIcon from "@mui/icons-material/Email";
 import HomeSharpIcon from "@mui/icons-material/HomeSharp";
 import EditIcon from "@mui/icons-material/Edit";
@@ -22,8 +20,6 @@ import DoneAllIcon from "@mui/icons-material/DoneAll";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import { Drawer, List, ListItem, ListItemText } from "@mui/material";
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
-import styles from "./Hearder.module.css";
 
 export default function MenuHeaderBar() {
   let [isHide, setIsHide] = React.useState(true);
@@ -62,7 +58,7 @@ export default function MenuHeaderBar() {
     case "/HomePage":
       pageName = (
         <>
-          <HomeSharpIcon />
+          <HomeSharpIcon className="muiIcon"/>
           Profile
         </>
       );
@@ -70,7 +66,7 @@ export default function MenuHeaderBar() {
     case "/Message":
       pageName = (
         <>
-          <EmailIcon />
+          <EmailIcon className="muiIcon"/>
           Check Notices & Attendances
         </>
       );
@@ -78,7 +74,7 @@ export default function MenuHeaderBar() {
     case "/EditNotice":
       pageName = (
         <>
-          <EditIcon />
+          <EditIcon className="muiIcon"/>
           Create Notice
         </>
       );
@@ -86,7 +82,7 @@ export default function MenuHeaderBar() {
     case "/AI":
       pageName = (
         <>
-          <FaceRetouchingNaturalIcon />
+          <FaceRetouchingNaturalIcon className="muiIcon"/>
           AI Attendances
         </>
       );
@@ -94,7 +90,7 @@ export default function MenuHeaderBar() {
     case "/Register":
       pageName = (
         <>
-          <HowToRegIcon />
+          <HowToRegIcon className="muiIcon"/>
           Register Users
         </>
       );
@@ -102,7 +98,7 @@ export default function MenuHeaderBar() {
     case "/TeacherNotice":
       pageName = (
         <>
-          <MarkEmailReadIcon />
+          <MarkEmailReadIcon className="muiIcon"/>
           Check Notices
         </>
       );
@@ -110,7 +106,7 @@ export default function MenuHeaderBar() {
     case "/TeacherStudentAttendance":
       pageName = (
         <>
-          <DoneAllIcon />
+          <DoneAllIcon className="muiIcon"/>
           Check Attendances
         </>
       );
@@ -118,7 +114,7 @@ export default function MenuHeaderBar() {
     case "/ParentTopUpBalance":
       pageName = (
         <>
-          <MonetizationOnIcon />
+          <MonetizationOnIcon className="muiIcon"/>
           TopUp Balance
         </>
       );
@@ -136,7 +132,7 @@ export default function MenuHeaderBar() {
     case "/Message/NoticeDetail":
       pageName = (
         <>
-          <EmailIcon />
+          <EmailIcon className="muiIcon"/>
           Check Notices & Attendances
         </>
       );
@@ -144,7 +140,7 @@ export default function MenuHeaderBar() {
     case "/Message/Attendance":
       pageName = (
         <>
-          <EmailIcon />
+          <EmailIcon className="muiIcon"/>
           Check Notices & Attendances
         </>
       );
@@ -152,7 +148,7 @@ export default function MenuHeaderBar() {
     case "/TeacherNoticeDetail":
       pageName = (
         <>
-          <MarkEmailReadIcon />
+          <MarkEmailReadIcon className="muiIcon"/>
           TeacherNotice
         </>
       );
@@ -197,7 +193,7 @@ export default function MenuHeaderBar() {
                   <Navbar />
                 </List>
               </Drawer>
-              <MenuIcon />
+              <MenuIcon className="muiIcon"/>
             </IconButton>
 
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -232,7 +228,7 @@ export default function MenuHeaderBar() {
                   disableScrollLock={true}
                 >
                   <MenuItem onClick={removeToken}>
-                    <LogoutIcon />
+                    <LogoutIcon className="muiIcon"/>
                     Logout
                   </MenuItem>
                 </Menu>
