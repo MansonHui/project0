@@ -10,12 +10,19 @@ export default class ParentTopUpController {
   constructor(private parentTopUpService: ParentTopUpService) {}
 
   getparentInfo = async (req: Request, res: Response) => {
-    let parentInfo = await this.parentTopUpService.getParentInfo(
-      req.body.userRole,
-      req.body.userRoleId
-    );
-    console.log("req.body.userRoleEmail", req.body.userRoleEmail);
-    res.json(parentInfo);
+    try {
+      let parentInfo = await this.parentTopUpService.getParentInfo(
+        req.body.userRole,
+        req.body.userRoleId
+      );
+      console.log("req.body.userRoleEmail", req.body.userRoleEmail);
+      res.json(parentInfo);
+    } catch (e) {
+      console.error(e);
+      res.status(400).json({
+        msg: e,
+      });
+    }
   };
 
   updateBalance = async (req: Request, res: Response) => {

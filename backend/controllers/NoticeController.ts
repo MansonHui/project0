@@ -7,13 +7,19 @@ export default class NoticeController {
   constructor(private noticeService: NoticeSerice) {}
 
   getAllNotices = async (req: Request, res: Response) => {
-    console.log("check req body", req.body);
-    let getAllNotice = await this.noticeService.getAllNotice(
-      req.body.userRole,
-      req.body.userRoleId
-    );
+    try {
+      let getAllNotice = await this.noticeService.getAllNotice(
+        req.body.userRole,
+        req.body.userRoleId
+      );
 
-    res.status(200).json({ msg: "from all Notices", getAllNotice });
+      res.status(200).json({ msg: "from all Notices", getAllNotice });
+    } catch (e) {
+      console.error(e);
+      res.status(400).json({
+        msg: e,
+      });
+    }
   };
 
   getNoticeDetails = async (req: Request, res: Response) => {
@@ -45,24 +51,23 @@ export default class NoticeController {
     try {
       // 是req.query ,不是Pararms
       const { studentId, noticeId } = req.query;
-      console.log("1",studentId, noticeId);
-      
+      console.log("1", studentId, noticeId);
+
       //錯名
       const { noticeChoiceId } = req.body;
-      console.log("2",req.body.noticeChoiceId);
-      
+      console.log("2", req.body.noticeChoiceId);
+
       const studentIdNumber = Number(studentId);
       const noticeIdNumber = Number(noticeId);
-      
-        await this.noticeService.insertChoice(
-          studentIdNumber,
-          noticeIdNumber,
-          noticeChoiceId
-        
+
+      await this.noticeService.insertChoice(
+        studentIdNumber,
+        noticeIdNumber,
+        noticeChoiceId
       );
-      res.status(200).json({ message: 'Record updated' });
+      res.status(200).json({ message: "Record updated" });
     } catch (error) {
-      res.status(500).json({ message: 'Error updating record', error });
+      res.status(500).json({ message: "Error updating record", error });
     }
-  }
+  };
 }

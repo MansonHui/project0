@@ -5,12 +5,12 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
 const RegisteAdminFrom: React.FC = () => {
-  const [email, setEmail] = useState("chantaiming@gmail.com");
+  const [email, setEmail] = useState("newteacher@stpeter.edu.hk");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      await fetch(
+      let res = await fetch(
         `${process.env.REACT_APP_API_ENDPOINT}/superadmin/createAdmin`,
         {
           method: "POST",
@@ -23,6 +23,9 @@ const RegisteAdminFrom: React.FC = () => {
           }),
         }
       );
+
+      const [result] = await res.json();
+      alert(result.msg);
     } catch (error) {
       console.error("Error registering user:", error);
     }

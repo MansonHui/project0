@@ -20,73 +20,140 @@ AWS.config.update({
 export default class SuperAdminController {
   constructor(private superAdminService: SuperAdminService) {}
 
+  // createAdmin = async (req: Request, res: Response) => {
+  //   try {
+  //     let email = req.body.email;
+  //     let response_array = [];
+  //     let username = await getUserName(email);
+  //     let password = username;
+  //     let existEmail = await this.superAdminService.checkDuplicateEmailAdmin(
+  //       email
+  //     );
+
+  //     // to take the school name abbreviation from input of the new register teachers acc
+  //     let newAdminSchoolAbbr = await getSchoolAbbr(email);
+
+  //     // to take the school name abbreviation from the jwt token of the superadmin
+  //     let superAdminSchoolAbbr = await getSchoolAbbr(req.body.userRoleEmail);
+
+  //     // only allow the email address included the "edu" for regtration for new teacher acc.
+  //     let isEduExist = await isEduExistInMail(email);
+
+  //     if (!isEduExist) {
+  //       response_array.push({
+  //         msg: `wrong email format`,
+  //       });
+  //     }
+
+  //     if (isEduExist) {
+  //       if (newAdminSchoolAbbr) {
+  //         if (newAdminSchoolAbbr === superAdminSchoolAbbr) {
+  //           if (existEmail) {
+  //             response_array.push({ msg: `${email} already exists` });
+  //           }
+
+  //           if (!existEmail) {
+  //             let isSchoolExist = await this.superAdminService.getSchoolTable(
+  //               newAdminSchoolAbbr
+  //             );
+
+  //             if (isSchoolExist) {
+  //               let newAdminData = await this.superAdminService.createNewAdmin(
+  //                 username,
+  //                 email,
+  //                 password,
+  //                 isSchoolExist.id
+  //               );
+
+  //               response_array.push({
+  //                 msg: `new admins user account ${isSchoolExist.full_name} , ${newAdminData.admin_email} , ${newAdminData.password}`,
+  //               });
+  //             }
+  //             if (!isSchoolExist) {
+  //               response_array.push({
+  //                 msg: `your school not yet subscript our service`,
+  //               });
+  //             }
+  //           }
+  //         }
+  //         if (newAdminSchoolAbbr !== superAdminSchoolAbbr) {
+  //           response_array.push({
+  //             msg: `your are not admin for that school `,
+  //           });
+  //         }
+  //       } else {
+  //         response_array.push({
+  //           msg: `wrong email format`,
+  //         });
+  //       }
+  //     }
+
+  //     return res.status(200).json(response_array);
+  //   } catch (e) {
+  //     console.error(e);
+  //     res.status(400).json({
+  //       msg: e,
+  //     });
+  //   }
+  // };
+
   createAdmin = async (req: Request, res: Response) => {
-    console.log("req.body", req.body);
-    let email = req.body.email;
+    try {
+      const email = req.body.email;
+      const response_array: { msg: string }[] = [];
+      const username = await getUserName(email);
+      const password = username;
+      const existEmail = await this.superAdminService.checkDuplicateEmailAdmin(
+        email
+      );
 
-    // let emailArray = Object.keys(emailListObject).map(
-    //   (key) => emailListObject[key]
-    // );
-    let response_array = [];
+      // Get the school name abbreviation from input of the new registered teacher's account
+      const newAdminSchoolAbbr = await getSchoolAbbr(email);
 
-    let username = await getUserName(email);
-    let password = username;
-    let existEmail = await this.superAdminService.checkDuplicateEmailAdmin(
-      email
-    );
-    let newAdminSchoolAbbr = await getSchoolAbbr(email);
+      // Get the school name abbreviation from the JWT token of the superadmin
+      const superAdminSchoolAbbr = await getSchoolAbbr(req.body.userRoleEmail);
 
-    let superAdminSchoolAbbr = await getSchoolAbbr(req.body.userRoleEmail);
+      // Only allow email addresses with "edu" for registration of new teacher accounts
+      const isEduExist = await isEduExistInMail(email);
 
-    let isEduExist = await isEduExistInMail(email);
-
-    if (!isEduExist) {
-      response_array.push({
-        msg: `wrong email format`,
-      });
-    }
-
-    if (isEduExist) {
-      if (newAdminSchoolAbbr) {
+      if (!isEduExist) {
+        response_array.push({ msg: "Wrong email format" });
+      } else if (newAdminSchoolAbbr) {
         if (newAdminSchoolAbbr === superAdminSchoolAbbr) {
           if (existEmail) {
             response_array.push({ msg: `${email} already exists` });
-          }
-
-          if (!existEmail) {
-            let isSchoolExist = await this.superAdminService.getSchoolTable(
+          } else {
+            const isSchoolExist = await this.superAdminService.getSchoolTable(
               newAdminSchoolAbbr
             );
-
             if (isSchoolExist) {
-              let newAdminData = await this.superAdminService.createNewAdmin(
+              const newAdminData = await this.superAdminService.createNewAdmin(
                 username,
                 email,
                 password,
                 isSchoolExist.id
               );
-
               response_array.push({
-                msg: `new admins user account ${isSchoolExist.full_name} , ${newAdminData.admin_email} , ${newAdminData.password}`,
+                msg: `New admin user account: ${isSchoolExist.full_name}, ${newAdminData.admin_email}, ${newAdminData.password}`,
               });
-
-              if (!isSchoolExist) {
-                response_array.push({
-                  msg: `your school not yet subscript our service`,
-                });
-              }
+            } else {
+              response_array.push({
+                msg: "Your school has not yet subscribed to our service",
+              });
             }
           }
+        } else {
+          response_array.push({ msg: "You are not an admin for that school" });
         }
-        if (newAdminSchoolAbbr !== superAdminSchoolAbbr) {
-          response_array.push({
-            msg: `your are not admin for that school `,
-          });
-        }
+      } else {
+        response_array.push({ msg: "Wrong email format" });
       }
-    }
 
-    return res.status(200).json(response_array);
+      return res.status(200).json(response_array);
+    } catch (e) {
+      console.error(e);
+      return res.status(400).json({ msg: e });
+    }
   };
 
   createParent = async (req: Request, res: Response) => {

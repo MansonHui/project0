@@ -1,8 +1,8 @@
 import express from "express";
 import { Request, Response } from "express";
-import AttendanceService from "../services/AttendanceService";
 import AWS from "aws-sdk";
 import dotenv from "dotenv";
+import AttendanceService from "../services/AttendanceService";
 
 dotenv.config();
 
@@ -17,11 +17,18 @@ export default class AttendanceController {
   constructor(private attendanceService: AttendanceService) {}
 
   getAllattendances = async (req: Request, res: Response) => {
-    let getAllattendance = await this.attendanceService.getAllattendance(
-      req.body.userRole,
-      req.body.userRoleId
-    );
+    try {
+      let getAllattendance = await this.attendanceService.getAllattendance(
+        req.body.userRole,
+        req.body.userRoleId
+      );
 
-    res.status(200).json({ msg: "get All Attendance", getAllattendance });
+      res.status(200).json({ msg: "get All Attendance", getAllattendance });
+    } catch (e) {
+      console.error(e);
+      res.status(400).json({
+        msg: e,
+      });
+    }
   };
 }
