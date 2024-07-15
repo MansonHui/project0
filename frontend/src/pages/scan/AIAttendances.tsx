@@ -11,7 +11,7 @@ const AIAttendances: React.FC = () => {
   );
 
   useEffect(() => {
-    const value = localStorage.getItem("newStudentId");
+    // const value = localStorage.getItem("newStudentId");
     if (value) {
       setShow("manual");
       setIsRegister("Profile Picture Capturing");
@@ -27,8 +27,8 @@ const AIAttendances: React.FC = () => {
       <header className="App-header">
         <h1 className="detection_mode">{isRegister}</h1>
         <h2 className="instruction">
-          move your head toward the camera until the frame colour change to
-          green
+          Move Your Head Toward The Camera Until The Frame Colour Change to
+          Green
         </h2>
 
         {/* <button
@@ -46,11 +46,9 @@ const AIAttendances: React.FC = () => {
           Auto Scan for Attendance
         </button> */}
         <section>
-        {show === "manual" ? <ManualCapture /> : <WebcamCapture />}
-      </section>
+          {show === "manual" ? <ManualCapture /> : <WebcamCapture />}
+        </section>
       </header>
-
-      
     </div>
   );
 };

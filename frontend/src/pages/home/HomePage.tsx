@@ -29,7 +29,7 @@ export default function HomePage() {
               {/* {entry.image} */}
 
               <img
-                src={`http://localhost:8080/images/${entry.image}`}
+                src={`${process.env.REACT_APP_API_ENDPOINT}/images/${entry.image}`}
                 alt="student profile pic"
               ></img>
             </div>
