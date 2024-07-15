@@ -1,9 +1,24 @@
 import { useState } from "react";
 import styles from "./RegisterPage.module.css";
 import Button from "@mui/material/Button";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert, { AlertProps } from "@mui/material/Alert";
+import React from "react";
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref
+) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export default function ConfirmParentAC() {
   const [email, setEmail] = useState("chantaiming@gmail.com");
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState<"success" | "error">(
+    "success"
+  );
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -21,12 +36,28 @@ export default function ConfirmParentAC() {
           }),
         }
       );
+      setSnackbarMessage("Confirm Parent OK");
+      setSnackbarSeverity("success");
+      setOpenSnackbar(true);
     } catch (error) {
       console.error("Error registering Parent:", error);
+      setSnackbarMessage("Confirm Parent Not OK");
+      setSnackbarSeverity("error");
+      setOpenSnackbar(true);
     }
   };
 
-  const confirmParentAC = (
+  const handleSnackbarClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSnackbar(false);
+  };
+
+  return (
     <div>
       <form onSubmit={handleSubmit}>
         <div id={styles.confirmParentACFrom}>
@@ -48,7 +79,19 @@ export default function ConfirmParentAC() {
           </Button>
         </div>
       </form>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={3000}
+        onClose={handleSnackbarClose}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity={snackbarSeverity}
+          sx={{ width: "100%" }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
-  return <div>{confirmParentAC}</div>;
 }

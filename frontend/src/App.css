@@ -14,4 +14,6 @@ body {
     position: absolute !important;
     left: 2vw !important;
     top: 8vh !important;
+    overflow-y: hidden !important;
+  overflow-x: hidden !important;
   }

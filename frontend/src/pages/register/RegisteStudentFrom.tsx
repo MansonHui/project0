@@ -5,6 +5,8 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 import { useNavigate } from "react-router-dom";
+import Alert from "@mui/material/Alert";
+import Snackbar from "@mui/material/Snackbar";
 
 const RegisteStudentFrom = () => {
   const [email, setEmail] = useState("chantaiming@gmail.com");
@@ -15,6 +17,11 @@ const RegisteStudentFrom = () => {
   const [gender, setGender] = useState("M");
   const [grade, setGrade] = useState("1");
   const [className, setClassName] = useState("A");
+  const [success, setSuccess] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [snackbarSeverity, setSnackbarSeverity] = useState<"success" | "error">(
+    "success"
+  );
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -40,22 +47,45 @@ const RegisteStudentFrom = () => {
         }
       );
 
-      const reponse = await res.json();
+      //     const reponse = await res.json();
 
-      console.log("reponse", reponse);
+      //     console.log("reponse", reponse);
+
+      //     if (res.ok) {
+      //       console.log("dataFromServer", reponse.newStudentDetail);
+      //       localStorage.setItem(
+      //         "newStudentId",
+      //         JSON.stringify(reponse.newStudentDetail)
+      //       );
+      //     } else {
+      //       alert("Login failed");
+      //     }
+      //   } catch (error) {
+      //     console.error("Error registering Student:", error);
+      //   }
+      // };
 
       if (res.ok) {
-        console.log("dataFromServer", reponse.newStudentDetail);
-        localStorage.setItem(
-          "newStudentId",
-          JSON.stringify(reponse.newStudentDetail)
-        );
+        setSuccess(true);
       } else {
-        alert("Login failed");
+        setSuccess(false);
       }
+      setOpen(true);
     } catch (error) {
-      console.error("Error registering Student:", error);
+      console.error("Error Student user:", error);
+      setSuccess(false);
+      setOpen(true);
     }
+  };
+  const handleClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
   };
 
   const navigate = useNavigate();
@@ -181,7 +211,22 @@ const RegisteStudentFrom = () => {
       </form>
     </div>
   );
-  return <div>{registeStudent}</div>;
+  return (
+    <div>
+      {registeStudent}
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert
+          onClose={handleClose}
+          severity={success ? "success" : "error"}
+          sx={{ width: "100%" }}
+        >
+          {success
+            ? "Register admin successful!"
+            : "Register admin failed. Please try again."}
+        </Alert>
+      </Snackbar>
+    </div>
+  );
 };
 
 export default RegisteStudentFrom;

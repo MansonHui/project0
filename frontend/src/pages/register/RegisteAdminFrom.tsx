@@ -2,15 +2,19 @@ import { useEffect, useState } from "react";
 import styles from "./RegisterPage.module.css";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert, { AlertProps } from "@mui/material/Alert";
+import React from "react";
 
 const RegisteAdminFrom: React.FC = () => {
   const [email, setEmail] = useState("chantaiming@gmail.com");
+  const [open, setOpen] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      await fetch(
+      const response = await fetch(
         `${process.env.REACT_APP_API_ENDPOINT}/superadmin/createAdmin`,
         {
           method: "POST",
@@ -23,9 +27,33 @@ const RegisteAdminFrom: React.FC = () => {
           }),
         }
       );
+
+      if (response.ok) {
+        setSuccess(true);
+      } else {
+        setSuccess(false);
+      }
+      setOpen(true);
     } catch (error) {
       console.error("Error registering user:", error);
+      setSuccess(false);
+      setOpen(true);
     }
+  };
+
+  const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+    props,
+    ref
+  ) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
   };
 
   const registeTeacher = (
@@ -56,7 +84,22 @@ const RegisteAdminFrom: React.FC = () => {
     </form>
   );
 
-  return <div>{registeTeacher}</div>;
+  return (
+    <div>
+      {registeTeacher}
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert
+          onClose={handleClose}
+          severity={success ? "success" : "error"}
+          sx={{ width: "100%" }}
+        >
+          {success
+            ? "Register admin successful!"
+            : "Register admin failed. Please try again."}
+        </Alert>
+      </Snackbar>
+    </div>
+  );
 };
 
 export default RegisteAdminFrom;

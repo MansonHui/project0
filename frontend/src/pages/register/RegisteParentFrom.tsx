@@ -3,6 +3,8 @@ import styles from "./RegisterPage.module.css";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import ConfirmParentAC from "./ConfirmParentAC";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 const RegisteParentFrom = () => {
   const [email, setEmail] = useState("chantaiming@gmail.com");
@@ -10,6 +12,11 @@ const RegisteParentFrom = () => {
   const [activeComponent, setActiveComponent] = useState<
     "ConfirmParentAC" | null
   >(null);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState<
+    "success" | "error"
+  >("success");
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -28,10 +35,19 @@ const RegisteParentFrom = () => {
           }),
         }
       );
-      setActiveComponent("ConfirmParentAC");
+      setSnackbarOpen(true);
+      setSnackbarMessage("Register parent successfully!");
+      setSnackbarSeverity("success");
     } catch (error) {
       console.error("Error registering Parent:", error);
+      setSnackbarOpen(true);
+      setSnackbarMessage("Failed to register parent.");
+      setSnackbarSeverity("error");
     }
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
   };
 
   const registeParent = (
@@ -72,6 +88,19 @@ const RegisteParentFrom = () => {
         </div>
       </form>
       {activeComponent === "ConfirmParentAC" && <ConfirmParentAC />}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity={snackbarSeverity}
+          sx={{ width: "100%" }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 
