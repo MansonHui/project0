@@ -20,10 +20,10 @@ export default function ConfirmParentAC() {
     "success"
   );
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await fetch(
+      const response = await fetch(
         `${process.env.REACT_APP_API_ENDPOINT}/superadmin/createParent`,
         {
           method: "POST",
@@ -36,8 +36,27 @@ export default function ConfirmParentAC() {
           }),
         }
       );
-      setSnackbarMessage("Confirm Parent OK");
-      setSnackbarSeverity("success");
+
+      if (response.ok) {
+        await fetch(
+          `${process.env.REACT_APP_API_ENDPOINT}/superadmin/createParent`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: email,
+            }),
+          }
+        );
+        setSnackbarMessage("Confirm Parent OK");
+        setSnackbarSeverity("success");
+      } else {
+        setSnackbarMessage("Confirm Parent Not OK");
+        setSnackbarSeverity("error");
+      }
       setOpenSnackbar(true);
     } catch (error) {
       console.error("Error registering Parent:", error);
@@ -75,7 +94,7 @@ export default function ConfirmParentAC() {
             variant="contained"
             color="success"
           >
-            Confiem
+            Confirm
           </Button>
         </div>
       </form>
