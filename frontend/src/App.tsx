@@ -33,6 +33,8 @@ function App() {
       <Route path="/" element={<Login />} />
       <Route element={<LoginAuthGuard authToken={authToken} />}>
         <Route path="/HomePage" element={<HomePage />} />
+        //comments from Manson: this Messgae Path is not in used. Please delete
+        if no further use.
         <Route path="/Message" element={<MessagePage />}>
           <Route path="/Message" element={<NoticePage />} />
           {/* <Route path="MessageAll" element={<MessageAllPage />}>
@@ -48,12 +50,10 @@ function App() {
             {" "}
           </Route>
         </Route>
-
         <Route path="/EditNotice" element={<EditNoticePage />} />
         <Route path="/AI" element={<AIAttendances />} />
         <Route path="/ManualCapture" element={<WebcamCapture />} />
         <Route path="/Register" element={<RegisterPage />} />
-
         <Route path="/TeacherNotice" element={<TeacherNoticePage />} />
         <Route
           path="TeacherNoticeDetail"
@@ -63,7 +63,6 @@ function App() {
           path="/TeacherStudentAttendance"
           element={<TeacherStudentAttendancePage />}
         />
-
         <Route path="/superAdmin" element={<SuperAdminPage />} />
         <Route path="/ParentTopUpBalance" element={<TopUpBalancePage />} />
       </Route>

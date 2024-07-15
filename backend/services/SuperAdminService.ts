@@ -1,4 +1,5 @@
 import type { Knex } from "knex";
+import findAvailableClassNumber from "../helper/findAvailableClassNumber";
 
 export default class SuperAdminService {
   constructor(private knex: Knex) {}
@@ -142,19 +143,6 @@ export default class SuperAdminService {
     grade: string,
     className: string
   ) {
-    console.log(
-      "studnet info from service",
-      first_name,
-      last_name,
-      HKID_number,
-      birthday,
-      gender,
-      parentId,
-      schoolId,
-      grade,
-      className
-    );
-
     let [newRegStudentid] = await this.knex("students")
       .insert({
         first_name: first_name,
@@ -178,41 +166,18 @@ export default class SuperAdminService {
 
     console.log("newStudentClassId", newStudentClassId);
 
-    let StudentNumberUsed = await this.knex
+    let studentNumberUsed = await this.knex
       .select("student_number")
       .from("student_class_relation as scr")
       .where("scr.class_id", newStudentClassId.id);
-
-    console.log("StudentNumberUsed", StudentNumberUsed);
-
-    function findAvailableClassNumber(existingNumbers: (number | null)[]) {
-      const maxCapacity = 40;
-
-      const allNumbers = Array.from({ length: maxCapacity }, (_, i) => i + 1);
-
-      const availableNumbers = allNumbers.filter(
-        (number) => !existingNumbers.includes(number)
-      );
-
-      return availableNumbers.length > 0 ? availableNumbers[0] : null;
-    }
-
-    const existingStudentNumbers = [1, 7, 12, 20, 35, null, null];
-    const sampeletry = findAvailableClassNumber(existingStudentNumbers);
-
-    console.log("sampeletry", sampeletry);
 
     function extractIds(arr: any[]) {
       return arr.map((obj) => obj.student_number);
     }
 
-    const transformedArray = extractIds(StudentNumberUsed);
-
-    console.log("transformedArray", transformedArray);
+    const transformedArray = extractIds(studentNumberUsed);
 
     const availableNumber = findAvailableClassNumber(transformedArray);
-
-    console.log("availableNumber", availableNumber);
 
     if (availableNumber !== null) {
       console.log(`Assign student to class number ${availableNumber}.`);
@@ -220,15 +185,13 @@ export default class SuperAdminService {
       console.log("No available class numbers. Class is full!");
     }
 
-    let succcesinsert = await this.knex("student_class_relation as scr")
+    await this.knex("student_class_relation as scr")
       .insert({
         class_id: newStudentClassId.id,
         student_id: newRegStudentid.id,
         student_number: availableNumber,
       })
       .returning("id");
-
-    console.log("succcesinsert", succcesinsert);
 
     return (
       await this.knex

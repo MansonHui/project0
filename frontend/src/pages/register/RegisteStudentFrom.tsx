@@ -92,10 +92,8 @@ const RegisteStudentFrom = () => {
   const handleNavigation = () => {
     let value = localStorage.getItem("newStudentId");
     if (value) {
-      // Call function A
       navigate("/AI");
     } else {
-      // Call function B
       alert("please complete the student registration first  ");
     }
   };

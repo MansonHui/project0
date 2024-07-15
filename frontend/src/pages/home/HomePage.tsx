@@ -25,12 +25,14 @@ export default function HomePage() {
             <div className={styles.UserSchool_Info}></div>
           </div>
           <div className={styles.UserChild_Container}>
-            <img
-              className={styles.UserChild_photo}
-              src={`http://localhost:8080/images/${entry.image}`}
-              alt="student profile pic"
-            ></img>
+            <div className={styles.UserChild_photo}>
+              {/* {entry.image} */}
 
+              <img
+                src={`${process.env.REACT_APP_API_ENDPOINT}/images/${entry.image}`}
+                alt="student profile pic"
+              ></img>
+            </div>
             <div className={styles.UserChild_Info}>
               <div className={styles.UserChild_Information}>
                 Teacher: {entry.admin_name}
