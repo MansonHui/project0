@@ -7,8 +7,11 @@ body {
     background-image: url("../src/img/homePageBackground.jpg");
     overflow: hidden;
   }
-
-  /* .css-4t3x6l-MuiPaper-root-MuiDrawer-paper{
-    background-color: lime !important ;
-    opacity: 0;
-  } */
+  .css-4t3x6l-MuiPaper-root-MuiDrawer-paper {
+    /* background-color: #1f0eb1 !important; */
+    height: 55vh !important;
+    width: 95vw !important;
+    position: absolute !important;
+    left: 2vw !important;
+    top: 8vh !important;
+  }
