@@ -30,29 +30,19 @@ export default function TeacherStudentAttendance() {
                 <div className={styles.leftContainer} id={styles.checkin}>
                   <div className={styles.charmtickdouble}></div>Check-In
                 </div>
-                <div className={styles.rightContainer}>
-                
-                {entry.total_in}
-                  {/* <div>2024-07-10 </div>
-                  <div>08:00 </div> */}
-                </div>
+                <div className={styles.rightContainer}>{entry.total_in}</div>
               </div>
               <div className={styles.OutContainer}>
                 <div className={styles.leftContainer} id={styles.checkout}>
                   <div className={styles.fasignout}></div>
                   Check-Out
                 </div>
-                <div className={styles.rightContainer}>
-                {entry.total_out}
-                  {/* <div>2024-07-10 </div>
-                  <div>15:30 </div> */}
-                </div>
+                <div className={styles.rightContainer}>{entry.total_out}</div>
               </div>
             </div>
           </div>
         ))}
       </div>
-      
 
       {/* <Button
         variant="contained"

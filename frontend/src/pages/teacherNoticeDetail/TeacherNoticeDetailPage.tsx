@@ -1,98 +1,134 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useGetTeacherNoticeDetail } from "../../api/teacherPageAPI";
-import styles from "./TeacherNoticeDetailPage.module.css"
-import { useQueryClient } from "@tanstack/react-query";
-import { Button } from "@mui/material";
+import styles from "./TeacherNoticeDetailPage.module.css";
+import { useState } from "react";
 
-export default function TeacherNoticeDetailPage(){
-    let location = useLocation();
-    const navigate = useNavigate();
+export default function TeacherNoticeDetailPage() {
+  let location = useLocation();
+  const navigate = useNavigate();
+  const [showContent, setShowContent] = useState(false);
+  const [showRepliedNameList, setShowRepliedNameList] = useState(false);
+  const [showReplyYetNameList, setShowReplyYetNameList] = useState(false);
 
-    const allTeacherNoticeDetail = useGetTeacherNoticeDetail(location.state.notice_id)
+  const toggleContent = () => {
+    setShowContent(!showContent);
+  };
 
-    const queryClient = useQueryClient()
+  const toggleRepliedNameList = () => {
+    setShowRepliedNameList(!showRepliedNameList);
+  };
 
-    
-    return(
-        <div>
-            {allTeacherNoticeDetail.map((entry)=>(
-              <div className={styles.MainContainer}>
-                <div className={styles.TopContainer}>
-                  <div className={styles.ClassContainer}>
-                    <div>Class:{" "}{entry.grade}{entry.class_name}</div><div></div><div></div>
-                  </div>
-                  <div className={styles.TopicContainer}>
-                    Topic:{" "}{entry.topic}<div></div><div></div><div></div>
-                  </div>
-                  <div className={styles.ContentContainer}>
-                    Content:{" "}{entry.content}<div></div><div></div><div></div>
-                    </div>
-              </div>
+  const toggleReplyYetNameList = () => {
+    setShowReplyYetNameList(!showReplyYetNameList);
+  };
 
-            <div className={styles.TotalReplyContainer}>
-              <div className={styles.RepliedContainer}>Replied:    {entry.notnull_count}
-              <div></div><div></div>
-              </div>
-              <div className={styles.UnReplyContainer}>No Reply:     {entry.null_count}
-              <div></div><div></div>
-              </div>
+  const allTeacherNoticeDetail = useGetTeacherNoticeDetail(
+    location.state.notice_id
+  );
+
+  return (
+    <div id={styles.teacherNoticeDetailPage}>
+      {allTeacherNoticeDetail.map((entry) => (
+        <div className={styles.MainContainer}>
+          <div className={styles.ClassContainer}>
+            <div>Class:</div>
+            <div>
+              {entry.grade}
+              {entry.class_name}
             </div>
-
-            <div  className={styles.ReplyContainer}>
-
-              <div className={styles.Replied}>
-                {entry.student_ids_2.map((choiceId, index) => {
-                  if (entry.notice_choice_id_2[index] != null) {
-                    return(<div>
-                      
-                      ClassNo.: {entry.student_numbers[index]}
-                      Name:{entry.student_names[index]}
-                      Choice:{entry.notice_choice_contents[index]}
-                      </div>)
-                  }else{
-                    return(<></>)
-                  }
-                })}
-              </div>
-
-              <div className={styles.NotReplied}>
-                {entry.student_ids_2.map((choiceId, index) => {
-                  if (entry.notice_choice_id_2[index] === null) {
-                    return(<div>
-                      <div className={styles.textContainer}> 
-                        <div>ClassNo.: {entry.student_numbers[index]}</div>
-                        <div>Name:{entry.student_names[index]}</div>
-                        <div>Choice:{entry.notice_choice_contents[index]}No Reply</div>
-                      </div>
-                      
-                      
-                      </div>)
-                  }else{
-                    return(<></>)
-                  }
-                })}
-
-              </div>
-              <Button variant="contained"
-            onClick={() => {
-              navigate(-1);
-            }}
-          >
-            Go Back
-            </Button>
-
-            </div>
-            
-            
           </div>
-            ))}
+          <div className={styles.TopicContainer}>
+            <div id={styles.topicArea}>
+              <div>Topic:</div>
+              <div id={styles.topicContect}> {entry.topic}</div>
+              <button id={styles.showContentButton} onClick={toggleContent}>
+                {showContent ? "hidden" : "Content"}
+              </button>
+              <div
+                className={`${styles.popuptext} ${
+                  showContent ? styles.show : ""
+                }`}
+              >
+                <p>{entry.content}</p>
+              </div>
+            </div>
+          </div>
+          <div id={styles.replyArea}>
+            <button
+              className={styles.RepliedContainer}
+              id={styles.replied}
+              onClick={toggleRepliedNameList}
+            >
+              {showRepliedNameList}
+              <div className={styles.charmtickdouble}></div>Replied:{" "}
+              {entry.notnull_count}
+            </button>
+            <div
+              className={`${styles.replyPopupText} ${
+                showRepliedNameList ? styles.show : ""
+              }`}
+            >
+              {
+                <div className={styles.Replied}>
+                  {entry.student_ids_2.map((choiceId, index) => {
+                    if (entry.notice_choice_id_2[index] !== null) {
+                      return (
+                        <div key={index}>
+                          <div>ClassNo.: {entry.student_numbers[index]}</div>
+                          <div>Name: {entry.student_names[index]}</div>
+                          <div>
+                            Choice: {entry.notice_choice_contents[index]}
+                          </div>
+                        </div>
+                      );
+                    } else {
+                      return null;
+                    }
+                  })}
+                </div>
+              }
+            </div>
 
+            <button
+              className={styles.UnReplyContainer}
+              id={styles.replyYet}
+              onClick={toggleReplyYetNameList}
+            >
+              {showReplyYetNameList}
+              <div className={styles.makiCross}></div>Reply Yet:{" "}
+              {entry.null_count}
+            </button>
 
-            
-
-          
-
-            
+            <div
+              className={`${styles.replyYetPopupText} ${
+                showReplyYetNameList ? styles.show : ""
+              }`}
+            >
+              {
+                <div className={styles.NotReplied}>
+                  {entry.student_ids_2.map((choiceId, index) => {
+                    if (entry.notice_choice_id_2[index] === null) {
+                      return (
+                        <div>
+                          <div className={styles.textContainer}>
+                            <div>ClassNo.: {entry.student_numbers[index]}</div>
+                            <div>Name:{entry.student_names[index]}</div>
+                            <div>
+                              Choice:{entry.notice_choice_contents[index]}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    } else {
+                      return null;
+                    }
+                  })}
+                </div>
+              }
+            </div>
+          </div>
         </div>
-    )
+      ))}
+    </div>
+  );
 }

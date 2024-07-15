@@ -1,141 +1,285 @@
-.MainContainer{
-    display: flex;
-    border: 1vh inset #ccc;
-    border-radius: 1vh;
-    height: 85vh;
-    width: 94%;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    overflow-y: scroll;
-    font-size: 2vh;
-    color:#7a7676 ;
-    padding-top: 1vh;
+#teacherNoticeDetailPage {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 3vh;
 }
 
-.TopContainer{
-    border: 0.5vh inset #ccc;
-    border-radius: 1vh;
-    
-    height: 20%;
-    width: 94%;
-    align-items: center;
-    /* display: flex; */
-  /* justify-content: center; */
-  /* align-items: center; */
+.MainContainer {
+  background-color: rgb(228, 228, 240);
+  display: flex;
+  flex-direction: column;
+  border: 1vh inset #ccc;
+  border-radius: 1vh;
+  height: 81vh;
+  width: 90vw;
+  align-items: center;
+  font-size: 2vh;
 }
 
-.ClassContainer{
-    border: 0.5vh inset #ccc;
-    border-radius: 1vh;
-    display: flex;
-    height: 20%;
-    width: 94%;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    margin-top: 1vh;
-    margin-left: 0.5vh;
-    
+.TopContainer {
+  border: 0.5vh inset #ccc;
+  border-radius: 1vh;
+  height: 20%;
+  width: 94%;
+  display: flex;
 }
 
-.TopicContainer{
-    border: 0.5vh inset #ccc;
-    border-radius: 1vh;
-    display: flex;
-    height: 20%;
-    width: 94%;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    margin-left: 0.5vh;
+.ClassContainer {
+  background-color: #fff;
+  border: 0.5vh inset #ccc;
+  border-radius: 1vh;
+  height: 5vh;
+  width: 50vw;
+  margin: 1vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 2.5vh;
 }
 
-.ContentContainer{
-    border: 0.5vh inset #ccc;
-    border-radius: 1vh;
-    display: flex;
-    height: 20%;
-    width: 94%;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    margin-left: 0.5vh;
+.TopicContainer {
+  background-color: #fff;
+  border: 0.5vh inset #ccc;
+  border-radius: 1vh;
+  height: 20vh;
+  width: 75vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin: 1vh;
+  font-size: 2.5vh;
 }
 
-.TotalReplyContainer{
-    border: 0.5vh inset #ccc;
-    border-radius: 1vh;
-    display: flex;
-    height: 20%;
-    width: 94%;
-    display:block;
-    align-self: center;
+.TopicContainer div {
+  margin: 0.5vh;
 }
 
-.RepliedContainer{
-    border: 0.5vh inset #ccc;
-    border-radius: 1vh;
-    display: flex;
-    height: 35%;
-    width: 94%;
-    align-items: center;
-    justify-content: space-around;
-    margin-top: 1vh;
-    margin-left: 0.5vh;
-}
-.UnReplyContainer{
-    border: 0.5vh inset #ccc;
-    border-radius: 1vh;
-    display: flex;
-    height: 35%;
-    width: 94%;
-    align-items: center;
-    justify-content: space-around;
-    margin-left: 0.5vh;
+
+#topicArea {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
-.TotalContainer{
-    border: 0.5vh inset #ccc;
-    border-radius: 1vh;
-    display: flex;
-    height: 30%;
-    width: 94%;
-    
+.ContentContainer {
+  border-radius: 1vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.ReplyContainer{
-    border: 0.5vh inset #ccc;
-    border-radius: 1vh;
-    /* display: flex; */
-    height: 55%;
-    width: 94%;
-    font-size: 1.7vh;
+#showContentButton {
+  border: 0.5vh inset #ccc;
+  border-radius: 1vh;
+  margin: 2vh;
+  padding: 0.5vh;
+}
+
+.TotalReplyContainer {
+  border: 0.5vh inset #ccc;
+  border-radius: 1vh;
+  display: flex;
+  height: 20%;
+  width: 94%;
+  display: block;
+  align-self: center;
+}
+
+#replyArea {
+  width: 75vw;
+  height: 15vh;
+  display: flex;
 
 }
 
-.Replied{
-    border: 0.5vh inset #ccc;
-    border-radius: 1vh;
-    display: flex;
-    height: 45%;
-    width: 94%;
-    margin-top: 1vh;
-    margin-left: 0.5vh;
+.RepliedContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5vh;
+  border: 1px solid #13a52b;
+  border-radius: 8px;
+  width: 34.5vw;
+  height: 8vh;
 }
 
-.NotReplied{
-    border: 0.5vh inset #ccc;
-    border-radius: 1vh;
-   
-    height: 45%;
-    width: 94%;
-    margin-left: 0.5vh;
-    display: flex;
-    justify-content: space-between;
+.charmtickdouble {
+  display: inline-block;
+  width: 2em;
+  height: 2em;
+  color: #13a52b;
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m1.75 9.75l2.5 2.5m3.5-4l2.5-2.5m-4.5 4l2.5 2.5l6-6.5'/%3E%3C/svg%3E");
+  background-color: currentColor;
+  -webkit-mask-image: var(--svg);
+  mask-image: var(--svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
 }
 
-.textContainer{
-    display: flex;
-    justify-content: space-between;
+#replied {
+  color: #13a52b;
+}
+
+.UnReplyContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5vh;
+  border: 1px solid #e71212;
+  border-radius: 8px;
+  width: 34.5vw;
+  height: 8vh;
+}
+
+.makiCross {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 15 15'%3E%3Cpath fill='%23000' d='M3.64 2.27L7.5 6.13l3.84-3.84A.92.92 0 0 1 12 2a1 1 0 0 1 1 1a.9.9 0 0 1-.27.66L8.84 7.5l3.89 3.89A.9.9 0 0 1 13 12a1 1 0 0 1-1 1a.92.92 0 0 1-.69-.27L7.5 8.87l-3.85 3.85A.92.92 0 0 1 3 13a1 1 0 0 1-1-1a.9.9 0 0 1 .27-.66L6.16 7.5L2.27 3.61A.9.9 0 0 1 2 3a1 1 0 0 1 1-1c.24.003.47.1.64.27'/%3E%3C/svg%3E");
+  background-color: currentColor;
+  -webkit-mask-image: var(--svg);
+  mask-image: var(--svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+#replyYet {
+  color: #e71212;
+}
+
+.TotalContainer {
+  border: 0.5vh inset #ccc;
+  border-radius: 1vh;
+  display: flex;
+  height: 30%;
+  width: 94%;
+}
+
+.ReplyContainer {
+  border: 0.5vh inset #ccc;
+  border-radius: 1vh;
+  height: 55%;
+  width: 94%;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+
+.Replied {
+  border: 0.5vh inset #ccc;
+  border-radius: 1vh;
+  height: 8vh;
+  width: 65vw;
+  display: flex;
+  margin: 0.5vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.NotReplied {
+  border: 0.5vh inset #ccc;
+  border-radius: 1vh;
+  height: 8vh;
+  width: 65vw;
+  display: flex;
+  margin: 0.5vh;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .popupContainer {
+  position: relative;
+  display: inline-block;
+} */
+
+.popuptext {
+  border: 1vh inset #ccc;
+  border-radius: 1vh;
+  z-index: 1;
+  width: 70vw;
+  height: 50vh;
+  visibility: hidden;
+  background-color: #fff;
+  color: #0e0d0d;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 1s;
+  display: flex;
+  align-content: flex-start;
+  overflow-y: auto;
+}
+
+.popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.replyPopupText {
+  border: 1vh inset #ccc;
+  border-radius: 1vh;
+  z-index: 1;
+  width: 70vw;
+  height: 47vh;
+  visibility: hidden;
+  background-color: #fff;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.5s;
+  overflow-y: auto;
+  position: absolute;
+  pointer-events: none;
+}
+
+.replyPopupText::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.replyYetPopupText {
+  border: 1vh inset #ccc;
+  border-radius: 1vh;
+  z-index: 1;
+  width: 70vw;
+  height: 47vh;
+  visibility: hidden;
+  background-color: #fff;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.5s;
+  overflow-y: auto;
+  position: absolute;
+  pointer-events: none;
+}
+
+.replyYetPopupText::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.show {
+  visibility: visible;
+  opacity: 1;
 }

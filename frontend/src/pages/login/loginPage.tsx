@@ -22,11 +22,11 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 export default function Login() {
   // super admin AC and password
-  const [email, setEmail] = useState("super@stpeter.edu.hk");
-  const [password, setPassword] = useState("0000");
-  // teacher AC and password
-  // const [email, setEmail] = useState("choiping@stpeter.edu.hk");
+  // const [email, setEmail] = useState("super@stpeter.edu.hk");
   // const [password, setPassword] = useState("0000");
+  // teacher AC and password
+  const [email, setEmail] = useState("choiping@stpeter.edu.hk");
+  const [password, setPassword] = useState("0000");
   // // parent AC and password
   // const [email, setEmail] = useState("chantaiming@gmail.com");
   // const [password, setPassword] = useState("0000");

@@ -14,17 +14,18 @@ export default function TeacherNoticePage() {
   return (
     <div>
       <div className={styles.MainContainer}>
-
-      {allTeacherNotice.map((entry) => (
-                <div onClick={()=> {navigate("../TeacherNoticeDetail",{
-                    state:{
-                        notice_id: entry.notice_id,
-                        type: "notice",
-                    }
-                }
-            )}} 
-            className={styles.Noitce}>
-            
+        {allTeacherNotice.map((entry) => (
+          <div
+            onClick={() => {
+              navigate("../TeacherNoticeDetail", {
+                state: {
+                  notice_id: entry.notice_id,
+                  type: "notice",
+                },
+              });
+            }}
+            className={styles.Noitce}
+          >
             <div className={styles.Grade}>
               {" "}
               Notice: {entry.school_year} Grade: {entry.grade}
@@ -46,10 +47,12 @@ export default function TeacherNoticePage() {
               <p id={styles.topicCreated}>
                 <p className={styles.PLayout}>Created:</p>
                 <p className={styles.PLayout}>
-                {new Date(entry.created_at).toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' })}
-                  {/* 2024-06-10 */}
+                  {new Date(entry.created_at).toLocaleDateString("zh-TW", {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                  })}
                   <br />
-                  {/* 14:40 */}
                 </p>
               </p>
               <button id={styles.topicShowContect}>Show Contect</button>
