@@ -21,8 +21,8 @@ studentRouter.get(
   studentController.getstudentData
 );
 
-studentRouter.get(
-  "/getStudentData",
-  checkToken,
-  studentController.getstudentData
-);
+// studentRouter.get(
+//   "/getStudentData",
+//   checkToken,
+//   studentController.getstudentData
+// );
