@@ -25,6 +25,9 @@ export async function seed(knex: Knex): Promise<void> {
         school_year: "2023-2024",
       },
     ]);
+
+    await txn.commit()
+
   } catch (err) {
     console.log(err);
     await txn.rollback();

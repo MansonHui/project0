@@ -53,6 +53,8 @@ export async function seed(knex: Knex): Promise<void> {
         price: 0,
       },
     ]);
+    await txn.commit()
+
   } catch (err) {
     console.log(err);
     await txn.rollback();

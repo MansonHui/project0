@@ -26,6 +26,7 @@ export async function seed(knex: Knex): Promise<void> {
         abbr_name: "pooito",
       },
     ]);
+    await txn.commit();
   } catch (err) {
     console.log(err);
     await txn.rollback();

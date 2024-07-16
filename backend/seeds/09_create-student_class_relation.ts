@@ -50,6 +50,8 @@ export async function seed(knex: Knex): Promise<void> {
         student_number: 18,
       },
     ]);
+    await txn.commit()
+
   } catch (err) {
     console.log(err);
     await txn.rollback();
