@@ -10,7 +10,7 @@ import MessagePage from "./pages/message/MessagePage";
 import NoticePage from "./pages/notice/NoticePage";
 import AttendancePage from "./pages/attendance/AttendancePage";
 import TeacherNoticePage from "./pages/teacherNotice/TeacherNoticePage";
-import RegisterPage from "./pages/register/RegisterPage1";
+import RegisterPage from "./pages/register/RegisterPage";
 import SuperAdminPage from "./pages/superAdmin/superAdminPage";
 import NoticeDetailPage from "./pages/noticeDetail/NoticeDetailPage";
 import EditNoticePage from "./pages/editlNotice/EditNoticePage";
