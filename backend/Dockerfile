@@ -9,5 +9,5 @@ WORKDIR /usr/src/app
 COPY . .
 EXPOSE 8080
 CMD yarn install && \
-    yarn setup \
+    yarn setup && \
     yarn start
