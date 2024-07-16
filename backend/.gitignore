@@ -1,2 +1,6 @@
 node_modules
 .env
+ubuntu_env
+envfile
+pgdata
+dev.sqlite3
