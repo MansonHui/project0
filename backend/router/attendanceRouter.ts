@@ -2,7 +2,7 @@ import { Router } from "express";
 import { knex } from "../utils/knex";
 
 import AttendanceController from "../controllers/AttendanceController";
-import AttendanceService from "../services/AttendanceService";
+import AttendanceService from "../services/AttendanceService2";
 import { checkToken } from "../utils/guard";
 
 export const attendanceRouter = Router();

@@ -2,7 +2,7 @@ import express from "express";
 import { Request, Response } from "express";
 import AWS from "aws-sdk";
 import dotenv from "dotenv";
-import AttendanceService from "../services/AttendanceService";
+import AttendanceService from "../services/AttendanceService2";
 
 dotenv.config();
 

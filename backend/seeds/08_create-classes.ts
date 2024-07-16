@@ -106,6 +106,8 @@ export async function seed(knex: Knex): Promise<void> {
         class_name: "D",
       },
     ]);
+    await txn.commit()
+
   } catch (err) {
     console.log(err);
     await txn.rollback();

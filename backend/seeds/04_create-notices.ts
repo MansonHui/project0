@@ -19,6 +19,9 @@ export async function seed(knex: Knex): Promise<void> {
           "Payment for the Sport Uniform for the 2024-2025 academic year",
       },
     ]);
+
+    await txn.commit()
+
   } catch (err) {
     console.log(err);
     await txn.rollback();

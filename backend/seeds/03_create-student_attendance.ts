@@ -26,6 +26,8 @@ export async function seed(knex: Knex): Promise<void> {
       { student_id: 8, in_out: "in" },
       { student_id: 8, in_out: "out" },
     ]);
+    await txn.commit()
+
   } catch (err) {
     console.log(err);
     await txn.rollback();

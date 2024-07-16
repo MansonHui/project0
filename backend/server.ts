@@ -27,13 +27,15 @@ app.use("/notice", noticeRouter);
 app.use("/student", studentRouter);
 app.use("/attendance", attendanceRouter);
 app.use("/Message", attendanceAndNoticeRouter);
-app.use("/images", express.static("uploads"));
 app.use("/teacherNotice", teacherNoticeRouter);
 app.use("/forTeacherGetAttendance", forTeacherGetAttendanceRouter);
-app.use("/parentTopup", parentTopUpRouter)
+app.use("/parentTopup", parentTopUpRouter);
+app.use("/images", express.static("uploads"));
 
 //***************************************** */ testing
-app.post("/", function (req: Request, res: Response) {});
+app.get("/test", function (req: Request, res: Response) {
+  res.send("hello world");
+});
 
 app.listen(PORT, () => {
   console.log(`listening to http://localhost:${PORT}/`);
