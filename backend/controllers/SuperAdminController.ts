@@ -45,7 +45,7 @@ export default class SuperAdminController {
           if (existEmail) {
             response_array.push({
               msg: `${email} already exists`,
-              status: 409,
+              status: 400,
             }); // Conflict status
           } else {
             const isSchoolExist = await this.superAdminService.getSchoolTable(
@@ -65,7 +65,7 @@ export default class SuperAdminController {
             } else {
               response_array.push({
                 msg: "Your school has not yet subscribed to our service",
-                status: 404, // Not found status
+                status: 400, // Not found status
               });
             }
           }
